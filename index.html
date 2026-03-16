@@ -140,8 +140,9 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
 .footer-links a{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s;}
 .footer-links a:hover{color:var(--orange);}
 .footer-copy{font-size:0.58rem;color:rgba(255,255,255,0.12);letter-spacing:0.1em;}
-.reveal{opacity:0;transform:translateY(35px);transition:opacity 0.9s ease,transform 0.9s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal{opacity:1;transform:translateY(0);}
+.reveal.will-animate{opacity:0;transform:translateY(35px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.will-animate.visible{opacity:1;transform:translateY(0);}
 .reveal-delay-1{transition-delay:0.12s;}.reveal-delay-2{transition-delay:0.28s;}.reveal-delay-3{transition-delay:0.44s;}
 #page-magazine{background:var(--black);min-height:100vh;}
 .mag-hero{min-height:42vh;display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 3rem 4rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--purple-deep) 0%,var(--black) 70%);border-bottom:1px solid rgba(73,39,79,0.3);}
@@ -582,7 +583,7 @@ var ARTICLES = {
 
 };
 
-function setHash(h){history.pushState(null,'',h||'#');}
+function setHash(h){try{history.pushState(null,'',h||'#');}catch(e){}}
 function showPage(name,skipHash){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+name).classList.add('active');
@@ -614,8 +615,13 @@ window.addEventListener('popstate',function(){routeFromHash();});
 function goAnchor(sel){var el=document.querySelector(sel);if(el)el.scrollIntoView({behavior:'smooth'});}
 function goHomeAnchor(sel){showPage('home');setTimeout(function(){goAnchor(sel);},80);}
 function triggerReveals(){
-  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-  document.querySelectorAll('.reveal:not(.visible)').forEach(function(r){obs.observe(r);});
+  if(!('IntersectionObserver' in window)){
+    return; // elements already visible by default
+  }
+  var elements=document.querySelectorAll('.reveal:not(.visible)');
+  elements.forEach(function(r){r.classList.add('will-animate');});
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');}});},{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+  elements.forEach(function(r){obs.observe(r);});
 }
 triggerReveals();
 function filterArticles(cat,btn){
