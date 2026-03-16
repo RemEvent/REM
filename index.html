@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-
 :root{--purple:#49274f;--purple-dark:#32193a;--purple-deep:#1e0f23;--black:#130b16;--orange:#f5a77f;--tertiary:#D3D3D3;--grey:#5b5b5b;--lightgrey:#dbdbdb;--ghost:#f5f3f7;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -152,7 +151,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
 .mag-hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--tertiary);max-width:500px;line-height:1.8;margin-top:1.5rem;position:relative;z-index:1;}
 .mag-content{max-width:1100px;margin:0 auto;padding:5rem 3rem;}
 .mag-filters{display:flex;gap:1rem;margin-bottom:4rem;flex-wrap:wrap;}
-.mag-filter{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.3rem;border:1px solid rgba(73,39,79,0.45);color:var(--grey);background:transparent;transition:all 0.3s;}
+.mag-filter{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.3rem;border:1px solid rgba(73,39,79,0.45);color:var(--grey);background:transparent;transition:all 0.3s;cursor:pointer;}
 .mag-filter:hover,.mag-filter.active{border-color:var(--orange);color:var(--orange);background:rgba(245,167,127,0.04);}
 .articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;}
 .mag-howto{margin-top:4rem;padding:2rem 2.5rem;border:1px dashed rgba(73,39,79,0.4);background:rgba(73,39,79,0.05);}
@@ -241,6 +240,8 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <li><a href="#registration" onclick="goHomeAnchor('#registration');return false;">Registrati</a></li>
   </ul>
 </nav>
+
+<!-- PAGE HOME -->
 <div id="page-home" class="page active">
   <section id="hero">
     <div class="hero-bg"></div>
@@ -281,7 +282,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   <section id="languages"><div class="section-inner">
     <span class="section-label reveal">Linguaggi Espressivi</span>
     <h2 class="section-title reveal reveal-delay-1">Un universo<br>multisensoriale</h2>
-    <p class="section-text reveal reveal-delay-2">REM si costruisce attraverso la molteplicit&agrave; dei linguaggi ci e performativi, intrecciandoli in un'esperienza unica e irripetibile.</p>
+    <p class="section-text reveal reveal-delay-2">REM si costruisce attraverso la molteplicit&agrave; dei linguaggi artistici e performativi, intrecciandoli in un'esperienza unica e irripetibile.</p>
     <div class="lang-grid">
       <div class="lang-item reveal"><span class="lang-emoji">&#127912;</span><span class="lang-name">Pittura</span></div>
       <div class="lang-item reveal"><span class="lang-emoji">&#127963;</span><span class="lang-name">Installazioni</span></div>
@@ -300,16 +301,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <h2 class="section-title reveal reveal-delay-1">Giovani creativi,<br>visione condivisa</h2>
     <p class="team-intro reveal reveal-delay-2">REM &ndash; Ombre e Chimere &egrave; il risultato di un percorso accademico collettivo. Un gruppo di giovani professionisti e creativi che hanno scelto di trasformare un progetto formativo in un'esperienza reale, capace di generare impatto culturale e relazionale sul territorio.</p>
     <div class="team-roles reveal reveal-delay-2">
-      <span class="role-tag">Curation &amp; Concept</span>
-      <span class="role-tag">Scenografia</span>
-      <span class="role-tag">Visual Design</span>
-      <span class="role-tag">Sound Design</span>
-      <span class="role-tag">Performance</span>
-      <span class="role-tag">Comunicazione</span>
-      <span class="role-tag">Produzione</span>
-      <span class="role-tag">Animazione 3D</span>
-      <span class="role-tag">Fotografia</span>
-      <span class="role-tag">Project Management</span>
+      <span class="role-tag">Curation &amp; Concept</span><span class="role-tag">Scenografia</span><span class="role-tag">Visual Design</span><span class="role-tag">Sound Design</span><span class="role-tag">Performance</span><span class="role-tag">Comunicazione</span><span class="role-tag">Produzione</span><span class="role-tag">Animazione 3D</span><span class="role-tag">Fotografia</span><span class="role-tag">Project Management</span>
     </div>
   </div></section>
   <section id="magazine-preview"><div class="section-inner">
@@ -319,30 +311,30 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </div>
     <div class="mag-preview-grid">
       <div class="article-card reveal">
-        <div class="article-image"><span class="article-image-placeholder">&#10022;</span></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Stanza Grigia</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Il primo ritratto d'artista arriver&agrave; presto</h2>
-          <p class="article-excerpt">Questo spazio &egrave; riservato al primo articolo in evidenza del Magazine.</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/ritratto-artista" class="article-read-more" onclick="openArticleBySlug('ritratto-artista');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal reveal-delay-1">
         <div class="article-image"><span class="article-image-placeholder">&#9678;</span></div>
         <div class="article-body">
           <div class="article-meta"><span class="article-tag">Stanza Rosa</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Sound design: costruire il silenzio</h2>
-          <p class="article-excerpt">Come si progetta un paesaggio sonoro per un'esperienza onirica?</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/sound-design" class="article-read-more" onclick="openArticleBySlug('sound-design');return false;">Leggi &rarr;</a></div>
+          <h2 class="article-title">La Stanza Rosa: La Chimera, il dolce artificiale</h2>
+          <p class="article-excerpt">Un rifugio confortante dove la Chimera addolcisce i bordi taglienti del passato.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-rosa-intro" class="article-read-more" onclick="openArticleBySlug('stanza-rosa-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <div class="article-card reveal reveal-delay-2">
+      <div class="article-card reveal reveal-delay-1">
         <div class="article-image"><span class="article-image-placeholder">&#9671;</span></div>
         <div class="article-body">
           <div class="article-meta"><span class="article-tag">Stanza Viola</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Il surrealismo come linguaggio collettivo</h2>
-          <p class="article-excerpt">Perch&eacute; il surrealismo &egrave; ancora oggi il linguaggio pi&ugrave; adatto per parlare di sogno collettivo?</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/surrealismo-linguaggio" class="article-read-more" onclick="openArticleBySlug('surrealismo-linguaggio');return false;">Leggi &rarr;</a></div>
+          <h2 class="article-title">La Stanza Viola</h2>
+          <p class="article-excerpt">Coming soon.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-viola-intro" class="article-read-more" onclick="openArticleBySlug('stanza-viola-intro');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-2">
+        <div class="article-image"><span class="article-image-placeholder">&#10022;</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Stanza Grigia</span><span class="article-date">In arrivo</span></div>
+          <h2 class="article-title">La Stanza Grigia: La soglia, il luogo dove tutti entriamo</h2>
+          <p class="article-excerpt">Il passaggio universale del sogno: sogni condivisi, tradizioni antiche e arte visionaria.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -351,7 +343,6 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <span class="section-label reveal">Partecipazione</span>
     <h2 class="section-title reveal reveal-delay-1">Entra nel sogno</h2>
     <p class="reg-desc reveal reveal-delay-2">L'evento &egrave; a ingresso libero, ma i posti sono limitati. Registrati per garantirti un posto e ricevere tutti gli aggiornamenti sull'esperienza.</p>
-    <!-- Sostituisci con il tuo link Typeform -->
     <a href="https://IL-TUO-LINK-QUI.com" target="_blank" rel="noopener noreferrer" class="reg-ext-btn reveal reveal-delay-2">Registrati all'evento <span class="reg-ext-arrow">&#8599;</span></a>
     <p class="reg-ext-note reveal reveal-delay-3">Verrai reindirizzato alla pagina di registrazione esterna.<br>L'ingresso &egrave; gratuito e i posti sono limitati.</p>
   </div></section>
@@ -378,11 +369,13 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <p class="footer-copy">&copy; 2025 REM &ndash; Ombre e Chimere &middot; Progetto accademico senza finalit&agrave; commerciali</p>
   </footer>
 </div>
+
+<!-- PAGE MAGAZINE -->
 <div id="page-magazine" class="page">
   <div class="mag-hero">
     <span class="mag-hero-label">REM &ndash; Ombre e Chimere</span>
     <h1 class="mag-hero-title">Magazine</h1>
-    <p class="mag-hero-desc">Storie, ritratti e approfondimenti sugli  e i linguaggi dell'evento.</p>
+    <p class="mag-hero-desc">Storie, ritratti e approfondimenti sugli artisti e i linguaggi dell'evento.</p>
   </div>
   <div class="mag-content">
     <div class="mag-filters">
@@ -391,65 +384,73 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       <button class="mag-filter" onclick="filterArticles('stanza-rosa',this)">Stanza Rosa</button>
       <button class="mag-filter" onclick="filterArticles('stanza-viola',this)">Stanza Viola</button>
     </div>
-    <!-- COME AGGIUNGERE UN ARTICOLO:
-    1. Aggiungi uno slug nell oggetto ARTICLES nello script in fondo
-    2. Copia un blocco article-card, aggiorna data-category, testi e slug -->
+    <!-- ============================================================
+    COME AGGIUNGERE UN ARTICOLO:
+    1. Aggiungi un nuovo slug nell'oggetto ARTICLES nello <script>
+    2. Copia una .article-card qui sotto
+    3. Aggiorna: data-category (stanza-grigia / stanza-rosa / stanza-viola),
+       testi visibili e lo slug nella chiamata openArticleBySlug(...)
+    ATTENZIONE: nei valori JS non usare mai apostrofi tipografici
+    curvi (' '). Usa solo apostrofi diritti (') con escape \' oppure
+    racchiudi il valore intero tra virgolette doppie ("...").
+    ============================================================ -->
     <div class="articles-grid" id="articlesGrid">
-      <div class="article-card featured reveal" data-category="artisti">
-        <div class="article-image"><span class="article-image-placeholder">&#10022;</span></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Artisti</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Il primo ritratto d'artista arriver&agrave; presto</h2>
-          <p class="article-excerpt">Questo spazio &egrave; riservato al primo articolo in evidenza del Magazine. Qui racconterete la storia, la visione e il processo creativo di uno degli artisti di REM.</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/ritratto-artista" class="article-read-more" onclick="openArticleBySlug('ritratto-artista');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal" data-category="linguaggi">
+
+      <!-- STANZA ROSA – featured -->
+      <div class="article-card featured reveal" data-category="stanza-rosa">
         <div class="article-image"><span class="article-image-placeholder">&#9678;</span></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Linguaggi</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Sound design: costruire il silenzio</h2>
-          <p class="article-excerpt">Come si progetta un paesaggio sonoro per un'esperienza onirica? Un approfondimento sul processo creativo dietro le sonorit&agrave; di REM.</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/sound-design" class="article-read-more" onclick="openArticleBySlug('sound-design');return false;">Leggi &rarr;</a></div>
+          <div class="article-meta"><span class="article-tag">Stanza Rosa</span><span class="article-date">In arrivo</span></div>
+          <h2 class="article-title">La Stanza Rosa: La Chimera, il dolce artificiale</h2>
+          <p class="article-excerpt">Un rifugio confortante dove la Chimera addolcisce i bordi taglienti del passato: mamme che non litigano pi&ugrave;, amori che durano per sempre, infanzie senza crepe.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-rosa-intro" class="article-read-more" onclick="openArticleBySlug('stanza-rosa-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <div class="article-card reveal reveal-delay-1" data-category="dietro-le-quinte">
-        <div class="article-image"><span class="article-image-placeholder">&#9672;</span></div>
+
+      <!-- STANZA GRIGIA -->
+      <div class="article-card reveal" data-category="stanza-grigia">
+        <div class="article-image"><span class="article-image-placeholder">&#10022;</span></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Dietro le quinte</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Come nasce un'installazione scenografica</h2>
-          <p class="article-excerpt">Dal concept ai materiali, dal disegno alla costruzione: il percorso che trasforma un'idea in uno spazio fisico.</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/installazione-scenografica" class="article-read-more" onclick="openArticleBySlug('installazione-scenografica');return false;">Leggi &rarr;</a></div>
+          <div class="article-meta"><span class="article-tag">Stanza Grigia</span><span class="article-date">In arrivo</span></div>
+          <h2 class="article-title">La Stanza Grigia: La soglia, il luogo dove tutti entriamo</h2>
+          <p class="article-excerpt">Il passaggio universale del sogno: sogni condivisi, tradizioni antiche, arte visionaria e sapori surreali.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <div class="article-card reveal reveal-delay-2" data-category="riflessioni">
+
+      <!-- STANZA VIOLA -->
+      <div class="article-card reveal reveal-delay-1" data-category="stanza-viola">
         <div class="article-image"><span class="article-image-placeholder">&#9671;</span></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Riflessioni</span><span class="article-date">In arrivo</span></div>
-          <h2 class="article-title">Il surrealismo come linguaggio collettivo</h2>
-          <p class="article-excerpt">Perch&eacute; il surrealismo &egrave; ancora oggi il linguaggio pi&ugrave; adatto per parlare di sogno e di esperienza condivisa?</p>
-          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/surrealismo-linguaggio" class="article-read-more" onclick="openArticleBySlug('surrealismo-linguaggio');return false;">Leggi &rarr;</a></div>
+          <div class="article-meta"><span class="article-tag">Stanza Viola</span><span class="article-date">In arrivo</span></div>
+          <h2 class="article-title">La Stanza Viola</h2>
+          <p class="article-excerpt">Coming soon.</p>
+          <div class="article-footer"><span class="article-author">Redazione REM</span><a href="#articolo/stanza-viola-intro" class="article-read-more" onclick="openArticleBySlug('stanza-viola-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+
     </div>
-    <div class="mag-howto reveal"><p class="mag-howto-title">Come aggiungere un articolo</p><p class="mag-howto-text">Aggiungi lo slug nell oggetto ARTICLES nello script, copia una card e aggiorna testi, categoria e slug. L URL sar&agrave; tuosito.com/#articolo/tuo-slug.</p></div>
+    <div class="mag-howto reveal">
+      <p class="mag-howto-title">Come aggiungere un articolo</p>
+      <p class="mag-howto-text">1. Aggiungi lo slug nell'oggetto ARTICLES nello script. 2. Copia una .article-card. 3. Aggiorna data-category (stanza-grigia / stanza-rosa / stanza-viola) e lo slug. Nei testi JS usa solo apostrofi diritti con escape \' — mai apostrofi tipografici curvi.</p>
+    </div>
   </div>
   <footer>
-    <div class="footer-sponsors">
-      <span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Silver</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Partner</span></a>
-      </div>
-    </div>
+      </div></div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('home');setTimeout(function(){goAnchor('#registration')},80);return false;">Registrati</a></li></ul>
     <p class="footer-copy">&copy; 2025 REM &ndash; Ombre e Chimere &middot; Progetto accademico senza finalit&agrave; commerciali</p>
   </footer>
 </div>
+
+<!-- PAGE ARTICLE -->
 <div id="page-article" class="page">
   <div class="art-hero">
     <div class="art-hero-image"><span class="art-hero-image-placeholder" id="art-placeholder">&#10022;</span></div>
@@ -464,21 +465,21 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   <div class="art-body"><p class="art-lead" id="art-lead"></p><div class="art-text" id="art-content"></div></div>
   <div class="art-footer-nav"><a href="#magazine" class="art-footer-back" onclick="showPage('magazine');return false;">&larr; Torna al Magazine</a></div>
   <footer>
-    <div class="footer-sponsors">
-      <span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Silver</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Partner</span></a>
-      </div>
-    </div>
+      </div></div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#magazine" onclick="showPage('magazine');return false;">Magazine</a></li></ul>
     <p class="footer-copy">&copy; 2025 REM &ndash; Ombre e Chimere &middot; Progetto accademico senza finalit&agrave; commerciali</p>
   </footer>
 </div>
+
+<!-- PAGE SPONSOR -->
 <div id="page-sponsor" class="page">
   <div class="sp-hero"><span class="sp-hero-label">REM &ndash; Ombre e Chimere</span><h1 class="sp-hero-title">Sponsor</h1><p class="sp-hero-desc">Le realt&agrave; che rendono possibile REM. Grazie a chi sceglie di investire nella cultura e nella creativit&agrave; del territorio.</p></div>
   <div class="sp-content">
@@ -510,103 +511,75 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       <span class="sp-cta-label">Unisciti a REM</span>
       <h2 class="sp-cta-title">Vuoi supportare il progetto?</h2>
       <p class="sp-cta-text">REM &egrave; un'iniziativa culturale senza finalit&agrave; commerciali. Se sei un'azienda, un'istituzione o una realt&agrave; creativa interessata a sostenere il progetto, contattaci per conoscere le opportunit&agrave; di partnership.</p>
-      <a href="mailto:rem@esempio.com" class="sp-cta-email">Scrivici per diventare sponsor</a>
+      <a href="/cdn-cgi/l/email-protection#bdcfd8d0fdd8ced8d0cdd4d293ded2d0" class="sp-cta-email">Scrivici per diventare sponsor</a>
     </div>
     <div class="sp-howto reveal"><p class="sp-howto-title">Come aggiungere uno sponsor</p><p class="sp-howto-text">Copia una card nel tier giusto e sostituisci il placeholder con il logo reale.</p></div>
   </div>
   <footer>
-    <div class="footer-sponsors">
-      <span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Silver</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Partner</span></a>
-      </div>
-    </div>
+      </div></div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#magazine" onclick="showPage('magazine');return false;">Magazine</a></li><li><a href="#" onclick="showPage('home');setTimeout(function(){goAnchor('#registration')},80);return false;">Registrati</a></li></ul>
     <p class="footer-copy">&copy; 2025 REM &ndash; Ombre e Chimere &middot; Progetto accademico senza finalit&agrave; commerciali</p>
   </footer>
 </div>
-<script>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing'),mx=0,my=0,rx=0,ry=0,active=false;
 document.addEventListener('mousemove',function(e){if(!active){active=true;document.body.classList.add('has-cursor');}mx=e.clientX;my=e.clientY;});
 (function anim(){if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(anim);})();
 
-var ARTICLES={
-  'stanza-grigia-intro':{tag:'stanza-grigia',date:'In arrivo',title:"LA STANZA GRIGIA",author:'Redazione REM',lead:'La soglia, il luogo dove tutti entriamo',content:'<p>Immaginate un corridoio indefinito, grigio come la nebbia del mattino, dove i vostri sogni più intimi si fondono con quelli di chiunque altro. Non è casa vostra, né un vicolo di Roma o un bosco nordico: è La Stanza Grigia, il passaggio universale del sogno. Qui cadono i corpi nel vuoto, si chiudono porte senza chiave, si accumulano ritardi eterni. È il sogno prima di diventare personale, il terreno comune dell'inconscio collettivo.
+// ================================================================
+// ARTICLES — aggiungi qui i tuoi articoli.
+//
+// REGOLA FONDAMENTALE PER EVITARE PAGINE BIANCHE:
+// I valori stringa sono racchiusi tra virgolette doppie "..."
+// oppure tra apostrofi diritti '...' con le parole accentate
+// scritte come entita HTML (&egrave; &agrave; ecc.) o con
+// escape \' per gli apostrofi interni.
+// MAI usare apostrofi tipografici curvi ( ' ' ) nei valori JS.
+// ================================================================
+var ARTICLES = {
 
-Nei prossimi tre mesi, questo contenitore di rubriche vi guiderà attraverso quel corridoio, esplorando sogni condivisi, tradizioni antiche, arte visionaria e sapori surreali. Preparatevi a riconoscere nei vostri incubi notturni echi di miti dimenticati e creazioni contemporanee. Ecco un'anticipazione esclusiva.
+  /* ---------- STANZA ROSA ---------- */
+  "stanza-rosa-intro": {
+    tag: "Stanza Rosa",
+    date: "In arrivo",
+    title: "LA STANZA ROSA: La Chimera, il dolce artificiale",
+    author: "Redazione REM",
+    lead: "Avvolgetevi in una coperta rosa, morbida come il ricordo di un\u2019estate lontana.",
+    content: "<p>Avvolgetevi in una coperta rosa, morbida come il ricordo di un\u2019estate lontana. Qui, nella Stanza Rosa, la Chimera addolcisce i bordi taglienti del passato: mamme che non litigano pi\u00f9, amori che durano per sempre, infanzie senza crepe. \u00c8 un rifugio confortante, dove il tempo si ferma in un abbraccio zuccherato. Ma attenti: indugiate troppo, e il presente svanisce come zucchero filato.</p><p>Nei prossimi tre mesi, questo nido di rubriche vi condurr\u00e0 tra memorie perdute, pozioni magiche e oggetti che respirano. Scoprite come la Chimera trasforma il dolore in dolcezza \u2013 e imparate a uscirne interi.</p><h3>Ricordi Perduti: Frammenti dal passato altrui</h3><p>Una raccolta intima da mercatini dell\u2019usato: foto di biglietti ingialliti, cartoline sbiadite, dediche su libri polverosi, pagine di diari abbandonate. Nessuna interpretazione \u2013 solo trascrizioni fedeli. Voi, lettori, immaginerete le storie: chi le ha scritte? Come si sono perse? Un album di echi collettivi.</p><h3>Infusioni di Chimera: Pozioni per l\u2019anima</h3><p>(Curato da un\u2019amica esperta) Tisane raccontate come elisir magici della Chimera: \u201cInfuso per restare intrappolati in un ricordo felice\u201d, \u201cTisana per notti senza sogni\u201d, \u201cPozione per smettere di pensare a qualcuno\u201d. Ricette semplici, con ingredienti quotidiani, per rituali di conforto (o evasione).</p><h3>La Posta di REM: I vostri sogni, narrati</h3><p>Legata alle storie Instagram, questa Q&amp;A anonima uscir\u00e0 ogni 2-3 settimane. Condividete dubbi, inquietudini o enigmi onirici dalla community. Ne sceglieremo uno, lo trasformeremo in racconto narrativo con riflessione simbolica. Chi l\u2019ha inviato riconoscer\u00e0 se stesso; gli altri, un pezzo del sogno condiviso.</p><h3>Superfici del Sogno: Osservazione lenta</h3><p>Galleria fotografica mensile: oggetti comuni \u2013 una tazza scheggiata, un cuscino accartocciato \u2013 ripresi da luci mutevoli, angolazioni instabili, dettagli macro. Brevi didascalie ne svelano il respiro onirico.</p><h3>Materia che Respira: Design vivo</h3><p>Oggetti di design che animano la materia: un lampadario che pulsa come un cuore, una sedia che muta forma. Ogni articolo esplora un progetto suggestivo, fluido e imprevedibile, eco della Chimera \u2013 dove il design evoca sogni tangibili.</p><p>La Stanza Rosa vi attende con i suoi dolci inganni. Nei prossimi tre mesi, entrate, assaggiate, e ricordate di uscire. Quale ricordo addolcirete per primo?</p>",
+    placeholder: "\u25ce"
+  },
 
-Sincronia Onirica: I sogni che ci accomunano
-Perché sogniamo di precipitare nel vuoto, con lo stomaco in gola e il cuore che martella? O riviviamo all'infinito l'ansia dell'esame di maturità, quel loop eterno di pagine bianche? La rubrica Sincronia Onirica scava negli approfondimenti sui sogni comuni, rivelando le radici psicologiche e culturali di quelle visioni che pensiamo solo nostre.
+  /* ---------- STANZA GRIGIA ---------- */
+  "stanza-grigia-intro": {
+    tag: "Stanza Grigia",
+    date: "In arrivo",
+    title: "LA STANZA GRIGIA: La soglia, il luogo dove tutti entriamo",
+    author: "Redazione REM",
+    lead: "Il passaggio universale del sogno. Il terreno comune dell\u2019inconscio collettivo.",
+    content: "<p>Immaginate un corridoio indefinito, grigio come la nebbia del mattino, dove i vostri sogni pi\u00f9 intimi si fondono con quelli di chiunque altro. Non \u00e8 casa vostra, n\u00e9 un vicolo di Roma o un bosco nordico: \u00e8 La Stanza Grigia, il passaggio universale del sogno. Qui cadono i corpi nel vuoto, si chiudono porte senza chiave, si accumulano ritardi eterni. \u00c8 il sogno prima di diventare personale, il terreno comune dell\u2019inconscio collettivo.</p><p>Nei prossimi tre mesi, questo contenitore di rubriche vi guider\u00e0 attraverso quel corridoio, esplorando sogni condivisi, tradizioni antiche, arte visionaria e sapori surreali. Preparatevi a riconoscere nei vostri incubi notturni echi di miti dimenticati e creazioni contemporanee. Ecco un\u2019anticipazione esclusiva.</p><h3>Sincronia Onirica: I sogni che ci accomunano</h3><p>Perch\u00e9 sogniamo di precipitare nel vuoto, con lo stomaco in gola e il cuore che martella? O riviviamo all\u2019infinito l\u2019ansia dell\u2019esame di maturit\u00e0, quel loop eterno di pagine bianche? La rubrica Sincronia Onirica scava negli approfondimenti sui sogni comuni, rivelando le radici psicologiche e culturali di quelle visioni che pensiamo solo nostre.</p><h3>Cultura del Sogno: Folklore, arte e oltre</h3><p>Dal folklore al pop contemporaneo, viaggeremo attraverso culture e medium.</p><p><strong>Folklore e tradizioni oniriche (5 articoli):</strong> Dalla Smorfia napoletana che decifra i numeri dei sogni, al doppelg\u00e4nger tedesco che appare come doppio malefico; dal Sandman nord-europeo che sparge polvere ipnotica, ai sogni epici dell\u2019antica Grecia. Un articolo panoramico chiuder\u00e0 il giro del mondo onirico.</p><p><strong>Arte surrealista (6 articoli):</strong> Iniziamo con un\u2019introduzione al surrealismo come lingua perfetta del sogno. Poi, quattro focus sul macrotema dell\u2019ibrido: \u201cLa chimera come immagine psichica\u201d con Max Ernst (pensate all\u2019Elefante Celebes o alla Vestizione della Sposa). Chiudiamo con due artisti contemporanei di pop surrealism e lowbrow art.</p><p><strong>Film, musica, letteratura e videogiochi:</strong> Consigli cinematografici con Fellini, Lynch e Bu\u00f1uel. Sound design per paesaggi sonori onirici; canzoni che cantano il sogno. Letture imperdibili: <em>La vita \u00e8 sue\u00f1o</em> di Calder\u00f3n de la Barca, <em>Alice nel Paese delle Meraviglie</em> di Lewis Carroll, <em>La pietra lunare</em> di Tommaso Landolfi. Videogiochi come soglia onirica e multiplayer come sogno collettivo.</p><p><strong>Superfici del sogno:</strong> Una galleria fotografica mensile per l\u2019osservazione lenta \u2013 oggetti quotidiani ripresi da luci instabili, angolazioni oblique, dettagli macro, con brevi didascalie che ne svelano il potenziale inconscio.</p><h3>La Cucina di REM: Ricette dal mondo dei sogni</h3><p>Articoli brevi e golosi per ricreare piatti surreali: tortelli a forma di orecchio, cupcake \u201ctrafitti\u201d da coltelli di glassa. Perfetti per brunch onirici o cene collettive.</p><blockquote>\u201cLa Stanza Grigia\u201d non \u00e8 solo lettura: \u00e8 un invito a varcare la soglia. Nei prossimi tre mesi, unitevi a noi in questo corridoio condiviso. Quale sogno riveler\u00e0 per primo i suoi segreti?</blockquote>",
+    placeholder: "\u2736"
+  },
 
-Cultura del Sogno: Folklore, arte e oltre
-Dal folklore al pop contemporaneo, viaggeremo attraverso culture e medium.
+  /* ---------- STANZA VIOLA ---------- */
+  "stanza-viola-intro": {
+    tag: "Stanza Viola",
+    date: "In arrivo",
+    title: "LA STANZA VIOLA",
+    author: "Redazione REM",
+    lead: "Coming soon.",
+    content: "<p>Coming soon.</p>",
+    placeholder: "\u25c7"
+  }
 
-Folklore e tradizioni oniriche (5 articoli): Dalla Smorfia napoletana che decifra i numeri dei sogni, al doppelgänger tedesco che appare come doppio malefico; dal Sandman nord-europeo che sparge polvere ipnotica, ai sogni epici dell'antica Grecia. Un articolo panoramico chiuderà il giro del mondo onirico.
-
-Arte surrealista (6 articoli): Iniziamo con un'introduzione al surrealismo come lingua perfetta del sogno. Poi, quattro focus sul macrotema dell'ibrido: "La chimera come immagine psichica" con Max Ernst (pensate all'Elefante Celebes o alla Vestizione della Sposa). Chiudiamo con due artisti contemporanei di pop surrealism e lowbrow art.
-
-Film, musica, letteratura e videogiochi:
-
-Consigli cinematografici con Fellini, Lynch e Buñuel (in collab con Cinema alle Mura).
-
-Sound design per paesaggi sonori onirici; canzoni che cantano il sogno.
-
-Letture imperdibili: La vita è sueño di Calderón de la Barca, Alice nel Paese delle Meraviglie di Lewis Carroll, La pietra lunare di Tommaso Landolfi (curato da un'amica di Elisa).
-
-Videogiochi come soglia onirica e multiplayer come sogno collettivo (con un amico di Elisa).
-
-Superfici del sogno: Una galleria fotografica mensile per l'osservazione lenta – oggetti quotidiani ripresi da luci instabili, angolazioni oblique, dettagli macro, con brevi didascalie che ne svelano il potenziale inconscio.
-
-La Cucina di REM: Ricette dal mondo dei sogni
-Articoli brevi e golosi per ricreare piatti surreali: tortelli a forma di orecchio, cupcake "trafitti" da coltelli di glassa. Perfetti per brunch onirici o cene collettive.
-
-"La Stanza Grigia" non è solo lettura: è un invito a varcare la soglia. Nei prossimi tre mesi, unitevi a noi in questo corridoio condiviso. Quale sogno rivelerà per primo i suoi segreti?</p>',placeholder:'✶'},
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  'stanza-rosa-intro':{tag:'stanza-rosa',date:'In arrivo',title:'LA STANZA ROSA: La Chimera, il dolce artificiale',author:'Redazione REM',lead:'Avvolgetevi in una coperta rosa, morbida come il ricordo di un'estate lontana. ',content:'<p>Avvolgetevi in una coperta rosa, morbida come il ricordo di un'estate lontana. Qui, nella Stanza Rosa, la Chimera addolcisce i bordi taglienti del passato: mamme che non litigano più, amori che durano per sempre, infanzie senza crepe. È un rifugio confortante, dove il tempo si ferma in un abbraccio zuccherato. Ma attenti: indugiate troppo, e il presente svanisce come zucchero filato.
-
-Nei prossimi tre mesi, questo nido di rubriche vi condurrà tra memorie perdute, pozioni magiche e oggetti che respirano. Scoprite come la Chimera trasforma il dolore in dolcezza – e imparate a uscirne interi.
-
-Ricordi Perduti: Frammenti dal passato altrui
-Una raccolta intima da mercatini dell'usato: foto di biglietti ingialliti, cartoline sbiadite, dediche su libri polverosi, pagine di diari abbandonate. Nessuna interpretazione – solo trascrizioni fedeli. Voi, lettori, immaginerete le storie: chi le ha scritte? Come si sono perse? Un album di echi collettivi.
-
-Infusioni di Chimera: Pozioni per l'anima
-(Curato da un'amica esperta) Tisane raccontate come elisir magici della Chimera: "Infuso per restare intrappolati in un ricordo felice", "Tisana per notti senza sogni", "Pozione per smettere di pensare a qualcuno". Ricette semplici, con ingredienti quotidiani, per rituali di conforto (o evasione).
-
-La Posta di REM: I vostri sogni, narrati
-Legata alle storie Instagram, questa Q&A anonima uscirà ogni 2-3 settimane. Condividete dubbi, inquietudini o enigmi onirici dalla community. Ne sceglieremo uno, lo trasformeremo in racconto narrativo con riflessione simbolica. Chi l'ha inviato riconoscerà se stesso; gli altri, un pezzo del sogno condiviso.
-
-Superfici del Sogno: Osservazione lenta
-Galleria fotografica mensile: oggetti comuni – una tazza scheggiata, un cuscino accartocciato – ripresi da luci mutevoli, angolazioni instabili, dettagli macro. Brevi didascalie ne svelano il respiro onirico.
-
-Materia che Respira: Design vivo
-Oggetti di design che animano la materia: un lampadario che pulsa come un cuore, una sedia che muta forma. Ogni articolo esplora un progetto suggestivo, fluido e imprevedibile, eco della Chimera – dove il design evoca sogni tangibili.
-
-La Stanza Rosa vi attende con i suoi dolci inganni. Nei prossimi tre mesi, entrate, assaggiate, e ricordate di uscire. Quale ricordo addolcirete per primo?</p>',placeholder:'◎'},
-  'installazione-scenografica':{tag:'Dietro le quinte',date:'In arrivo',title:"Come nasce un'installazione scenografica",author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'◈'},
-  'surrealismo-linguaggio':{tag:'Riflessioni',date:'In arrivo',title:'Il surrealismo come linguaggio collettivo',author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'◇'}
 };
 
 function setHash(h){history.pushState(null,'',h||'#');}
@@ -648,12 +621,7 @@ triggerReveals();
 function filterArticles(cat,btn){
   document.querySelectorAll('.mag-filter').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  document.querySelectorAll('#articlesGrid .article-card').forEach(function(card){card.style.display=(cat==='tutti'||card.dataset.category===cat)?'':'none';});
-  var feat=document.querySelector('#articlesGrid .article-card.featured');
-  if(feat&&feat.style.display!=='none')feat.style.gridColumn='1 / -1';
-}
-routeFromHash();
-
-</script>
-</body>
-</html>
+  document.querySelectorAll('#articlesGrid .article-card').forEach(function(card){
+    card.style.display=(cat==='tutti'||card.dataset.category===cat)?'':'none';
+  });
+  var feat=document.querySelector('#articlesG
