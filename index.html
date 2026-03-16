@@ -281,7 +281,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   <section id="languages"><div class="section-inner">
     <span class="section-label reveal">Linguaggi Espressivi</span>
     <h2 class="section-title reveal reveal-delay-1">Un universo<br>multisensoriale</h2>
-    <p class="section-text reveal reveal-delay-2">REM si costruisce attraverso la molteplicit&agrave; dei linguaggi artistici e performativi, intrecciandoli in un'esperienza unica e irripetibile.</p>
+    <p class="section-text reveal reveal-delay-2">REM si costruisce attraverso la molteplicit&agrave; dei linguaggi ci e performativi, intrecciandoli in un'esperienza unica e irripetibile.</p>
     <div class="lang-grid">
       <div class="lang-item reveal"><span class="lang-emoji">&#127912;</span><span class="lang-name">Pittura</span></div>
       <div class="lang-item reveal"><span class="lang-emoji">&#127963;</span><span class="lang-name">Installazioni</span></div>
@@ -382,15 +382,14 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   <div class="mag-hero">
     <span class="mag-hero-label">REM &ndash; Ombre e Chimere</span>
     <h1 class="mag-hero-title">Magazine</h1>
-    <p class="mag-hero-desc">Storie, ritratti e approfondimenti sugli artisti e i linguaggi dell'evento.</p>
+    <p class="mag-hero-desc">Storie, ritratti e approfondimenti sugli  e i linguaggi dell'evento.</p>
   </div>
   <div class="mag-content">
     <div class="mag-filters">
       <button class="mag-filter active" onclick="filterArticles('tutti',this)">Tutti</button>
-      <button class="mag-filter" onclick="filterArticles('artisti',this)">Artisti</button>
-      <button class="mag-filter" onclick="filterArticles('linguaggi',this)">Linguaggi</button>
-      <button class="mag-filter" onclick="filterArticles('dietro-le-quinte',this)">Dietro le quinte</button>
-      <button class="mag-filter" onclick="filterArticles('riflessioni',this)">Riflessioni</button>
+      <button class="mag-filter" onclick="filterArticles('stanza-grigia',this)">Stanza Grigia</button>
+      <button class="mag-filter" onclick="filterArticles('stanza-rosa',this)">Stanza Rosa</button>
+      <button class="mag-filter" onclick="filterArticles('stanza-viola',this)">Stanza Viola</button>
     </div>
     <!-- COME AGGIUNGERE UN ARTICOLO:
     1. Aggiungi uno slug nell oggetto ARTICLES nello script in fondo
@@ -538,8 +537,74 @@ document.addEventListener('mousemove',function(e){if(!active){active=true;docume
 (function anim(){if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(anim);})();
 
 var ARTICLES={
-  'ritratto-artista':{tag:'Artisti',date:'In arrivo',title:"Il primo ritratto d'artista arrivera presto",author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'✶'},
-  'sound-design':{tag:'Linguaggi',date:'In arrivo',title:'Sound design: costruire il silenzio',author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'◎'},
+  'stanza-grigia-intro':{tag:'stanza-grigia',date:'In arrivo',title:"LA STANZA GRIGIA",author:'Redazione REM',lead:'La soglia, il luogo dove tutti entriamo',content:'<p>Immaginate un corridoio indefinito, grigio come la nebbia del mattino, dove i vostri sogni più intimi si fondono con quelli di chiunque altro. Non è casa vostra, né un vicolo di Roma o un bosco nordico: è La Stanza Grigia, il passaggio universale del sogno. Qui cadono i corpi nel vuoto, si chiudono porte senza chiave, si accumulano ritardi eterni. È il sogno prima di diventare personale, il terreno comune dell'inconscio collettivo.
+
+Nei prossimi tre mesi, questo contenitore di rubriche vi guiderà attraverso quel corridoio, esplorando sogni condivisi, tradizioni antiche, arte visionaria e sapori surreali. Preparatevi a riconoscere nei vostri incubi notturni echi di miti dimenticati e creazioni contemporanee. Ecco un'anticipazione esclusiva.
+
+Sincronia Onirica: I sogni che ci accomunano
+Perché sogniamo di precipitare nel vuoto, con lo stomaco in gola e il cuore che martella? O riviviamo all'infinito l'ansia dell'esame di maturità, quel loop eterno di pagine bianche? La rubrica Sincronia Onirica scava negli approfondimenti sui sogni comuni, rivelando le radici psicologiche e culturali di quelle visioni che pensiamo solo nostre.
+
+Cultura del Sogno: Folklore, arte e oltre
+Dal folklore al pop contemporaneo, viaggeremo attraverso culture e medium.
+
+Folklore e tradizioni oniriche (5 articoli): Dalla Smorfia napoletana che decifra i numeri dei sogni, al doppelgänger tedesco che appare come doppio malefico; dal Sandman nord-europeo che sparge polvere ipnotica, ai sogni epici dell'antica Grecia. Un articolo panoramico chiuderà il giro del mondo onirico.
+
+Arte surrealista (6 articoli): Iniziamo con un'introduzione al surrealismo come lingua perfetta del sogno. Poi, quattro focus sul macrotema dell'ibrido: "La chimera come immagine psichica" con Max Ernst (pensate all'Elefante Celebes o alla Vestizione della Sposa). Chiudiamo con due artisti contemporanei di pop surrealism e lowbrow art.
+
+Film, musica, letteratura e videogiochi:
+
+Consigli cinematografici con Fellini, Lynch e Buñuel (in collab con Cinema alle Mura).
+
+Sound design per paesaggi sonori onirici; canzoni che cantano il sogno.
+
+Letture imperdibili: La vita è sueño di Calderón de la Barca, Alice nel Paese delle Meraviglie di Lewis Carroll, La pietra lunare di Tommaso Landolfi (curato da un'amica di Elisa).
+
+Videogiochi come soglia onirica e multiplayer come sogno collettivo (con un amico di Elisa).
+
+Superfici del sogno: Una galleria fotografica mensile per l'osservazione lenta – oggetti quotidiani ripresi da luci instabili, angolazioni oblique, dettagli macro, con brevi didascalie che ne svelano il potenziale inconscio.
+
+La Cucina di REM: Ricette dal mondo dei sogni
+Articoli brevi e golosi per ricreare piatti surreali: tortelli a forma di orecchio, cupcake "trafitti" da coltelli di glassa. Perfetti per brunch onirici o cene collettive.
+
+"La Stanza Grigia" non è solo lettura: è un invito a varcare la soglia. Nei prossimi tre mesi, unitevi a noi in questo corridoio condiviso. Quale sogno rivelerà per primo i suoi segreti?</p>',placeholder:'✶'},
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  'stanza-rosa-intro':{tag:'stanza-rosa',date:'In arrivo',title:'LA STANZA ROSA: La Chimera, il dolce artificiale',author:'Redazione REM',lead:'Avvolgetevi in una coperta rosa, morbida come il ricordo di un'estate lontana. ',content:'<p>Avvolgetevi in una coperta rosa, morbida come il ricordo di un'estate lontana. Qui, nella Stanza Rosa, la Chimera addolcisce i bordi taglienti del passato: mamme che non litigano più, amori che durano per sempre, infanzie senza crepe. È un rifugio confortante, dove il tempo si ferma in un abbraccio zuccherato. Ma attenti: indugiate troppo, e il presente svanisce come zucchero filato.
+
+Nei prossimi tre mesi, questo nido di rubriche vi condurrà tra memorie perdute, pozioni magiche e oggetti che respirano. Scoprite come la Chimera trasforma il dolore in dolcezza – e imparate a uscirne interi.
+
+Ricordi Perduti: Frammenti dal passato altrui
+Una raccolta intima da mercatini dell'usato: foto di biglietti ingialliti, cartoline sbiadite, dediche su libri polverosi, pagine di diari abbandonate. Nessuna interpretazione – solo trascrizioni fedeli. Voi, lettori, immaginerete le storie: chi le ha scritte? Come si sono perse? Un album di echi collettivi.
+
+Infusioni di Chimera: Pozioni per l'anima
+(Curato da un'amica esperta) Tisane raccontate come elisir magici della Chimera: "Infuso per restare intrappolati in un ricordo felice", "Tisana per notti senza sogni", "Pozione per smettere di pensare a qualcuno". Ricette semplici, con ingredienti quotidiani, per rituali di conforto (o evasione).
+
+La Posta di REM: I vostri sogni, narrati
+Legata alle storie Instagram, questa Q&A anonima uscirà ogni 2-3 settimane. Condividete dubbi, inquietudini o enigmi onirici dalla community. Ne sceglieremo uno, lo trasformeremo in racconto narrativo con riflessione simbolica. Chi l'ha inviato riconoscerà se stesso; gli altri, un pezzo del sogno condiviso.
+
+Superfici del Sogno: Osservazione lenta
+Galleria fotografica mensile: oggetti comuni – una tazza scheggiata, un cuscino accartocciato – ripresi da luci mutevoli, angolazioni instabili, dettagli macro. Brevi didascalie ne svelano il respiro onirico.
+
+Materia che Respira: Design vivo
+Oggetti di design che animano la materia: un lampadario che pulsa come un cuore, una sedia che muta forma. Ogni articolo esplora un progetto suggestivo, fluido e imprevedibile, eco della Chimera – dove il design evoca sogni tangibili.
+
+La Stanza Rosa vi attende con i suoi dolci inganni. Nei prossimi tre mesi, entrate, assaggiate, e ricordate di uscire. Quale ricordo addolcirete per primo?</p>',placeholder:'◎'},
   'installazione-scenografica':{tag:'Dietro le quinte',date:'In arrivo',title:"Come nasce un'installazione scenografica",author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'◈'},
   'surrealismo-linguaggio':{tag:'Riflessioni',date:'In arrivo',title:'Il surrealismo come linguaggio collettivo',author:'Redazione REM',lead:'Frase introduttiva. Sostituisci con il tuo testo.',content:'<p>Testo completo. Sostituisci con il tuo contenuto.</p>',placeholder:'◇'}
 };
