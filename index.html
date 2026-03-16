@@ -630,4 +630,10 @@ function filterArticles(cat,btn){
   document.querySelectorAll('#articlesGrid .article-card').forEach(function(card){
     card.style.display=(cat==='tutti'||card.dataset.category===cat)?'':'none';
   });
-  var feat=document.querySelector('#articlesG
+  var feat=document.querySelector('#articlesGrid .article-card.featured');
+  if(feat&&feat.style.display!=='none')feat.style.gridColumn='1 / -1';
+}
+routeFromHash();
+</script>
+</body>
+</html>
