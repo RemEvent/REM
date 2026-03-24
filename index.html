@@ -25,6 +25,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:1rem 3rem;display:fle
 .nav-links{display:flex;gap:2.2rem;list-style:none;}
 .nav-links a{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tertiary);text-decoration:none;opacity:0.65;transition:opacity 0.3s,color 0.3s;}
 .nav-links a:hover,.nav-links a.active-nav{opacity:1;color:var(--orange);}
+/* ── stanza-grigia-intro overrides ── */
+body.article-stanza-grigia-intro .nav-logo{pointer-events:none;cursor:default;}
+body.article-stanza-grigia-intro .nav-logo img:hover{opacity:1;}
+body.article-stanza-grigia-intro .nav-links{display:none!important;}
+body.article-stanza-grigia-intro .art-article-footer-sponsors{display:none!important;}
+body.article-stanza-grigia-intro .art-footer-home-link{display:none!important;}
+/* ────────────────────────────────── */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 60%),radial-gradient(ellipse 70% 70% at 50% 50%,var(--purple-deep) 35%,var(--black) 100%);}
 .orb{position:absolute;border-radius:50%;filter:blur(70px);animation:drift 14s ease-in-out infinite;pointer-events:none;}
@@ -228,10 +235,10 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <nav>
-  <a href="#" class="nav-logo" onclick="showPage('home');return false;">
+  <a href="#" class="nav-logo" id="navLogo" onclick="showPage('home');return false;">
     <img src="rem-sign-pink.png" alt="REM – Ombre e Chimere">
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about" onclick="goHomeAnchor('#about');return false;">Progetto</a></li>
     <li><a href="#dimensions" onclick="goHomeAnchor('#dimensions');return false;">Ombre &amp; Chimere</a></li>
     <li><a href="#languages" onclick="goHomeAnchor('#languages');return false;">Linguaggi</a></li>
@@ -456,7 +463,8 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   <div class="art-body"><p class="art-lead" id="art-lead"></p><div class="art-text" id="art-content"></div></div>
   <div class="art-footer-nav"><a href="#magazine" class="art-footer-back" onclick="showPage('magazine');return false;">&larr; Torna al Magazine</a></div>
   <footer>
-    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
+    <!-- FOOTER ARTICLE: sezione sponsor e link home — nascosta solo per stanza-grigia-intro via JS, codice preservato -->
+    <div class="footer-sponsors art-article-footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
         <a href="#" class="footer-sponsor-item"><span class="footer-sponsor-placeholder">Sponsor Gold</span></a>
@@ -465,7 +473,10 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       </div></div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
-    <ul class="footer-links"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#magazine" onclick="showPage('magazine');return false;">Magazine</a></li></ul>
+    <ul class="footer-links">
+      <li class="art-footer-home-link"><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#magazine" onclick="showPage('magazine');return false;">Magazine</a></li>
+    </ul>
     <p class="footer-copy">&copy; 2025 REM &ndash; Ombre e Chimere &middot; Progetto accademico senza finalit&agrave; commerciali</p>
   </footer>
 </div>
@@ -528,13 +539,6 @@ document.addEventListener('mousemove',function(e){if(!active){active=true;docume
 
 // ================================================================
 // ARTICLES — aggiungi qui i tuoi articoli.
-//
-// REGOLA FONDAMENTALE PER EVITARE PAGINE BIANCHE:
-// I valori stringa sono racchiusi tra virgolette doppie "..."
-// oppure tra apostrofi diritti '...' con le parole accentate
-// scritte come entita HTML (&egrave; &agrave; ecc.) o con
-// escape \' per gli apostrofi interni.
-// MAI usare apostrofi tipografici curvi ( ' ' ) nei valori JS.
 // ================================================================
 var ARTICLES = {
 
@@ -550,13 +554,20 @@ var ARTICLES = {
   },
 
   /* ---------- STANZA GRIGIA ---------- */
+  /* MODIFICHE APPLICATE:
+     1. date: rimosso "In arrivo"
+     2. title: "LA STANZA GRIGIA" (senza sottotitolo)
+     3. lead: "la soglia del sonno"
+     4. content: nuovo testo completo
+     5+6. footer sponsor + link home nascosti via CSS class + body class
+  */
   "stanza-grigia-intro": {
     tag: "Stanza Grigia",
-    date: "In arrivo",
-    title: "LA STANZA GRIGIA: La soglia, il luogo dove tutti entriamo",
+    date: "",
+    title: "LA STANZA GRIGIA",
     author: "Redazione REM",
-    lead: "Il passaggio universale del sogno. Il terreno comune dell\u2019inconscio collettivo.",
-    content: "<p>Immaginate un corridoio indefinito, grigio come la nebbia del mattino, dove i vostri sogni pi\u00f9 intimi si fondono con quelli di chiunque altro. Non \u00e8 casa vostra, n\u00e9 un vicolo di Roma o un bosco nordico: \u00e8 La Stanza Grigia, il passaggio universale del sogno. Qui cadono i corpi nel vuoto, si chiudono porte senza chiave, si accumulano ritardi eterni. \u00c8 il sogno prima di diventare personale, il terreno comune dell\u2019inconscio collettivo.</p><p>Nei prossimi tre mesi, questo contenitore di rubriche vi guider\u00e0 attraverso quel corridoio, esplorando sogni condivisi, tradizioni antiche, arte visionaria e sapori surreali. Preparatevi a riconoscere nei vostri incubi notturni echi di miti dimenticati e creazioni contemporanee. Ecco un\u2019anticipazione esclusiva.</p><h3>Sincronia Onirica: I sogni che ci accomunano</h3><p>Perch\u00e9 sogniamo di precipitare nel vuoto, con lo stomaco in gola e il cuore che martella? O riviviamo all\u2019infinito l\u2019ansia dell\u2019esame di maturit\u00e0, quel loop eterno di pagine bianche? La rubrica Sincronia Onirica scava negli approfondimenti sui sogni comuni, rivelando le radici psicologiche e culturali di quelle visioni che pensiamo solo nostre.</p><h3>Cultura del Sogno: Folklore, arte e oltre</h3><p>Dal folklore al pop contemporaneo, viaggeremo attraverso culture e medium.</p><p><strong>Folklore e tradizioni oniriche (5 articoli):</strong> Dalla Smorfia napoletana che decifra i numeri dei sogni, al doppelg\u00e4nger tedesco che appare come doppio malefico; dal Sandman nord-europeo che sparge polvere ipnotica, ai sogni epici dell\u2019antica Grecia. Un articolo panoramico chiuder\u00e0 il giro del mondo onirico.</p><p><strong>Arte surrealista (6 articoli):</strong> Iniziamo con un\u2019introduzione al surrealismo come lingua perfetta del sogno. Poi, quattro focus sul macrotema dell\u2019ibrido: \u201cLa chimera come immagine psichica\u201d con Max Ernst (pensate all\u2019Elefante Celebes o alla Vestizione della Sposa). Chiudiamo con due artisti contemporanei di pop surrealism e lowbrow art.</p><p><strong>Film, musica, letteratura e videogiochi:</strong> Consigli cinematografici con Fellini, Lynch e Bu\u00f1uel. Sound design per paesaggi sonori onirici; canzoni che cantano il sogno. Letture imperdibili: <em>La vita \u00e8 sue\u00f1o</em> di Calder\u00f3n de la Barca, <em>Alice nel Paese delle Meraviglie</em> di Lewis Carroll, <em>La pietra lunare</em> di Tommaso Landolfi. Videogiochi come soglia onirica e multiplayer come sogno collettivo.</p><p><strong>Superfici del sogno:</strong> Una galleria fotografica mensile per l\u2019osservazione lenta \u2013 oggetti quotidiani ripresi da luci instabili, angolazioni oblique, dettagli macro, con brevi didascalie che ne svelano il potenziale inconscio.</p><h3>La Cucina di REM: Ricette dal mondo dei sogni</h3><p>Articoli brevi e golosi per ricreare piatti surreali: tortelli a forma di orecchio, cupcake \u201ctrafitti\u201d da coltelli di glassa. Perfetti per brunch onirici o cene collettive.</p><blockquote>\u201cLa Stanza Grigia\u201d non \u00e8 solo lettura: \u00e8 un invito a varcare la soglia. Nei prossimi tre mesi, unitevi a noi in questo corridoio condiviso. Quale sogno riveler\u00e0 per primo i suoi segreti?</blockquote>",
+    lead: "la soglia del sonno",
+    content: "<p>Hai mai sognato di cadere e di svegliarti un secondo prima dell\u2019impatto?</p><p>Di perdere i denti, uno ad uno, senza riuscire a fermarlo?</p><p>Di provare ad urlare, ma avevi perso la tua voce?</p><p>O di tornare in un luogo cos\u00ec familiare... ma che non esiste?</p><p>Se la risposta \u00e8 s\u00ec...Benvenut*, o meglio, bentornat* nella stanza grigia: la soglia del sogno.</p><p>\u00c8 grigia come le prime immagini che affiorano quando il sogno inizia a prendere consistenza, quando la mente, tra il sonno e la veglia, monta scenari che sembrano intimi e personali ma che, in realt\u00e0, appartengono a molti.</p><p>\u00c8 una geografia sospesa in cui l\u2019inconscio individuale incontra qualcosa di pi\u00f9 vasto, collettivo e antico. Qui il sogno non \u00e8 una confessione intima.</p><p>\u00c8 il corridoio prima di arrivare da qualche parte. La scala che non finisce mai. La porta che non si apre.</p><p>\u00c8 il punto in cui il sogno smette di essere personale e diventa collettivo. Un luogo sospeso dove ci incontriamo, senza sapere di esserci mai stati insieme.</p><p>Nei prossimi mesi, questo spazio vi accoglier\u00e0 in una dimensione fatta di tradizioni antiche, sogni condivisi, arte, sapori surreali e creazioni contemporanee.</p><p>Ecco un\u2019anticipazione esclusiva.</p><h3>SINCRONIA ONIRICA</h3><p>Una rubrica dedicata ai sogni ricorrenti che, sotto diversi punti di vista, sembrano collegare le nostre esperienze notturne.</p><p>Scenari che si ripetono nel sonno vengono esplorati, fornendo nuove prospettive da cui guardarli.</p><p>Perch\u00e9 cadiamo nel vuoto mentre dormiamo? Perch\u00e9 sogniamo di ripetere pi\u00f9 volte l\u2019esame di maturit\u00e0?</p><p>Pi\u00f9 che dare risposte definitive, Sincronia Onirica prova a sostare dentro questi enigmi comuni, osservandoli come tracce di un immaginario condiviso.</p><h3>CULTURA DEL SOGNO</h3><p>Questa rubrica amplia lo sguardo e ci ricorda che il sogno non appartiene solo alla notte individuale, ma anche alle tradizioni, alle arti e ai linguaggi con cui i popoli hanno cercato di raccontarlo. Qui convivono folklore, figure antiche e riferimenti contemporanei.</p><p>\u00c8 il territorio in cui l\u2019onirico \u00e8 protagonista di quadri, di romanzi, della musica, del cinema e dei videogiochi; non come semplici esempi, ma come forme comuni che hanno saputo avvicinarsi al linguaggio mobile, ambiguo e potentissimo dell\u2019esperienza onirica.</p><h3>LA CUCINA DI REM</h3><p>Anche il cibo trova posto in questo luogo sospeso con La cucina di Rem.</p><p>Il sogno entra in cucina e mette le mani in pasta.</p><p>Articoli brevi e golosi ricordano che il mondo onirico non vive soltanto nelle immagini e nelle parole, ma pu\u00f2 insinuarsi anche nei gesti pi\u00f9 concreti, trasformando l\u2019ordinario in qualcosa di inatteso.</p><p>... e molte sorprese!</p><p>La Stanza Grigia, allora, non \u00e8 soltanto un contenitore di rubriche. \u00c8 un invito a varcare la soglia. Entrare significa lasciarsi guidare in uno spazio sfuggente, ma familiare, in cui se restassimo pi\u00f9 a lungo, scopriremmo che siamo tutti molto pi\u00f9 simili di quel che crediamo.</p>",
     placeholder: "\u2736"
   },
 
@@ -573,17 +584,31 @@ var ARTICLES = {
 
 };
 
+// ── slug corrente aperto ──
+var currentSlug = '';
+
 function setHash(h){try{history.pushState(null,'',h||'#');}catch(e){}}
+
+function applyArticleBodyClass(slug){
+  // Rimuovi classi precedenti
+  document.body.className = document.body.className.replace(/\barticle-[\w-]+\b/g,'').trim();
+  if(slug){document.body.classList.add('article-'+slug);}
+}
+
 function showPage(name,skipHash){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+name).classList.add('active');
   window.scrollTo(0,0);
   document.getElementById('nav-sponsor').classList.toggle('active-nav',name==='sponsor');
+  // Se usciamo dall'articolo, rimuoviamo la body class
+  if(name !== 'article'){applyArticleBodyClass('');}
   setTimeout(triggerReveals,100);
   if(!skipHash){if(name==='home')setHash('#');if(name==='magazine')setHash('#magazine');if(name==='sponsor')setHash('#sponsor');}
 }
+
 function openArticleBySlug(slug){
   var a=ARTICLES[slug];if(!a){showPage('magazine');return;}
+  currentSlug = slug;
   document.getElementById('art-tag').textContent=a.tag;
   document.getElementById('art-date').textContent=a.date;
   document.getElementById('art-title').textContent=a.title;
@@ -591,8 +616,11 @@ function openArticleBySlug(slug){
   document.getElementById('art-placeholder').textContent=a.placeholder;
   document.getElementById('art-lead').textContent=a.lead||'';
   document.getElementById('art-content').innerHTML=a.content;
+  // Applica body class per CSS condizionale (nasconde footer sponsor + logo nav non cliccabile)
+  applyArticleBodyClass(slug);
   showPage('article',true);setHash('#articolo/'+slug);
 }
+
 function routeFromHash(){
   var h=window.location.hash;
   if(!h||h==='#'||h==='')showPage('home',true);
@@ -605,9 +633,7 @@ window.addEventListener('popstate',function(){routeFromHash();});
 function goAnchor(sel){var el=document.querySelector(sel);if(el)el.scrollIntoView({behavior:'smooth'});}
 function goHomeAnchor(sel){showPage('home');setTimeout(function(){goAnchor(sel);},80);}
 function triggerReveals(){
-  if(!('IntersectionObserver' in window)){
-    return; // elements already visible by default
-  }
+  if(!('IntersectionObserver' in window)){return;}
   var elements=document.querySelectorAll('.reveal:not(.visible)');
   elements.forEach(function(r){r.classList.add('will-animate');});
   var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');}});},{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
