@@ -35,6 +35,12 @@ body.article-stanza-grigia-intro .nav-logo img:hover{opacity:1;}
 body.article-stanza-grigia-intro .nav-links{display:none!important;}
 body.article-stanza-grigia-intro .art-article-footer-sponsors{display:none!important;}
 body.article-stanza-grigia-intro .art-footer-home-link{display:none!important;}
+body.article-mary-shelley .nav-logo{pointer-events:none;cursor:default;}
+body.article-mary-shelley .nav-logo img:hover{opacity:1;}
+body.article-mary-shelley .nav-links{display:none!important;}
+body.article-mary-shelley .art-article-footer-sponsors{display:none!important;}
+body.article-mary-shelley .art-footer-home-link{display:none!important;}
+body.article-mary-shelley .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -329,6 +335,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Sara de Bonis &amp; Elisa Melchionna</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="copertina.artmary.jpeg" alt="L'incubo di Mary Shelley"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">L'incubo di Mary Shelley</h2>
+          <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -396,6 +411,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Sara De Bonis</span><a href="#articolo/il-surrealismo" class="article-read-more" onclick="openArticleBySlug('il-surrealismo');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <!-- MARY SHELLEY -->
+      <div class="article-card reveal" data-category="cultura-del-sogno">
+        <div class="article-image"><img src="copertina.artmary.jpeg" alt="L'incubo di Mary Shelley"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">L'incubo di Mary Shelley</h2>
+          <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div>
   <footer>
@@ -443,6 +468,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <ul class="footer-links">
       <li class="art-footer-home-link"><a href="#" onclick="showPage('home');return false;">Home</a></li>
       <li><a href="#magazine" onclick="showPage('magazine');return false;">Magazine</a></li>
+      <li class="art-footer-registrati-link"><a href="#" onclick="showPage('home');setTimeout(function(){goAnchor('#registration')},80);return false;">Registrati</a></li>
     </ul>
     <p class="footer-copy">&copy; 2025 REM – Ombre e Chimere &middot; Progetto accademico senza finalità commerciali</p>
   </footer>
@@ -526,16 +552,27 @@ var ARTICLES = {
     heroImage: "stanza-grigia.jpeg"
   },
 
-"il-surrealismo": {
-  tag: "Cultura del sogno",
-  date: "",
-  title: "Il Surrealismo: quando il sogno diventa linguaggio",
-  author: "Sara De Bonis",
-  lead: "Come il Surrealismo dà forma alla natura profonda del sogno",
-  content: "<p>Parlare di sogno significa confrontarsi con qualcosa che, per sua natura, sfugge a ogni principio d'ordine. Non si lascia afferrare fino in fondo: si spezza, si deforma, altera.</p><p>Per avvicinarsi a una materia così mobile e instabile, serve un linguaggio in grado di reggere slittamenti improvvisi, immagini distorte e significati non del tutto fissati. È qui che il Surrealismo interviene.</p><p>Il Surrealismo nasce come un'esplosione di libertà. È il movimento che ha voluto dare voce a quella parte dell'essere umano che di solito resta sopita: l'inconscio, l'irrazionalità, la libertà.</p><p>Il movimento prende forma ufficialmente negli anni Venti del Novecento, grazie a un gruppo di poeti e artisti guidati da André Breton, che nel 1924 pubblica il Manifesto del Surrealismo.</p><p>Per comprenderlo bisogna oltrepassare i limiti della logica. Dopo la razionalità estrema, gli artisti si impegnano nel recupero della parte più misteriosa della mente.</p><p>La chiave tra Surrealismo e dimensione onirica è la comunicazione offerta da entrambi attraverso un linguaggio fatto di associazioni inattese.</p><p>Gli artisti surrealisti traducono questo linguaggio onirico in arte. Salvador Dalí dipinge orologi che si sciolgono, volti che si dissolvono.</p><p>Anche nella scrittura, il Surrealismo diventa un modo per far parlare il sogno. Breton pratica la scrittura automatica.</p><p>Nel mondo onirico, i confini si dissolvono. E nel Surrealismo succede qualcosa di simile.</p><p>Il sogno non ha grammatica, non segue regole fisse e non teme il nonsense. Così come il Surrealismo.</p><p>Nel cinema surrealista tutto questo è ancora più evidente. Un Chien Andalou di Buñuel e Dalí ne è un esempio perfetto.</p><p>Il Surrealismo non cerca di dare risposte, genera quesiti e dubbi.</p><p>In un mondo che pretende da ogni cosa un senso immediato, il Surrealismo ci ricorda che l'irrazionale non è uno scarto, ma una parte indispensabile dell'esperienza umana.</p>",
-  placeholder: "✶",
-  heroImage: "surrealism.jpeg"
-}
+  "il-surrealismo": {
+    tag: "Cultura del sogno",
+    date: "",
+    title: "Il Surrealismo: quando il sogno diventa linguaggio",
+    author: "Sara De Bonis",
+    lead: "Come il Surrealismo dà forma alla natura profonda del sogno",
+    content: "<p>Parlare di sogno significa confrontarsi con qualcosa che, per sua natura, sfugge a ogni principio d'ordine. Non si lascia afferrare fino in fondo: si spezza, si deforma, altera.</p><p>Per avvicinarsi a una materia così mobile e instabile, serve un linguaggio in grado di reggere slittamenti improvvisi, immagini distorte e significati non del tutto fissati. È qui che il Surrealismo interviene.</p><p>Il Surrealismo nasce come un'esplosione di libertà. È il movimento che ha voluto dare voce a quella parte dell'essere umano che di solito resta sopita: l'inconscio, l'irrazionalità, la libertà.</p><p>Il movimento prende forma ufficialmente negli anni Venti del Novecento, grazie a un gruppo di poeti e artisti guidati da André Breton, che nel 1924 pubblica il Manifesto del Surrealismo.</p><p>Per comprenderlo bisogna oltrepassare i limiti della logica. Dopo la razionalità estrema, gli artisti si impegnano nel recupero della parte più misteriosa della mente.</p><p>La chiave tra Surrealismo e dimensione onirica è la comunicazione offerta da entrambi attraverso un linguaggio fatto di associazioni inattese.</p><p>Gli artisti surrealisti traducono questo linguaggio onirico in arte. Salvador Dalí dipinge orologi che si sciolgono, volti che si dissolvono.</p><p>Anche nella scrittura, il Surrealismo diventa un modo per far parlare il sogno. Breton pratica la scrittura automatica.</p><p>Nel mondo onirico, i confini si dissolvono. E nel Surrealismo succede qualcosa di simile.</p><p>Il sogno non ha grammatica, non segue regole fisse e non teme il nonsense. Così come il Surrealismo.</p><p>Nel cinema surrealista tutto questo è ancora più evidente. Un Chien Andalou di Buñuel e Dalí ne è un esempio perfetto.</p><p>Il Surrealismo non cerca di dare risposte, genera quesiti e dubbi.</p><p>In un mondo che pretende da ogni cosa un senso immediato, il Surrealismo ci ricorda che l'irrazionale non è uno scarto, ma una parte indispensabile dell'esperienza umana.</p>",
+    placeholder: "✶",
+    heroImage: "surrealism.jpeg"
+  },
+
+  "mary-shelley": {
+    tag: "Cultura del Sogno",
+    date: "",
+    title: "L'incubo di Mary Shelley",
+    author: "Elisa Melchionna",
+    lead: "Spesso ci dicono di \"dormirci su\" quando mancano le idee, ma quando lo ha fatto Mary Shelley, la letteratura è cambiata per sempre: tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.",
+    content: "<p>Ci fu un anno, il 1816, in cui l'estate non arrivò mai. L'eruzione di un vulcano lontano oscurò il sole e, sulle rive del lago di Ginevra, la pioggia cadde senza sosta per giorni. Chiusi dentro Villa Diodati, un gruppo di giovani ribelli cercò di ingannare la noia sfidandosi a scrivere la storia di fantasmi più terrificante, senza sapere che qualcosa stava per cambiare per sempre.</p><p>Mary, appena diciannovenne, trascorse giorni in silenzio, sentendosi incapace di inventare un orrore all'altezza di quel cielo nero. Una notte, dopo aver ascoltato discorsi febbrili sull'elettricità capace di scuotere i cadaveri, scivolò in quello che avrebbe poi descritto come un \"sogno vegliante\".</p><p>Non è un semplice riposo: è una visione che le preme contro le palpebre. Vede un giovane studente pallido, inginocchiato accanto a una creatura composta da pezzi di uomini diversi. Vede una scintilla, un movimento convulso e poi quegli occhi gialli che si spalancano.</p><p>Mary si sveglia, terrorizzata. Ma con una certezza: quell'incubo non apparteneva solo a lei.</p><p>In quel preciso istante, tra le coperte umide di una villa svizzera, non nacque solo un mostro. Nacque la fantascienza. Mary Shelley aveva capito che l'orrore più profondo non veniva più dall'oltretomba, ma dalle mani dell'uomo e dal potere della scienza di sfidare la morte. Se prima temevamo i fantasmi che tornano dal passato, con Frankenstein iniziamo ad avere paura del futuro.</p><p>Frankenstein è il racconto di una solitudine assoluta. È l'incubo di chi si sveglia e non riconosce la propria creazione o, peggio, di chi viene creato e non trova un posto nel mondo. Mary Shelley ci ha insegnato che i nostri sogni, una volta nati, smettono di appartenerci: iniziano a camminare con le proprie gambe, a cercare risposte, a pretendere amore.</p><p>La sua visione ha anticipato i dilemmi sull'intelligenza artificiale, sulla bioetica e sul confine tra ciò che possiamo fare e ciò che dovremmo fare. Ogni volta che una macchina sembra respirare, o un algoritmo sembra pensare, il sogno di Mary torna a scuotere le sue catene.</p><p>Siamo ancora in quella stanza buia a Villa Diodati, sospesi tra il desiderio di superare i limiti della natura e la paura di ciò che potremmo risvegliare. Il sogno di Mary ci ricorda che ogni atto creativo è un rischio e che, mentre la scienza avanza a passi da gigante, il cuore umano e le sue solitudini restano immutati.</p>",
+    placeholder: "✶",
+    heroImage: "copertina.artmary.jpeg"
+  }
 
 };
 
