@@ -41,6 +41,9 @@ body.article-mary-shelley .nav-links{display:none!important;}
 body.article-mary-shelley .art-article-footer-sponsors{display:none!important;}
 body.article-mary-shelley .art-footer-home-link{display:none!important;}
 body.article-mary-shelley .art-footer-registrati-link{display:none!important;}
+/* Infusi di Chimera — nasconde Home e Registrati nel footer */
+body.article-infusi-di-chimera .art-footer-home-link{display:none!important;}
+body.article-infusi-di-chimera .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -192,6 +195,9 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
 .art-text p{margin-bottom:1.8rem;}
 .art-text h3{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--ghost);letter-spacing:0.08em;margin:2.5rem 0 1rem;}
 .art-text blockquote{border-left:2px solid var(--orange);padding-left:1.5rem;margin:2rem 0;font-style:italic;color:var(--tertiary);}
+.art-text ul{list-style:none;padding:0;margin:1rem 0 1.8rem 0;}
+.art-text ul li{padding-left:1.4rem;margin-bottom:0.7rem;position:relative;}
+.art-text ul li::before{content:'–';position:absolute;left:0;color:var(--orange);}
 .art-footer-nav{max-width:720px;margin:0 auto;padding:2.5rem 3rem 5rem;border-top:1px solid rgba(73,39,79,0.3);}
 .art-footer-back{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);text-decoration:none;border:1px solid rgba(245,167,127,0.2);padding:0.6rem 1.2rem;transition:all 0.3s;}
 .art-footer-back:hover{background:rgba(245,167,127,0.07);border-color:var(--orange);}
@@ -344,6 +350,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="copertinaInfusi.jpg" alt="Infusi di Chimera"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Infusi di Chimera</h2>
+          <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
+          <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -419,6 +434,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <h2 class="article-title">L'incubo di Mary Shelley</h2>
           <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <!-- INFUSI DI CHIMERA -->
+      <div class="article-card reveal" data-category="cultura-del-sogno">
+        <div class="article-image"><img src="copertinaInfusi.jpg" alt="Infusi di Chimera"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Infusi di Chimera</h2>
+          <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
+          <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -572,6 +597,40 @@ var ARTICLES = {
     content: "<p>Ci fu un anno, il 1816, in cui l'estate non arrivò mai. L'eruzione di un vulcano lontano oscurò il sole e, sulle rive del lago di Ginevra, la pioggia cadde senza sosta per giorni. Chiusi dentro Villa Diodati, un gruppo di giovani ribelli cercò di ingannare la noia sfidandosi a scrivere la storia di fantasmi più terrificante, senza sapere che qualcosa stava per cambiare per sempre.</p><p>Mary, appena diciannovenne, trascorse giorni in silenzio, sentendosi incapace di inventare un orrore all'altezza di quel cielo nero. Una notte, dopo aver ascoltato discorsi febbrili sull'elettricità capace di scuotere i cadaveri, scivolò in quello che avrebbe poi descritto come un \"sogno vegliante\".</p><p>Non è un semplice riposo: è una visione che le preme contro le palpebre. Vede un giovane studente pallido, inginocchiato accanto a una creatura composta da pezzi di uomini diversi. Vede una scintilla, un movimento convulso e poi quegli occhi gialli che si spalancano.</p><p>Mary si sveglia, terrorizzata. Ma con una certezza: quell'incubo non apparteneva solo a lei.</p><p>In quel preciso istante, tra le coperte umide di una villa svizzera, non nacque solo un mostro. Nacque la fantascienza. Mary Shelley aveva capito che l'orrore più profondo non veniva più dall'oltretomba, ma dalle mani dell'uomo e dal potere della scienza di sfidare la morte. Se prima temevamo i fantasmi che tornano dal passato, con Frankenstein iniziamo ad avere paura del futuro.</p><p>Frankenstein è il racconto di una solitudine assoluta. È l'incubo di chi si sveglia e non riconosce la propria creazione o, peggio, di chi viene creato e non trova un posto nel mondo. Mary Shelley ci ha insegnato che i nostri sogni, una volta nati, smettono di appartenerci: iniziano a camminare con le proprie gambe, a cercare risposte, a pretendere amore.</p><p>La sua visione ha anticipato i dilemmi sull'intelligenza artificiale, sulla bioetica e sul confine tra ciò che possiamo fare e ciò che dovremmo fare. Ogni volta che una macchina sembra respirare, o un algoritmo sembra pensare, il sogno di Mary torna a scuotere le sue catene.</p><p>Siamo ancora in quella stanza buia a Villa Diodati, sospesi tra il desiderio di superare i limiti della natura e la paura di ciò che potremmo risvegliare. Il sogno di Mary ci ricorda che ogni atto creativo è un rischio e che, mentre la scienza avanza a passi da gigante, il cuore umano e le sue solitudini restano immutati.</p>",
     placeholder: "✶",
     heroImage: "copertina.artmary.jpeg"
+  },
+
+  "infusi-di-chimera": {
+    tag: "Cultura del sogno",
+    date: "",
+    title: "Infusi di Chimera",
+    author: "Silvia Curumi",
+    lead: "Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Qui, ogni miscela è un sortilegio chic: filtri studiati per evocare visioni di seta o per bandire, una volta per tutte, le ombre che tornano a trovarti nel buio.",
+    content: `<p>Carə gentili sognatrici e sognatori,</p>
+<p>Benvenutə in questo viaggio onirico all'insegna della teomanzia.</p>
+<p>In questo piccolo angolo di mondo, il rito del tè diventa la preparazione e la consumazione di una vera e propria magia.</p>
+<p>Scegliete la vostra intenzione con cura, scaldate il calderone (la vostra teiera preferita) e seguite, passo passo, la strada della realizzazione dei vostri sogni.</p>
+<p>Che voi vogliate viaggiare tra le stelle durante il sonno, o che abbiate bisogno di una miscela di pura Allegria Solare per scacciare le ombre, qui troverete la vostra pozione.</p>
+<blockquote>Attenzione: Si prega di mescolare sempre in senso orario per invitare la fortuna, e mai parlare a voce alta mentre l'infuso riposa... le chimere sono timide e amano ascoltare solo i battiti del tuo cuore.</blockquote>
+<h3>Cap. 1: Infuso dell'Allegria</h3>
+<p>Questo infuso è per i sognatori che hanno bisogno di una scintilla di buonumore. Serve a scacciare i "pensieri grigi" e a far solleticare il cuore con dei fievoli ma pur sempre efficaci raggi di sole.</p>
+<p><em>Premessa: ogni ingrediente va inserito nell'infuso pronunciando ad alta voce il suo fine.</em></p>
+<p><strong>Ingredienti magici (e dove trovarli):</strong></p>
+<ul>
+<li><strong>scorza d'arancia:</strong> in alternativa anche quella di limone può andare, per far scattare il meccanismo del buon umore.</li>
+<li><strong>curcuma:</strong> la polvere dorata che darà colore e carattere al nostro infuso, trasformandolo in oro liquido.</li>
+<li><strong>chiodi di garofano:</strong> essenziali come simbolo di cura e forza, per donare corpositá al nostro sistema immunitario.</li>
+<li><strong>zenzero:</strong> ideale per regalare energia per danzare sui girasoli.</li>
+<li><strong>cannella:</strong> la chiave per la prosperità e il successo.</li>
+<li><strong>pepe nero:</strong> il vero attivatore dell'industria, un enzima catalizzante indispensabile per accendere l'ingrediente dell'oro liquido!</li>
+</ul>
+<p><em>Piccola curiosità: Se usi la radice di curcuma fresca, le tue dita potrebbero restare macchiate di giallo per un giorno. Le fate dicono che è il segno del "tocco del sole", un promemoria visibile che la gioia è ancora con te! Se sei poco temerario invece opta pure per la polvere dorata e guarda il tuo infuso accendersi di tutti i colori del tramonto!</em></p>
+<h3>Il Tocco Finale (opzionale)</h3>
+<p>Addolcisci con un cucchiaino di miele d'acacia o di arancia e aggiungi una goccia di succo di limone per "incendiare" il colore dell'infuso. Sole puro allo stato liquido.</p>
+<h3>Bonus: Il Consiglio della Chimera</h3>
+<p>Bevi questo tè rigorosamente in una tazza colorata ad alto contrasto. Mentre sorseggi, visualizza una luce dorata che dall'incavo dello stomaco si espande fino alla punta delle dita. È impossibile restare tristi con il sole nella pancia!</p>
+<p>Bon appétit ☆</p>`,
+    placeholder: "✶",
+    heroImage: "copertinaInfusi.jpg"
   }
 
 };
