@@ -44,6 +44,9 @@ body.article-mary-shelley .art-footer-registrati-link{display:none!important;}
 /* Infusi di Chimera — nasconde Home e Registrati nel footer */
 body.article-infusi-di-chimera .art-footer-home-link{display:none!important;}
 body.article-infusi-di-chimera .art-footer-registrati-link{display:none!important;}
+/* Suspiria — nasconde Home e Registrati nel footer */
+body.article-suspiria .art-footer-home-link{display:none!important;}
+body.article-suspiria .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -359,6 +362,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="CopertinaSuspiria.jpeg" alt="La dimensione dell'onirico in Suspiria"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
+          <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
+          <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -444,6 +456,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <h2 class="article-title">Infusi di Chimera</h2>
           <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
           <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <!-- SUSPIRIA -->
+      <div class="article-card reveal" data-category="cultura-del-sogno">
+        <div class="article-image"><img src="CopertinaSuspiria.jpeg" alt="La dimensione dell'onirico in Suspiria"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
+          <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
+          <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -631,6 +653,49 @@ var ARTICLES = {
 <p>Bon appétit ☆</p>`,
     placeholder: "✶",
     heroImage: "copertinaInfusi.jpg"
+  }
+
+,
+
+  "suspiria": {
+    tag: "Cultura del sogno",
+    date: "",
+    title: "La dimensione dell'onirico in Suspiria",
+    author: "Shaila Vignati",
+    lead: "La resa perturbante dell'esperienza condivisa del sogno",
+    content: `<p>Nel Sogno ciò che esperiamo non è mai completamente un dato reale:
+le forme si mantengono, ma si alterano;
+gli spazi restano riconoscibili, ma perdono coerenza;
+i colori sono naturali; ma si intensificano fino a divenire opprimenti.
+Non è tanto la presenza dell'impossibile a definire il sogno, quanto piuttosto una sottile instabilità del reale. Ciò che riconosciamo come dato naturale continua a mostrarsi senza riuscire più a garantirsi come tale: tutto è familiare, ma reso opaco da un velo.</p>
+<p>È proprio su questa soglia che si colloca Suspiria.
+Il noto film di Dario Argento non mette in scena il sogno come contenuto, ma ne assume la logica come forma: non racconta un'esperienza onirica, bensì la produce.</p>
+<p>Lo spettatore, in tal senso, viene progressivamente risucchiato in una dimensione aspirale del reale: è in questo istante che la percezione si incrina fino a perdere consistenza, fino a divenire evanescente, sospesa.</p>
+<p>La scena del dormitorio - utilizzata come copertina del presente articolo - rappresenta, in questo senso, una sorta di raffigurazione emblematica:
+il luogo deputato al riposo diventa uno spazio di esposizione;
+la protezione si rivela fragile, quasi illusoria;
+ciò che dovrebbe garantire sicurezza — la presenza degli altri, la condivisione dello spazio — non basta a neutralizzare l'inquietudine. Al contrario, la amplifica.
+Il sogno, qui, non protegge: espone. Non allontana dal reale, ma lo rende instabile.
+Non compaiono figure mostruose nel senso tradizionale del termine; eppure la scena è profondamente inquietante. Proprio perché non rompe con il reale, ma lo altera dall'interno.
+I letti disposti in ordine, i corpi raccolti, il grande telo che attraversa la stanza definito: tutto sembra, in un primo momento, appartenere a un orizzonte familiare, ma è sufficiente uno scarto minimo perché l'intero spazio perda stabilità. Basta un istante di troppo, un Sospiro, per iniziare a percepire che ciò che è presente come già dato, come neutrale, in realtà non dovrebbe esserci.</p>
+<p>È esattamente in questo crinale che l'onirico si salda inevitabilmente al perturbante.
+Il legame con l'opuscolo Il perturbante. Follia, esorcismi, stregoneria, magia, cabala e alchimia nel fondo antico della Biblioteca Angelica chiarisce ulteriormente questo punto.
+Nella prefazione all'Opuscolo, scritta da Dario Argento, egli ricorda come la frequentazione della Biblioteca Angelica di Roma abbia accompagnato la scrittura di Suspiria, attraverso la consultazione di testi dedicati alla stregoneria, all'esorcismo, all'alchimia. Questo riferimento non va inteso come una semplice nota biografica: indica piuttosto un orizzonte culturale in cui il confine tra spiegazione razionale e interpretazione magica risulta instabile.
+Il perturbante viene qui definito come storicamente legato a ciò che sfugge alla comprensione e che, proprio per questo, è percepito come minaccioso: la follia interpretata come possessione, l'anomalia letta come segno demoniaco, l'alterità come qualcosa da contenere o esorcizzare. In questo senso, il perturbante non coincide con l'ignoto in quanto tale, ma con l'ignoto che si manifesta all'interno del noto, incrinandolo.</p>
+<p>Suspiria traduce visivamente questa logica. Non costruisce un universo completamente altro, ma interviene sul reale deformandone le coordinate percettive:</p>
+<ul>
+<li>I corridoi non sono semplicemente luoghi di passaggio, ma spazi che disorientano;</li>
+<li>le porte non segnano un limite stabile, ma funzionano come soglie ambigue;</li>
+<li>le tende non nascondono soltanto, ma producono un eccesso di visibilità opaca;</li>
+<li>Il rosso che domina l'ambiente non illumina, ma satura, cioè confonde;</li>
+<li>Il telo non separa semplicemente due porzioni dello spazio, ma introduce una zona di ambiguità, una superficie estranea ed estemporanea, attraverso cui ciò che eravamo sicuri di ri-conoscere si fa incerto;</li>
+<li>Le ombre che si muovono dietro al telo non assumono mai una forma pienamente definita, ma è proprio in questa indeterminazione che acquistano consistenza.</li>
+</ul>
+<p>È importate, inoltre, precisare che lo spettatore riconosce continuamente ciò che vede, ma non riesce mai a padroneggiarlo fino in fondo. Ed è proprio per questa ambiguità che nel guardare Suspiria viviamo una forma di esperienza che ricorda da vicino quella del sogno, in cui la percezione non si organizza secondo criteri stabili, ma fluttua, si intensifica, si disarticola. Ed è, a mio avviso, proprio questo il motivo per cui il film conserva ancora oggi la sua forza: esso non si limita a spaventare, ma disorienta. E nel farlo tocca qualcosa che non appartiene solo al cinema, ma all'esperienza stessa di chi guarda. Il sogno, infatti, non è un territorio estraneo: è una condizione che tutti, in modi diversi, abbiamo esperito.
+Proprio per questo Suspiria non invecchia: non perché racconti una storia senza tempo, ma perché riattiva una forma di percezione che continua a ripetersi.</p>
+<p><em>Shaila Vignati</em></p>`,
+    placeholder: "✶",
+    heroImage: "CopertinaSuspiria.jpeg"
   }
 
 };
