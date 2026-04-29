@@ -47,6 +47,9 @@ body.article-infusi-di-chimera .art-footer-registrati-link{display:none!importan
 /* Suspiria — nasconde Home e Registrati nel footer */
 body.article-suspiria .art-footer-home-link{display:none!important;}
 body.article-suspiria .art-footer-registrati-link{display:none!important;}
+/* Meshes of the Afternoon — nasconde Home e Registrati nel footer */
+body.article-meshes-of-the-afternoon .art-footer-home-link{display:none!important;}
+body.article-meshes-of-the-afternoon .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -371,6 +374,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="CopertinaMeshes.jpeg" alt="Il Canon del sogno su pellicola, Meshes of the Afternoon"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
+          <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
+          <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -466,6 +478,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
           <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
           <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <!-- MESHES OF THE AFTERNOON -->
+      <div class="article-card reveal" data-category="cultura-del-sogno">
+        <div class="article-image"><img src="CopertinaMeshes.jpeg" alt="Il Canon del sogno su pellicola, Meshes of the Afternoon"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
+          <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
+          <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -653,9 +675,7 @@ var ARTICLES = {
 <p>Bon appétit ☆</p>`,
     placeholder: "✶",
     heroImage: "copertinaInfusi.jpg"
-  }
-
-,
+  },
 
   "suspiria": {
     tag: "Cultura del sogno",
@@ -696,6 +716,19 @@ Proprio per questo Suspiria non invecchia: non perché racconti una storia senza
 <p><em>Shaila Vignati</em></p>`,
     placeholder: "✶",
     heroImage: "CopertinaSuspiria.jpeg"
+  },
+
+  "meshes-of-the-afternoon": {
+    tag: "Cultura del sogno",
+    date: "",
+    title: "Il Canon del sogno su pellicola, Meshes of the Afternoon",
+    author: "Irene Moroni",
+    lead: "Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno?",
+    content: `<p>Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno? Un luogo in cui tutto è confuso, spossato, fuori fuoco, eppure le sensazioni restano cristalline. Probabilmente no: è un obiettivo difficile da raggiungere, perché il sogno nel cinema è quasi sempre funzionale a una storia. Maya Deren invece ci è riuscita: nel 1943, con mezzi poverissimi e una troupe ridotta a poche persone, sfruttando la libertà del cortometraggio sperimentale, ha catturato l'essenza di un sogno — di un incubo ricorsivo che confonde la mente di chi lo vive, di chi lo sogna e di chi si risveglia: Meshes of the Afternoon.</p>
+<p>Il film segue una donna che rientra in casa e resta intrappolata in una spirale ipnotica di ripetizioni, oggetti simbolici e identità che si moltiplicano: una chiave, un coltello, una figura senza volto. Privo di uno sviluppo narrativo tradizionale e costruito su una logica puramente emotiva e circolare, diventa un canon dell'incubo su pellicola. Deren, nata a Kiev e formata tra danza, poesia e antropologia, rifiuta il cinema industriale hollywoodiano per costruire un linguaggio personale, debitore del surrealismo di Buñuel ma più intimo, fisico e vulnerabile, da lei David Lynch erediterà l'idea di un cinema mentale, dove la logica emotiva prevale su quella causale. Più che rappresentare un sogno, il film lo incarna, con la sua coerenza fragile e inquietante — la stessa che Deren ha inseguito in una vita in cui arte, esoterismo e ricerca occupavano un centro tanto assoluto quanto, alla fine, fatale.</p>
+<p><em>Irene Moroni</em></p>`,
+    placeholder: "✶",
+    heroImage: "CopertinaMeshes.jpeg"
   }
 
 };
