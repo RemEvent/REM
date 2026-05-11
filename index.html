@@ -50,6 +50,9 @@ body.article-suspiria .art-footer-registrati-link{display:none!important;}
 /* Meshes of the Afternoon — nasconde Home e Registrati nel footer */
 body.article-meshes-of-the-afternoon .art-footer-home-link{display:none!important;}
 body.article-meshes-of-the-afternoon .art-footer-registrati-link{display:none!important;}
+/* Urlo del Bosco — nasconde Home e Registrati nel footer */
+body.article-urlo-del-bosco .art-footer-home-link{display:none!important;}
+body.article-urlo-del-bosco .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -383,6 +386,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="CopertinaUrloDelBosco.jpeg" alt="La cucina di REM - L'urlo del bosco"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
+          <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
+          <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -428,6 +440,7 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       <button class="mag-filter active" onclick="filterArticles('tutti',this)">Tutti</button>
       <button class="mag-filter" onclick="filterArticles('stanza-grigia',this)">Stanza Grigia</button>
       <button class="mag-filter" onclick="filterArticles('cultura-del-sogno',this)">Cultura del Sogno</button>
+      <button class="mag-filter" onclick="filterArticles('cucina-di-rem',this)">Cucina di REM</button>
     </div>
     <div class="articles-grid" id="articlesGrid">
       <!-- STANZA GRIGIA — featured -->
@@ -488,6 +501,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
           <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
           <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <!-- URLO DEL BOSCO -->
+      <div class="article-card reveal" data-category="cucina-di-rem">
+        <div class="article-image"><img src="CopertinaUrloDelBosco.jpeg" alt="La cucina di REM - L'urlo del bosco"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
+          <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
+          <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -729,6 +752,45 @@ Proprio per questo Suspiria non invecchia: non perché racconti una storia senza
 <p><em>Irene Moroni</em></p>`,
     placeholder: "✶",
     heroImage: "CopertinaMeshes.jpg"
+  },
+
+  "urlo-del-bosco": {
+    tag: "Cucina di REM",
+    date: "",
+    title: "La cucina di REM - L'urlo del bosco",
+    author: "Elisa Melchionna",
+    lead: "Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi. Varca la soglia della nostra cucina: un menù alchemico fatto di materia primordiale e visioni da gustare.",
+    content: `<p>Benvenut nella Cucina di REM, l'unico luogo dove i sogni si possono finalmente assaporare. Qui gli ingredienti non arrivano dalla dispensa, ma dai territori inesplorati del sonno, trasformando ogni boccone in un portale verso l'inconscio collettivo.</p>
+<p>Inauguriamo questo ricettario con L'Urlo del Bosco. Una chips di polenta croccante che richiama il suolo calpestato nei sogni più selvaggi, guarnita dalla nota umida e profonda dei funghi. È un morso di terra e mistero, pensato per chi vuole portare un pezzetto di natura onirica direttamente sulla lingua.</p>
+<p>Anche se le giornate si fanno più calde, nel mondo di REM le stagioni non seguono il calendario, ma il battito del sogno. Abbiamo scelto la polenta non come piatto invernale, ma come materia primordiale, per stupire i tuoi ospiti con un vero e proprio viaggio nella selva dell'onirico.</p>
+<h3>Ingredienti per 5 sognatori</h3>
+<p><strong>Per le chips di polenta:</strong></p>
+<ul>
+<li>300 gr di farina di mais</li>
+<li>1,5 L di acqua</li>
+<li>1 dl di olio di oliva</li>
+<li>10 gr di sale</li>
+<li>1 gr di peperoncino</li>
+</ul>
+<p><strong>Per la guarnizione:</strong></p>
+<ul>
+<li>350 grammi di funghi champignon selvatici</li>
+<li>1 dl di olio di oliva</li>
+<li>1 scalogno</li>
+<li>1 limone non trattato</li>
+<li>50 gr di parmigiano reggiano DOP</li>
+<li>Sale e pepe q.b.</li>
+<li>50 gr di panna fresca da cucina</li>
+</ul>
+<h3>Il viaggio</h3>
+<p>In una casseruola porta ad ebollizione l'acqua con sale olio e peperoncino, appena bolle aggiungi la farina di mais in modo graduale e girare continuamente con una frusta per evitare che si formino grumi. Appena compattata stendi il composto in una teglia oleata e far raffreddare.</p>
+<p>Dividi il composto in cubi da 4 cm per lato e passare alla griglia.</p>
+<p>Lava accuratamente i funghi porre in acqua fredda e succo di limone per evitare che si anneriscano. Taglia alla julienne.</p>
+<p>In un saltiere fai riscaldare l'olio con scalogno tritato, aggiungere i funghi lasciar cuocere per circa 15 min. e regolare di sale. Infine aggiungi la panna e il parmigiano grattugiato.</p>
+<p>Disponi i quadrotti di polenta su un piatto di portata e nappare con il cremoso di funghi. Decora a piacere, noi consigliamo foglie di prezzemolo riccio e funghetti champignon interi!</p>
+<p><strong>Buon viaggio!!</strong></p>`,
+    placeholder: "✶",
+    heroImage: "CopertinaUrloDelBosco.jpeg"
   }
 
 };
