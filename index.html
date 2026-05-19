@@ -53,6 +53,9 @@ body.article-meshes-of-the-afternoon .art-footer-registrati-link{display:none!im
 /* Urlo del Bosco — nasconde Home e Registrati nel footer */
 body.article-urlo-del-bosco .art-footer-home-link{display:none!important;}
 body.article-urlo-del-bosco .art-footer-registrati-link{display:none!important;}
+/* Cent'anni di solitudine — nasconde Home e Registrati nel footer */
+body.article-centanni .art-footer-home-link{display:none!important;}
+body.article-centanni .art-footer-registrati-link{display:none!important;}
 /* ═══ HERO ═══ */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;text-align:center;padding:6rem 2rem 4rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
@@ -395,6 +398,15 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
+      <div class="article-card reveal">
+        <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine e la peste dell'insonnia"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Cent'anni di solitudine e la peste dell'insonnia</h2>
+          <p class="article-excerpt">La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/centanni" class="article-read-more" onclick="openArticleBySlug('centanni');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
     </div>
   </div></section>
   <section id="registration"><div class="reg-inner">
@@ -511,6 +523,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
           <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
           <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
+      <!-- CENT'ANNI DI SOLITUDINE -->
+      <div class="article-card reveal" data-category="cultura-del-sogno">
+        <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine e la peste dell'insonnia"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <h2 class="article-title">Cent'anni di solitudine e la peste dell'insonnia</h2>
+          <p class="article-excerpt">La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/centanni" class="article-read-more" onclick="openArticleBySlug('centanni');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -791,6 +813,24 @@ Proprio per questo Suspiria non invecchia: non perché racconti una storia senza
 <p><strong>Buon viaggio!!</strong></p>`,
     placeholder: "✶",
     heroImage: "CopertinaUrloDelBosco.jpeg"
+  },
+
+  "centanni": {
+    tag: "Cultura del sogno",
+    date: "",
+    title: "Cent'anni di solitudine e la peste dell'insonnia",
+    author: "Elisa Melchionna",
+    lead: "La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.",
+    content: `<p>In un tempo indefinito, nel remoto villaggio di Macondo, gli abitanti vengono colpiti da una strana epidemia: nessuno riesce più a dormire.</p>
+<p>Il contagio, che si estende rapidamente a tutto il villaggio, sembra inizialmente quasi una fortuna. Restare sempre svegli significa avere più ore per lavorare, produrre, muoversi senza sosta. Nessuno avverte stanchezza e la notte smette di essere necessaria. La vita appare più efficiente, più piena, quasi liberata da una perdita di tempo inutile.</p>
+<p>Ben presto, però, emerge il vero volto della malattia. L'insonnia non priva soltanto del riposo: cancella lentamente la memoria. Prima svaniscono i ricordi dell'infanzia, poi il significato delle parole, infine l'identità stessa delle persone. Gli abitanti di Macondo, nel tentativo disperato di non perdere il contatto con la realtà, iniziano a etichettare ogni cosa: tavoli, sedie, animali, porte. Non basta più conoscere il nome degli oggetti; bisogna persino spiegare a cosa servano, come se il mondo stesse diventando estraneo agli uomini che lo abitano.</p>
+<p>Ma il dramma più profondo non è soltanto l'oblio. A Macondo si spegne anche la capacità di sognare. E con essa scompare la possibilità di immaginare un futuro diverso, di dare senso alla vita oltre le occupazioni quotidiane. Senza sogni, l'uomo resta prigioniero di una realtà vuota, incapace di desiderare, sperare o progettare. La continua veglia diventa allora una condanna: un'esistenza frenetica ma priva di direzione, dove si sopravvive senza sapere davvero perché.</p>
+<p>Marquez, attraverso il realismo magico, sembra suggerire che i sogni non siano un lusso o un'evasione, ma una necessità profonda dell'essere umano. È nei sogni che nascono i progetti, le aspirazioni, perfino la possibilità della felicità. Ogni cambiamento autentico prende forma prima nell'immaginazione e poi nella realtà. Quando una società perde questa capacità, rischia di smarrire anche la propria umanità.</p>
+<p>Nel racconto di Macondo si può leggere una critica al mondo moderno, dominato dalla produttività e dalla ricerca incessante del profitto. L'uomo contemporaneo, sempre occupato e sempre connesso, rischia di vivere come gli abitanti del villaggio: sveglio, attivo, ma interiormente impoverito. Nel rincorrere il progresso materiale, dimentica ciò che dà davvero significato all'esistenza: il tempo per pensare, ricordare, desiderare e sognare.</p>
+<p>Non a caso, la salvezza arriva da chi custodisce ancora il legame con il sonno e con il mondo dell'immaginazione.</p>
+<p>Forse è proprio questo il destino da cui Márquez vuole metterci in guardia: un'umanità incapace di custodire i propri sogni finisce inevitabilmente per smarrire sé stessa. Quando l'uomo rinuncia a immaginare, a sperare e a guardare oltre il presente, resta solo, prigioniero di una vita vuota e senza orizzonti. Perché chi perde la capacità di sognare non perde soltanto il futuro, ma anche la propria umanità; e allora sarà condannato, proprio come la stirpe dei Buendía, a vivere i suoi "cent'anni di solitudine".</p>`,
+    placeholder: "✶",
+    heroImage: "CopertinaCentanni.jpeg"
   }
 
 };
