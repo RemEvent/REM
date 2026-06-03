@@ -422,6 +422,36 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     <p class="reg-desc reveal reveal-delay-2">L'evento è a ingresso libero, ma i posti sono limitati. Registrati per garantirti un posto e ricevere tutti gli aggiornamenti sull'esperienza.</p>
     <a href="https://www.eventbrite.it/e/rem-ombre-e-chimere-unesperienza-condivisa-dei-paesaggi-onirici-registration-1989982714869" target="_blank" rel="noopener noreferrer" class="reg-ext-btn reveal reveal-delay-2">Registrati all'evento <span class="reg-ext-arrow">&#8599;</span></a>
     <p class="reg-ext-note reveal reveal-delay-3">Verrai reindirizzato alla pagina di registrazione esterna.<br>L'ingresso è gratuito e i posti sono limitati.</p>
+<div id="eventbrite-widget-container-1989982714869"></div>
+
+<script src="https://www.eventbrite.it/static/widgets/eb_widgets.js"></script>
+
+<script type="text/javascript">
+    var exampleCallback = function() {
+        console.log('Ordine completato.');
+    };
+
+    window.EBWidgets.createWidget({
+        // Required
+        widgetType: 'checkout',
+        eventId: '1989982714869',
+        iframeContainerId: 'eventbrite-widget-container-1989982714869',
+
+        // Optional
+        iframeContainerHeight: 425,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
+
+        themeSettings: {
+            brandColor: '#f4a67f',
+            fontColor: '#4b274c',
+            background: '#fdfdfd',
+        },
+        onOrderComplete: exampleCallback  // Method called when an order has successfully completed
+    });
+</script>
+
+
+
+    
   </div></section>
   <footer>
     <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
