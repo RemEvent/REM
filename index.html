@@ -7,299 +7,858 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-:root{--purple:#49274f;--purple-dark:#32193a;--purple-deep:#1e0f23;--black:#130b16;--orange:#f5a77f;--tertiary:#D3D3D3;--grey:#5b5b5b;--lightgrey:#dbdbdb;--ghost:#f5f3f7;}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--ghost);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden;}
-.cursor{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;display:none;}
-.cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(245,167,127,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.2s ease;}
-body.has-cursor{cursor:none;}
-body.has-cursor .cursor,body.has-cursor .cursor-ring{display:block;}
-body.has-cursor a,body.has-cursor button{cursor:none;}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23130b16' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");pointer-events:none;z-index:1;}
-.page{display:none;}.page.active{display:block;}
+/* ═══ VARIABILI ═══ */
+:root {
+  --purple: #49274f;
+  --purple-dark: #32193a;
+  --purple-deep: #1e0f23;
+  --black: #130b16;
+  --orange: #f5a77f;
+  --tertiary: #D3D3D3;
+  --grey: #5b5b5b;
+  --lightgrey: #dbdbdb;
+  --ghost: #f5f3f7;
+}
+
+/* ═══ RESET ═══ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--ghost);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ═══ NOISE OVERLAY ═══ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23130b16' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ═══ CURSORE CUSTOM ═══ */
+.cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  display: none;
+}
+.cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(245, 167, 127, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+body.has-cursor { cursor: none; }
+body.has-cursor .cursor,
+body.has-cursor .cursor-ring { display: block; }
+body.has-cursor a,
+body.has-cursor button { cursor: none; }
+
+/* ═══ PAGINE ═══ */
+.page { display: none; }
+.page.active { display: block; }
+
 /* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:1rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(19,11,22,0.96),transparent);backdrop-filter:blur(8px);}
-.nav-logo{display:flex;align-items:center;text-decoration:none;}
-.nav-logo img{height:52px;width:auto;display:block;transition:opacity 0.3s;}
-.nav-logo img:hover{opacity:0.8;}
-.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center;}
-.nav-links a{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tertiary);text-decoration:none;opacity:0.65;transition:opacity 0.3s,color 0.3s;}
-.nav-links a:hover,.nav-links a.active-nav{opacity:1;color:var(--orange);}
-.nav-cta-btn{font-family:'Raleway',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;padding:0.7rem 1.8rem;background:var(--orange);color:var(--purple-dark);border:none;font-weight:400;transition:all 0.3s ease;box-shadow:0 0 20px rgba(245,167,127,0.3);}
-.nav-cta-btn:hover{background:var(--ghost);box-shadow:0 0 30px rgba(245,167,127,0.5);transform:translateY(-2px);color:var(--black);}
-/* ═══ PAGE-SPECIFIC OVERRIDES ═══ */
-body.article-stanza-grigia-intro .nav-logo{pointer-events:none;cursor:default;}
-body.article-stanza-grigia-intro .nav-logo img:hover{opacity:1;}
-body.article-stanza-grigia-intro .nav-links
-body.article-stanza-grigia-intro .art-article-footer-sponsors
-body.article-stanza-grigia-intro .art-footer-home-link
-body.article-mary-shelley .nav-logo{pointer-events:none;cursor:default;}
-body.article-mary-shelley .nav-logo img:hover{opacity:1;}
-body.article-mary-shelley .nav-links
-body.article-mary-shelley .art-article-footer-sponsors
-body.article-mary-shelley .art-footer-home-link
-body.article-mary-shelley .art-footer-registrati-link
-body.article-suspiria .art-footer-home-link
-body.article-suspiria .art-footer-registrati-link
-body.article-meshes-of-the-afternoon .art-footer-home-link
-body.article-meshes-of-the-afternoon .art-footer-registrati-link
-/* Urlo del Bosco — nasconde Home e Registrati nel footer */
-body.article-urlo-del-bosco .art-footer-home-link
-body.article-urlo-del-bosco .art-footer-registrati-link
-/* Cent'anni di solitudine — nasconde Home e Registrati nel footer */
-body.article-centanni .art-footer-home-link
-body.article-centanni .art-footer-registrati-link
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(19,11,22,0.96), transparent);
+  backdrop-filter: blur(8px);
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo img { height: 52px; width: auto; display: block; transition: opacity 0.3s; }
+.nav-logo img:hover { opacity: 0.8; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.3s, color 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active-nav { opacity: 1; color: var(--orange); }
+.nav-cta-btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.8rem;
+  background: var(--orange);
+  color: var(--purple-dark);
+  border: none;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(245,167,127,0.3);
+}
+.nav-cta-btn:hover {
+  background: var(--ghost);
+  box-shadow: 0 0 30px rgba(245,167,127,0.5);
+  transform: translateY(-2px);
+  color: var(--black);
+}
+
 /* ═══ HERO ═══ */
-#hero{min-height:100dvh;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;position:relative;
-  overflow:hidden;text-align:center;
-  padding:5rem 1.5rem 3rem;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 65%,rgba(73,39,79,0.6) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 85% 25%,rgba(50,25,58,0.5) 0%,transparent 65%);pointer-events:none;}
-.orb{position:absolute;border-radius:50%;filter:blur(70px);animation:drift 14s ease-in-out infinite;pointer-events:none;}
-.orb1{width:450px;height:450px;background:rgba(73,39,79,0.35);top:-15%;left:-8%;}
-.orb2{width:280px;height:280px;background:rgba(245,167,127,0.09);top:55%;right:3%;animation-delay:-5s;}
-.orb3{width:180px;height:180px;background:rgba(73,39,79,0.22);top:25%;left:65%;animation-delay:-9s;}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(18px,-25px) scale(1.04)}66%{transform:translate(-12px,18px) scale(0.96)}}
-.hero-eyebrow{font-size:0.62rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--orange);margin-bottom:2rem;position:relative;animation:fadeUp 1.2s ease forwards;opacity:0;}
-.hero-title{margin-bottom:0.5rem;animation:fadeUp 1.2s ease 0.2s forwards;opacity:0;}
-.hero-title img{display:block;margin:0 auto;
-  height:clamp(100px,25vw,300px);
-  width:auto;max-width:80vw;}
-.hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.05rem,2.5vw,1.5rem);font-style:italic;font-weight:300;color:var(--tertiary);letter-spacing:0.05em;margin-bottom:3rem;animation:fadeUp 1.2s ease 0.4s forwards;opacity:0;max-width:750px;line-height:1.7;}
-.hero-divider{width:1px;height:55px;background:linear-gradient(to bottom,var(--orange),transparent);margin:0 auto 3rem;animation:fadeUp 1.2s ease 0.5s forwards;opacity:0;}
-.hero-question{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-style:italic;color:var(--lightgrey);max-width:600px;line-height:1.8;animation:fadeUp 1.2s ease 0.6s forwards;opacity:0;}
-.hero-cta{display:flex;flex-direction:column;gap:1.5rem;margin-top:3.5rem;align-items:center;animation:fadeUp 1.2s ease 0.8s forwards;opacity:0;width:100%;}
-.hero-cta-buttons{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;width:100%;}
-.hero-microcopy{font-family:'Raleway',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);margin-top:0.5rem;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-.btn{font-family:'Raleway',sans-serif;font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;transition:all 0.35s ease;}
-.btn-primary{background:var(--orange);color:var(--black);border:2px solid var(--orange);font-weight:400;box-shadow:0 0 25px rgba(245,167,127,0.4),0 4px 15px rgba(245,167,127,0.2);position:relative;overflow:hidden;}
-.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:left 0.5s;}
-.btn-primary:hover::before{left:100%;}
-.btn-primary:hover{background:var(--ghost);color:var(--black);box-shadow:0 0 35px rgba(245,167,127,0.6),0 6px 20px rgba(245,167,127,0.3);transform:translateY(-3px);}
-.btn-secondary{background:transparent;border:1px solid rgba(211,211,211,0.25);color:var(--tertiary);}
-.btn-secondary:hover{border-color:var(--tertiary);color:var(--ghost);}
-#info-strip{background:linear-gradient(135deg,var(--purple-deep),var(--purple));border-top:1px solid rgba(245,167,127,0.15);border-bottom:1px solid rgba(245,167,127,0.15);}
-.info-grid{display:grid;
-  grid-template-columns:repeat(2,1fr);
-  max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
-.info-item{text-align:center;padding:1.2rem 0.8rem;
-  border-right:1px solid rgba(245,167,127,0.12);}
-.info-item:nth-child(even){border-right:none;}
+#hero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 5rem 1.5rem 3rem;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 55% at 15% 65%, rgba(73,39,79,0.6) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 85% 25%, rgba(50,25,58,0.5) 0%, transparent 65%);
+  pointer-events: none;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: drift 14s ease-in-out infinite;
+  pointer-events: none;
+}
+.orb1 { width: 450px; height: 450px; background: rgba(73,39,79,0.35); top: -15%; left: -8%; }
+.orb2 { width: 280px; height: 280px; background: rgba(245,167,127,0.09); top: 55%; right: 3%; animation-delay: -5s; }
+.orb3 { width: 180px; height: 180px; background: rgba(73,39,79,0.22); top: 25%; left: 65%; animation-delay: -9s; }
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(18px, -25px) scale(1.04); }
+  66% { transform: translate(-12px, 18px) scale(0.96); }
+}
+.hero-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 2rem;
+  position: relative;
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+}
+.hero-title {
+  margin-bottom: 0.5rem;
+  animation: fadeUp 1.2s ease 0.2s forwards;
+  opacity: 0;
+}
+.hero-title img {
+  display: block;
+  margin: 0 auto;
+  height: clamp(100px, 25vw, 300px);
+  width: auto;
+  max-width: 80vw;
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--tertiary);
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+  animation: fadeUp 1.2s ease 0.4s forwards;
+  opacity: 0;
+  max-width: 750px;
+  line-height: 1.7;
+}
+.hero-divider {
+  width: 1px;
+  height: 55px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  margin: 0 auto 3rem;
+  animation: fadeUp 1.2s ease 0.5s forwards;
+  opacity: 0;
+}
+.hero-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-style: italic;
+  color: var(--lightgrey);
+  max-width: 600px;
+  line-height: 1.8;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+  opacity: 0;
+}
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  align-items: center;
+  animation: fadeUp 1.2s ease 0.8s forwards;
+  opacity: 0;
+  width: 100%;
+}
+.hero-cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+.hero-microcopy {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-top: 0.5rem;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ BOTTONI ═══ */
+.btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  transition: all 0.35s ease;
+}
+.btn-primary {
+  background: var(--orange);
+  color: var(--black);
+  border: 2px solid var(--orange);
+  font-weight: 400;
+  box-shadow: 0 0 25px rgba(245,167,127,0.4), 0 4px 15px rgba(245,167,127,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+  background: var(--ghost);
+  color: var(--black);
+  box-shadow: 0 0 35px rgba(245,167,127,0.6), 0 6px 20px rgba(245,167,127,0.3);
+  transform: translateY(-3px);
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(211,211,211,0.25);
+  color: var(--tertiary);
+}
+.btn-secondary:hover {
+  border-color: var(--tertiary);
+  color: var(--ghost);
+}
+
+/* ═══ INFO STRIP ═══ */
+#info-strip {
+  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+  border-top: 1px solid rgba(245,167,127,0.15);
+  border-bottom: 1px solid rgba(245,167,127,0.15);
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+.info-item {
+  text-align: center;
+  padding: 1.5rem;
+  border-right: 1px solid rgba(245,167,127,0.12);
+}
+.info-item:nth-child(even) { border-right: none; }
 .info-item:nth-child(1),
-.info-item:nth-child(2){border-bottom:1px solid rgba(245,167,127,0.12);}
-.info-item{text-align:center;padding:1.5rem;border-right:1px solid rgba(245,167,127,0.12);}
-.info-item:last-child{border-right:none;}
-.info-icon{font-size:1.3rem;margin-bottom:0.7rem;display:block;}
-.info-label{font-size:0.53rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:0.4rem;display:block;}
-.info-value{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ghost);font-style:italic;}
-section{position:relative;}
-.section-inner{max-width:1100px;margin:0 auto;padding:7rem 3rem;}
-.section-label{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--orange);margin-bottom:0.9rem;display:block;}
-.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:400;color:var(--ghost);margin-bottom:2.5rem;line-height:1.2;}
-.section-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:1.9;color:var(--tertiary);max-width:680px;}
-.section-quote{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;line-height:1.8;color:var(--orange);max-width:680px;margin-top:2.5rem;padding-left:2rem;border-left:2px solid var(--orange);position:relative;}
-.section-quote-author{display:block;font-size:0.9rem;color:var(--grey);margin-top:0.8rem;font-style:normal;letter-spacing:0.05em;}
-#about{background:var(--purple-deep);}
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
-.about-visual{position:relative;height:380px;display:flex;align-items:center;justify-content:center;}
-.about-circle{position:absolute;border-radius:50%;border:1px solid;animation:rotateOrbit 22s linear infinite;}
-.about-circle:nth-child(1){width:280px;height:280px;border-color:rgba(73,39,79,0.7);animation-duration:28s;}
-.about-circle:nth-child(2){width:190px;height:190px;border-color:rgba(245,167,127,0.28);animation-duration:18s;animation-direction:reverse;}
-.about-circle:nth-child(3){width:110px;height:110px;border-color:rgba(211,211,211,0.15);animation-duration:13s;}
-.about-center{width:45px;height:45px;border-radius:50%;background:radial-gradient(circle,var(--orange),var(--purple));filter:blur(3px);z-index:1;}
-@keyframes rotateOrbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-#dimensions{background:var(--black);}
-.dim-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:4rem;}
-.dim-card{padding:4rem 3.5rem;position:relative;overflow:hidden;transition:transform 0.4s ease;}
-.dim-card:hover{transform:translateY(-5px);}
-.dim-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s;}
-.dim-card:hover::before{opacity:1;}
-.ombre-card{background:linear-gradient(135deg,rgba(19,11,22,1) 0%,rgba(50,25,58,0.6) 100%);border:1px solid rgba(73,39,79,0.35);}
-.ombre-card::before{background:radial-gradient(ellipse at 0% 0%,rgba(73,39,79,0.18),transparent 70%);}
-.chimere-card{background:linear-gradient(135deg,rgba(19,11,22,1) 0%,rgba(73,39,79,0.45) 100%);border:1px solid rgba(245,167,127,0.2);}
-.chimere-card::before{background:radial-gradient(ellipse at 100% 0%,rgba(245,167,127,0.08),transparent 70%);}
-.dim-number{font-family:'Cinzel',serif;font-size:5rem;font-weight:400;color:rgba(255,255,255,0.04);line-height:1;margin-bottom:1.5rem;display:block;}
-.dim-title{font-family:'Cinzel',serif;font-size:1.5rem;color:var(--ghost);margin-bottom:1.5rem;letter-spacing:0.1em;}
-.dim-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.85;color:var(--tertiary);}
-.dim-accent-line{width:40px;height:1px;margin-bottom:1.5rem;}
-.ombre-card .dim-accent-line{background:var(--grey);}
-.chimere-card .dim-accent-line{background:var(--orange);}
-#languages{background:var(--purple-deep);}
-.lang-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;margin-top:3.5rem;}
-.lang-item{padding:2rem 1.5rem;border:1px solid rgba(73,39,79,0.45);text-align:center;transition:border-color 0.3s,background 0.3s;}
-.lang-item:hover{border-color:rgba(245,167,127,0.45);background:rgba(245,167,127,0.04);}
-.lang-emoji{font-size:1.8rem;display:block;margin-bottom:0.8rem;}
-.lang-name{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tertiary);}
-#team{background:var(--black);}
-.team-intro{font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:1.9;color:var(--tertiary);max-width:680px;margin-bottom:4rem;}
-.team-roles{display:flex;flex-wrap:wrap;gap:1rem;}
-.role-tag{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.6rem 1.3rem;border:1px solid rgba(73,39,79,0.5);color:var(--tertiary);transition:all 0.3s;}
-.role-tag:hover{background:rgba(73,39,79,0.2);border-color:var(--orange);color:var(--orange);}
-#magazine-preview{background:var(--purple-deep);}
-.mag-preview-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem;}
-.mag-preview-cta{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(245,167,127,0.3);padding-bottom:3px;transition:border-color 0.3s;}
-.mag-preview-cta:hover{border-color:var(--orange);}
-.mag-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-.article-card{border:1px solid rgba(73,39,79,0.35);background:rgba(73,39,79,0.06);transition:border-color 0.35s,transform 0.35s,background 0.35s;overflow:hidden;}
-.article-card:hover{border-color:rgba(245,167,127,0.38);transform:translateY(-4px);background:rgba(73,39,79,0.13);}
-.article-image{width:100%;height:200px;background:linear-gradient(135deg,var(--purple-deep),var(--purple));display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.article-image img{width:100%;height:100%;object-fit:cover;}
-.article-image-placeholder{font-family:'Cinzel',serif;font-size:3rem;color:rgba(245,167,127,0.18);letter-spacing:0.1em;}
-.article-body{padding:2rem;}
-.article-meta{display:flex;gap:1.5rem;margin-bottom:1rem;align-items:center;}
-.article-tag{font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(245,167,127,0.3);padding:0.25rem 0.7rem;}
-.article-date{font-size:0.55rem;letter-spacing:0.1em;color:var(--grey);}
-.article-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:400;color:var(--ghost);margin-bottom:1rem;line-height:1.4;letter-spacing:0.04em;}
-.article-excerpt{font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.75;color:var(--tertiary);}
-.article-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;}
-.article-author{font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--grey);}
-.article-read-more{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(245,167,127,0.3);padding-bottom:2px;transition:border-color 0.3s;}
-.article-read-more:hover{border-color:var(--orange);}
-.article-card.featured{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;}
-.article-card.featured .article-image{height:100%;min-height:280px;}
-.article-card.featured .article-title{font-size:1.6rem;}
-.article-card.featured .article-excerpt{font-size:1.1rem;}
-#registration{background:linear-gradient(180deg,var(--black) 0%,var(--purple-deep) 50%,var(--purple) 100%);text-align:center;}
-.reg-inner{max-width:640px;margin:0 auto;padding:8rem 3rem;}
-.reg-desc{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.8;color:var(--tertiary);margin-bottom:3.5rem;}
-.reg-ext-btn{display:inline-flex;align-items:center;gap:0.8rem;font-family:'Raleway',sans-serif;font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;text-decoration:none;padding:1.3rem 2.5rem;border:1px solid var(--orange);color:var(--orange);transition:all 0.35s ease;}
-.reg-ext-btn:hover{background:var(--orange);color:var(--black);}
-.reg-ext-arrow{font-size:1rem;transition:transform 0.3s;display:inline-block;}
-.reg-ext-btn:hover .reg-ext-arrow{transform:translate(3px,-3px);}
-.reg-ext-note{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--grey);line-height:1.8;}
-.footer-sponsors{border-top:1px solid rgba(73,39,79,0.3);padding:2.5rem 3rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;background:var(--black);}
-.footer-sponsors-label{font-size:0.52rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--grey);}
-.footer-sponsors-logos{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:center;justify-content:center;}
-.footer-sponsor-item{display:flex;align-items:center;justify-content:center;height:36px;opacity:0.45;transition:opacity 0.3s;text-decoration:none;}
-.footer-sponsor-item:hover{opacity:0.9;}
-.footer-sponsor-item img{max-height:36px;max-width:120px;object-fit:contain;filter:brightness(0) invert(1);}
-.footer-sponsor-placeholder{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.15em;color:var(--grey);border:1px solid rgba(91,91,91,0.3);padding:0.4rem 1rem;white-space:nowrap;}
-footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4rem 3rem;text-align:center;}
-.footer-logo{margin-bottom:0.5rem;}
-.footer-logo img{height:64px;width:auto;display:inline-block;opacity:0.85;}
-.footer-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--grey);font-size:0.95rem;margin-bottom:2.5rem;}
-.footer-links{display:flex;gap:2.5rem;justify-content:center;list-style:none;margin-bottom:2.5rem;flex-wrap:wrap;}
-.footer-links a{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s;}
-.footer-links a:hover{color:var(--orange);}
-.footer-copy{font-size:0.58rem;color:rgba(255,255,255,0.12);letter-spacing:0.1em;}
-.reveal{opacity:1;transform:translateY(0);}
-.reveal.will-animate{opacity:0;transform:translateY(35px);transition:opacity 0.9s ease,transform 0.9s ease;}
-.reveal.will-animate.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:0.12s;}.reveal-delay-2{transition-delay:0.28s;}.reveal-delay-3{transition-delay:0.44s;}
-#page-magazine{background:var(--black);min-height:100vh;}
-.mag-hero{min-height:42vh;display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 3rem 4rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--purple-deep) 0%,var(--purple) 100%);}
-.mag-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 50%,rgba(245,167,127,0.06),transparent 70%);pointer-events:none;}
-.mag-hero-label{font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;position:relative;z-index:1;}
-.mag-hero-title{font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:400;color:var(--ghost);letter-spacing:0.06em;line-height:1;position:relative;z-index:1;}
-.mag-hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--tertiary);max-width:500px;line-height:1.8;margin-top:1.5rem;position:relative;z-index:1;}
-.mag-content{max-width:1100px;margin:0 auto;padding:5rem 3rem;}
-.mag-filters{display:flex;gap:1rem;margin-bottom:4rem;flex-wrap:wrap;}
-.mag-filter{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.3rem;border:1px solid rgba(73,39,79,0.45);color:var(--grey);background:transparent;transition:all 0.3s;}
-.mag-filter:hover,.mag-filter.active{border-color:var(--orange);color:var(--orange);background:rgba(245,167,127,0.04);}
-.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;}
-#page-article{background:var(--black);min-height:100vh;}
-.art-hero{min-height:55vh;display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 3rem 4rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--purple-deep) 0%,var(--purple) 100%);}
-.art-hero-image{position:absolute;inset:0;background:linear-gradient(135deg,var(--purple-deep),var(--purple));display:flex;align-items:center;justify-content:center;}
-.art-hero-image img{width:100%;height:100%;object-fit:cover;opacity:0.35;}
-.art-hero-image-placeholder{font-family:'Cinzel',serif;font-size:6rem;color:rgba(245,167,127,0.08);}
-.art-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(19,11,22,0.95) 30%,rgba(19,11,22,0.3) 100%);}
-.art-hero-content{position:relative;z-index:1;max-width:800px;}
-.art-back{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);text-decoration:none;margin-bottom:2rem;opacity:0.7;transition:opacity 0.3s;}
-.art-back:hover{opacity:1;}
-.art-hero-meta{display:flex;gap:1.5rem;align-items:center;margin-bottom:1.2rem;}
-.art-hero-tag{font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(245,167,127,0.35);padding:0.3rem 0.8rem;}
-.art-hero-date{font-size:0.55rem;letter-spacing:0.1em;color:var(--grey);}
-.art-hero-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,5vw,3.5rem);font-weight:400;color:var(--ghost);line-height:1.2;letter-spacing:0.04em;margin-bottom:1.2rem;}
-.art-hero-author{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);}
-.art-body{max-width:720px;margin:0 auto;padding:5rem 3rem 7rem;}
-.art-lead{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;line-height:1.8;color:var(--tertiary);margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(73,39,79,0.3);}
-.art-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:2;color:var(--lightgrey);}
-.art-text p{margin-bottom:1.8rem;}
-.art-text h3{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--ghost);letter-spacing:0.08em;margin:2.5rem 0 1rem;}
-.art-text blockquote{border-left:2px solid var(--orange);padding-left:1.5rem;margin:2rem 0;font-style:italic;color:var(--tertiary);}
-.art-text ul{list-style:none;padding:0;margin:1rem 0 1.8rem 0;}
-.art-text ul li{padding-left:1.4rem;margin-bottom:0.7rem;position:relative;}
-.art-text ul li::before{content:'–';position:absolute;left:0;color:var(--orange);}
-.art-footer-nav{max-width:720px;margin:0 auto;padding:2.5rem 3rem 5rem;border-top:1px solid rgba(73,39,79,0.3);}
-.art-footer-back{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);text-decoration:none;border:1px solid rgba(245,167,127,0.2);padding:0.6rem 1.2rem;transition:all 0.3s;}
-.art-footer-back:hover{background:rgba(245,167,127,0.07);border-color:var(--orange);}
-#page-sponsor{background:var(--black);min-height:100vh;}
-.sp-hero{min-height:38vh;display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 3rem 4rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--purple-deep) 0%,var(--purple) 100%);}
-.sp-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 10% 60%,rgba(73,39,79,0.35),transparent 65%);pointer-events:none;}
-.sp-hero-label{font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;position:relative;z-index:1;}
-.sp-hero-title{font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:400;color:var(--ghost);letter-spacing:0.06em;line-height:1;position:relative;z-index:1;}
-.sp-hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--tertiary);max-width:560px;line-height:1.8;margin-top:1.5rem;position:relative;z-index:1;}
-.sp-content{max-width:1100px;margin:0 auto;padding:5rem 3rem;}
-.sp-tier{margin-bottom:5rem;}
-.sp-tier-header{display:flex;align-items:center;gap:1.5rem;margin-bottom:2.5rem;}
-.sp-tier-line{flex:1;height:1px;}
-.sp-tier-label{font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;padding:0.4rem 1.2rem;border:1px solid;white-space:nowrap;}
-.sp-tier.sponsor .sp-tier-line{background:linear-gradient(to right,transparent,var(--orange),transparent);}
-.sp-tier.sponsor .sp-tier-label{border-color:var(--orange);color:var(--orange);}
-.sp-tier.partner .sp-tier-line{background:linear-gradient(to right,transparent,var(--grey),transparent);}
-.sp-tier.partner .sp-tier-label{border-color:var(--grey);color:var(--grey);}
-.sp-grid{display:grid;gap:1.5rem;}
-.sp-tier.sponsor .sp-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
-.sp-tier.partner .sp-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
-.sp-card{border:1px solid rgba(73,39,79,0.35);background:rgba(73,39,79,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;gap:1rem;transition:border-color 0.3s,background 0.3s,transform 0.3s;}
-.sp-card:hover{border-color:rgba(245,167,127,0.4);background:rgba(73,39,79,0.12);transform:translateY(-3px);}
-.sp-tier.sponsor .sp-card{padding:3rem 2.5rem;}
-.sp-tier.partner .sp-card{padding:2.5rem 2rem;}
-.sp-logo-box{width:100%;display:flex;align-items:center;justify-content:center;}
-.sp-tier.sponsor .sp-logo-box{height:80px;}
-.sp-tier.partner .sp-logo-box{height:60px;}
-.sp-logo-box img{max-width:100%;max-height:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.75;transition:opacity 0.3s;}
-.sp-card:hover .sp-logo-box img{opacity:1;}
-.sp-logo-placeholder{font-family:'Cinzel',serif;letter-spacing:0.15em;color:rgba(211,211,211,0.2);text-align:center;line-height:1.3;}
-.sp-tier.sponsor .sp-logo-placeholder{font-size:1.1rem;}
-.sp-tier.partner .sp-logo-placeholder{font-size:0.9rem;}
-.sp-name{font-family:'Raleway',sans-serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);text-align:center;}
-.sp-cta-box{margin-top:5rem;padding:4rem 3rem;border:1px solid rgba(73,39,79,0.4);background:linear-gradient(135deg,rgba(73,39,79,0.1),rgba(19,11,22,0.8));text-align:center;}
-.sp-cta-label{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:block;}
-.sp-cta-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--ghost);margin-bottom:1.5rem;line-height:1.3;}
-.sp-cta-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--tertiary);max-width:560px;margin:0 auto 2.5rem;line-height:1.8;}
-.sp-cta-email{display:inline-block;font-family:'Raleway',sans-serif;font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;padding:1rem 2.5rem;border:1px solid var(--orange);color:var(--orange);transition:all 0.35s ease;}
-.sp-cta-email:hover{background:var(--orange);color:var(--black);}
-@media(max-width:768px){
-  nav{padding:0.9rem 1.2rem;}
-  .nav-links{display:none;}
-  #hero{padding:5rem 1.2rem 2.5rem;min-height:100dvh;}
-  .hero-title img{height:clamp(80px,22vw,200px);max-width:75vw;}
-  .hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.05rem,2.5vw,1.5rem);font-style:italic;font-weight:300;color:var(--tertiary);letter-spacing:0.05em;margin-bottom:3rem;animation:fadeUp 1.2s ease 0.4s forwards;opacity:0;max-width:750px;line-height:1.7;text-align:center;}
-.hero-question{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-style:italic;color:var(--lightgrey);max-width:600px;line-height:1.8;animation:fadeUp 1.2s ease 0.6s forwards;opacity:0;text-align:center;}
-  .hero-cta{display:flex;flex-direction:column;gap:1rem;
-  margin-top:2.5rem;align-items:center;
-  animation:fadeUp 1.2s ease 0.8s forwards;opacity:0;
-  width:100%;}
-.hero-cta-buttons{display:flex;gap:1rem;flex-wrap:wrap;
-  justify-content:center;width:100%;padding:0 1rem;}
-  .btn{padding:0.9rem 1.5rem;width:100%;text-align:center;}
-  .section-inner{padding:4rem 1.2rem;}
-  .about-layout{grid-template-columns:1fr;gap:3rem;}
-  .about-visual{height:180px;}
-  .dim-grid{grid-template-columns:1fr;}
-  .dim-card{padding:2.5rem 2rem;}
-  .article-card.featured{grid-template-columns:1fr;}
-  .article-card.featured .article-image{min-height:200px;}
-  .mag-preview-grid{grid-template-columns:1fr;}
-  .articles-grid{grid-template-columns:1fr;}
-  .art-body{padding:3rem 1.2rem 5rem;}
-  .art-hero{padding:7rem 1.2rem 3rem;}
-  .reg-inner{padding:5rem 1.2rem;}
-  .footer-sponsors{padding:2rem 1.2rem;}
-  footer{padding:3rem 1.2rem;}
-  .footer-links{gap:1.5rem;}
-  .sp-content{padding:3rem 1.2rem;}
-  .sp-hero{padding:7rem 1.2rem 3rem;}
-  .mag-content{padding:3rem 1.2rem;}
+.info-item:nth-child(2) { border-bottom: 1px solid rgba(245,167,127,0.12); }
+.info-icon { font-size: 1.3rem; margin-bottom: 0.7rem; display: block; }
+.info-label {
+  font-size: 0.53rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.info-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--ghost);
+  font-style: italic;
+}
+
+/* ═══ SEZIONI GENERALI ═══ */
+section { position: relative; }
+.section-inner { max-width: 1100px; margin: 0 auto; padding: 7rem 3rem; }
+.section-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.9rem;
+  display: block;
+}
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
+  color: var(--ghost);
+  margin-bottom: 2.5rem;
+  line-height: 1.2;
+}
+.section-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: var(--tertiary);
+  max-width: 680px;
+}
+.section-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--orange);
+  max-width: 680px;
+  margin-top: 2.5rem;
+  padding-left: 2rem;
+  border-left: 2px solid var(--orange);
+}
+.section-quote-author {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--grey);
+  margin-top: 0.8rem;
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+/* ═══ ABOUT ═══ */
+#about { background: var(--purple-deep); }
+.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.about-visual { position: relative; height: 380px; display: flex; align-items: center; justify-content: center; }
+.about-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  animation: rotateOrbit 22s linear infinite;
+}
+.about-circle:nth-child(1) { width: 280px; height: 280px; border-color: rgba(73,39,79,0.7); animation-duration: 28s; }
+.about-circle:nth-child(2) { width: 190px; height: 190px; border-color: rgba(245,167,127,0.28); animation-duration: 18s; animation-direction: reverse; }
+.about-circle:nth-child(3) { width: 110px; height: 110px; border-color: rgba(211,211,211,0.15); animation-duration: 13s; }
+.about-center {
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--orange), var(--purple));
+  filter: blur(3px);
+  z-index: 1;
+}
+@keyframes rotateOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ═══ DIMENSIONI ═══ */
+#dimensions { background: var(--black); }
+.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 4rem; }
+.dim-card {
+  padding: 4rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+.dim-card:hover { transform: translateY(-5px); }
+.dim-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; }
+.dim-card:hover::before { opacity: 1; }
+.ombre-card {
+  background: linear-gradient(135deg, rgba(19,11,22,1) 0%, rgba(50,25,58,0.6) 100%);
+  border: 1px solid rgba(73,39,79,0.35);
+}
+.ombre-card::before { background: radial-gradient(ellipse at 0% 0%, rgba(73,39,79,0.18), transparent 70%); }
+.chimere-card {
+  background: linear-gradient(135deg, rgba(19,11,22,1) 0%, rgba(73,39,79,0.45) 100%);
+  border: 1px solid rgba(245,167,127,0.2);
+}
+.chimere-card::before { background: radial-gradient(ellipse at 100% 0%, rgba(245,167,127,0.08), transparent 70%); }
+.dim-number {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.dim-title { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--ghost); margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+.dim-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.85; color: var(--tertiary); }
+.dim-accent-line { width: 40px; height: 1px; margin-bottom: 1.5rem; }
+.ombre-card .dim-accent-line { background: var(--grey); }
+.chimere-card .dim-accent-line { background: var(--orange); }
+
+/* ═══ LINGUAGGI ═══ */
+#languages { background: var(--purple-deep); }
+.lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+.lang-item {
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(73,39,79,0.45);
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s;
+}
+.lang-item:hover { border-color: rgba(245,167,127,0.45); background: rgba(245,167,127,0.04); }
+.lang-emoji { font-size: 1.8rem; display: block; margin-bottom: 0.8rem; }
+.lang-name { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); }
+
+/* ═══ TEAM ═══ */
+#team { background: var(--black); }
+.team-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: var(--tertiary);
+  max-width: 680px;
+  margin-bottom: 4rem;
+}
+.team-roles { display: flex; flex-wrap: wrap; gap: 1rem; }
+.role-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.3rem;
+  border: 1px solid rgba(73,39,79,0.5);
+  color: var(--tertiary);
+  transition: all 0.3s;
+}
+.role-tag:hover { background: rgba(73,39,79,0.2); border-color: var(--orange); color: var(--orange); }
+
+/* ═══ MAGAZINE PREVIEW ═══ */
+#magazine-preview { background: var(--purple-deep); }
+.mag-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.mag-preview-cta {
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,167,127,0.3);
+  padding-bottom: 3px;
+  transition: border-color 0.3s;
+}
+.mag-preview-cta:hover { border-color: var(--orange); }
+.mag-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+/* ═══ ARTICLE CARD ═══ */
+.article-card {
+  border: 1px solid rgba(73,39,79,0.35);
+  background: rgba(73,39,79,0.06);
+  transition: border-color 0.35s, transform 0.35s, background 0.35s;
+  overflow: hidden;
+}
+.article-card:hover {
+  border-color: rgba(245,167,127,0.38);
+  transform: translateY(-4px);
+  background: rgba(73,39,79,0.13);
+}
+.article-image { width: 100%; height: 200px; background: linear-gradient(135deg, var(--purple-deep), var(--purple)); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.article-image img { width: 100%; height: 100%; object-fit: cover; }
+.article-body { padding: 2rem; }
+.article-meta { display: flex; gap: 1.5rem; margin-bottom: 1rem; align-items: center; }
+.article-tag {
+  font-size: 0.52rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid rgba(245,167,127,0.3);
+  padding: 0.25rem 0.7rem;
+}
+.article-date { font-size: 0.55rem; letter-spacing: 0.1em; color: var(--grey); }
+.article-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ghost);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+.article-excerpt { font-family: 'Cormorant Garamond', serif; font-size: 1rem; line-height: 1.75; color: var(--tertiary); }
+.article-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+.article-author { font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); }
+.article-read-more {
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,167,127,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.3s;
+}
+.article-read-more:hover { border-color: var(--orange); }
+.article-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+.article-card.featured .article-image { height: 100%; min-height: 280px; }
+.article-card.featured .article-title { font-size: 1.6rem; }
+.article-card.featured .article-excerpt { font-size: 1.1rem; }
+
+/* ═══ REGISTRAZIONE ═══ */
+#registration {
+  background: linear-gradient(180deg, var(--black) 0%, var(--purple-deep) 50%, var(--purple) 100%);
+  text-align: center;
+}
+.reg-inner { max-width: 640px; margin: 0 auto; padding: 8rem 3rem; }
+.reg-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.8; color: var(--tertiary); margin-bottom: 3.5rem; }
+.reg-ext-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.3rem 2.5rem;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  transition: all 0.35s ease;
+}
+.reg-ext-btn:hover { background: var(--orange); color: var(--black); }
+.reg-ext-arrow { font-size: 1rem; transition: transform 0.3s; display: inline-block; }
+.reg-ext-btn:hover .reg-ext-arrow { transform: translate(3px, -3px); }
+.reg-ext-note { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-style: italic; color: var(--grey); line-height: 1.8; }
+
+/* ═══ FOOTER SPONSOR ═══ */
+.footer-sponsors {
+  border-top: 1px solid rgba(73,39,79,0.3);
+  padding: 2.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--black);
+}
+.footer-sponsors-label { font-size: 0.52rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--grey); }
+.footer-sponsors-logos { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; justify-content: center; }
+.footer-sponsor-item { display: flex; align-items: center; justify-content: center; height: 36px; opacity: 0.45; transition: opacity 0.3s; text-decoration: none; }
+.footer-sponsor-item:hover { opacity: 0.9; }
+.footer-sponsor-item img { max-height: 36px; max-width: 120px; object-fit: contain; filter: brightness(0) invert(1); }
+
+/* ═══ FOOTER ═══ */
+footer { background: var(--black); border-top: 1px solid rgba(73,39,79,0.3); padding: 4rem 3rem; text-align: center; }
+.footer-logo { margin-bottom: 0.5rem; }
+.footer-logo img { height: 64px; width: auto; display: inline-block; opacity: 0.85; }
+.footer-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--grey); font-size: 0.95rem; margin-bottom: 2.5rem; }
+.footer-links { display: flex; gap: 2.5rem; justify-content: center; list-style: none; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--orange); }
+.footer-copy { font-size: 0.58rem; color: rgba(255,255,255,0.12); letter-spacing: 0.1em; }
+
+/* ═══ ANIMAZIONI REVEAL ═══ */
+.reveal { opacity: 1; transform: translateY(0); }
+.reveal.will-animate { opacity: 0; transform: translateY(35px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.will-animate.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.28s; }
+.reveal-delay-3 { transition-delay: 0.44s; }
+
+/* ═══ PAGINA MAGAZINE ═══ */
+#page-magazine { background: var(--black); min-height: 100vh; }
+.mag-hero {
+  min-height: 42vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--purple-deep) 0%, var(--purple) 100%);
+}
+.mag-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 70% at 85% 50%, rgba(245,167,127,0.06), transparent 70%);
+  pointer-events: none;
+}
+.mag-hero-label { font-size: 0.58rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; position: relative; z-index: 1; }
+.mag-hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 400; color: var(--ghost); letter-spacing: 0.06em; line-height: 1; position: relative; z-index: 1; }
+.mag-hero-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: var(--tertiary); max-width: 500px; line-height: 1.8; margin-top: 1.5rem; position: relative; z-index: 1; }
+.mag-content { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem; }
+.mag-filters { display: flex; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap; }
+.mag-filter {
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.3rem;
+  border: 1px solid rgba(73,39,79,0.45);
+  color: var(--grey);
+  background: transparent;
+  transition: all 0.3s;
+}
+.mag-filter:hover,
+.mag-filter.active { border-color: var(--orange); color: var(--orange); background: rgba(245,167,127,0.04); }
+.articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+
+/* ═══ PAGINA ARTICOLO ═══ */
+#page-article { background: var(--black); min-height: 100vh; }
+.art-hero {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.art-hero-image {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.art-hero-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+.art-hero-image-placeholder { font-family: 'Cinzel', serif; font-size: 6rem; color: rgba(245,167,127,0.08); }
+.art-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(19,11,22,0.95) 30%, rgba(19,11,22,0.3) 100%); }
+.art-hero-content { position: relative; z-index: 1; max-width: 800px; }
+.art-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.art-back:hover { opacity: 1; }
+.art-hero-meta { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.2rem; }
+.art-hero-tag {
+  font-size: 0.52rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid rgba(245,167,127,0.35);
+  padding: 0.3rem 0.8rem;
+}
+.art-hero-date { font-size: 0.55rem; letter-spacing: 0.1em; color: var(--grey); }
+.art-hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--ghost);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2rem;
+}
+.art-hero-author { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); }
+.art-body { max-width: 720px; margin: 0 auto; padding: 5rem 3rem 7rem; }
+.art-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--tertiary);
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(73,39,79,0.3);
+}
+.art-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 2; color: var(--lightgrey); }
+.art-text p { margin-bottom: 1.8rem; }
+.art-text h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--ghost); letter-spacing: 0.08em; margin: 2.5rem 0 1rem; }
+.art-text blockquote { border-left: 2px solid var(--orange); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--tertiary); }
+.art-text ul { list-style: none; padding: 0; margin: 1rem 0 1.8rem 0; }
+.art-text ul li { padding-left: 1.4rem; margin-bottom: 0.7rem; position: relative; }
+.art-text ul li::before { content: '–'; position: absolute; left: 0; color: var(--orange); }
+.art-footer-nav { max-width: 720px; margin: 0 auto; padding: 2.5rem 3rem 5rem; border-top: 1px solid rgba(73,39,79,0.3); }
+.art-footer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  border: 1px solid rgba(245,167,127,0.2);
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s;
+}
+.art-footer-back:hover { background: rgba(245,167,127,0.07); border-color: var(--orange); }
+
+/* ═══ PAGINA SPONSOR ═══ */
+#page-sponsor { background: var(--black); min-height: 100vh; }
+.sp-hero {
+  min-height: 38vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--purple-deep) 0%, var(--purple) 100%);
+}
+.sp-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 70% at 10% 60%, rgba(73,39,79,0.35), transparent 65%);
+  pointer-events: none;
+}
+.sp-hero-label { font-size: 0.58rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; position: relative; z-index: 1; }
+.sp-hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 400; color: var(--ghost); letter-spacing: 0.06em; line-height: 1; position: relative; z-index: 1; }
+.sp-hero-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: var(--tertiary); max-width: 560px; line-height: 1.8; margin-top: 1.5rem; position: relative; z-index: 1; }
+.sp-content { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem; }
+.sp-tier { margin-bottom: 5rem; }
+.sp-tier-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+.sp-tier-line { flex: 1; height: 1px; }
+.sp-tier-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.sp-tier.sponsor .sp-tier-line { background: linear-gradient(to right, transparent, var(--orange), transparent); }
+.sp-tier.sponsor .sp-tier-label { border-color: var(--orange); color: var(--orange); }
+.sp-tier.partner .sp-tier-line { background: linear-gradient(to right, transparent, var(--grey), transparent); }
+.sp-tier.partner .sp-tier-label { border-color: var(--grey); color: var(--grey); }
+.sp-grid { display: grid; gap: 1.5rem; }
+.sp-tier.sponsor .sp-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.sp-tier.partner .sp-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.sp-card {
+  border: 1px solid rgba(73,39,79,0.35);
+  background: rgba(73,39,79,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  gap: 1rem;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  text-decoration: none;
+}
+.sp-card:hover { border-color: rgba(245,167,127,0.4); background: rgba(73,39,79,0.12); transform: translateY(-3px); }
+.sp-tier.sponsor .sp-card { padding: 3rem 2.5rem; }
+.sp-logo-box { width: 100%; display: flex; align-items: center; justify-content: center; }
+.sp-tier.sponsor .sp-logo-box { height: 80px; }
+.sp-tier.partner .sp-logo-box { height: 60px; }
+.sp-logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.75; transition: opacity 0.3s; }
+.sp-card:hover .sp-logo-box img { opacity: 1; }
+.sp-logo-placeholder { font-family: 'Cinzel', serif; letter-spacing: 0.15em; color: rgba(211,211,211,0.2); text-align: center; line-height: 1.3; }
+.sp-tier.sponsor .sp-logo-placeholder { font-size: 1.1rem; }
+.sp-tier.partner .sp-logo-placeholder { font-size: 0.9rem; }
+.sp-name { font-family: 'Raleway', sans-serif; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); text-align: center; }
+.sp-cta-box {
+  margin-top: 5rem;
+  padding: 4rem 3rem;
+  border: 1px solid rgba(73,39,79,0.4);
+  background: linear-gradient(135deg, rgba(73,39,79,0.1), rgba(19,11,22,0.8));
+  text-align: center;
+}
+.sp-cta-label { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+.sp-cta-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--ghost); margin-bottom: 1.5rem; line-height: 1.3; }
+.sp-cta-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--tertiary); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.8; }
+.sp-cta-email {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  text-decoration: none;
+  transition: all 0.35s ease;
+}
+.sp-cta-email:hover { background: var(--orange); color: var(--black); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  nav { padding: 0.9rem 1.2rem; }
+  .nav-links { display: none; }
+
+  #hero { padding: 5rem 1.2rem 2.5rem; }
+  .hero-subtitle { text-align: center; }
+  .hero-question { text-align: center; }
+  .hero-cta { gap: 1rem; margin-top: 2.5rem; }
+  .hero-cta-buttons { padding: 0 1rem; }
+  .btn { padding: 0.9rem 1.5rem; width: 100%; text-align: center; }
+
+  .section-inner { padding: 4rem 1.2rem; }
+  .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { height: 180px; }
+  .dim-grid { grid-template-columns: 1fr; }
+  .dim-card { padding: 2.5rem 2rem; }
+
+  .article-card.featured { grid-template-columns: 1fr; }
+  .article-card.featured .article-image { min-height: 200px; }
+  .mag-preview-grid { grid-template-columns: 1fr; }
+  .articles-grid { grid-template-columns: 1fr; }
+
+  .art-body { padding: 3rem 1.2rem 5rem; }
+  .art-hero { padding: 7rem 1.2rem 3rem; }
+  .reg-inner { padding: 5rem 1.2rem; }
+  .footer-sponsors { padding: 2rem 1.2rem; }
+  footer { padding: 3rem 1.2rem; }
+  .footer-links { gap: 1.5rem; }
+  .sp-content { padding: 3rem 1.2rem; }
+  .sp-hero { padding: 7rem 1.2rem 3rem; }
+  .mag-content { padding: 3rem 1.2rem; }
 }
 </style>
 </head>
 <body>
+
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
 <nav>
   <a href="#" class="nav-logo" id="navLogo" onclick="showPage('home');return false;">
     <img src="rem-sign-pink.png" alt="REM – Ombre e Chimere">
@@ -315,11 +874,16 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   </ul>
 </nav>
 
-<!-- PAGE HOME -->
+<!-- ═══════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════ -->
 <div id="page-home" class="page active">
+
   <section id="hero">
     <div class="hero-bg"></div>
-    <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
     <p class="hero-eyebrow">Un'esperienza artistica immersiva</p>
     <h1 class="hero-title"><img src="rem-sign-pink.png" alt="REM – Ombre e Chimere"></h1>
     <p class="hero-subtitle">Un evento che intreccia fotografia, pittura, performance e installazioni per esplorare l'immaginario onirico condiviso.</p>
@@ -333,192 +897,212 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       <p class="hero-microcopy">21 Giugno 2026 — Craving Arts - Art Gallery, Roma</p>
     </div>
   </section>
-  <div id="info-strip"><div class="info-grid">
-    <div class="info-item"><span class="info-icon">&#9672;</span><span class="info-label">Data</span><span class="info-value">21 Giugno 2026</span></div>
-    <div class="info-item"><span class="info-icon">&#9678;</span><span class="info-label">Luogo</span><span class="info-value">Craving Arts Gallery</span></div>
-    <div class="info-item"><span class="info-icon">&#9671;</span><span class="info-label">Orario</span><span class="info-value">19:00 – 22:00</span></div>
-    <div class="info-item"><span class="info-icon">&#9677;</span><span class="info-label">Capacità</span><span class="info-value">100 – 150 persone</span></div>
-  </div></div>
-  <section id="about"><div class="section-inner"><div class="about-layout">
-    <div>
-      <span class="section-label reveal">Il Progetto</span>
-      <h2 class="section-title reveal reveal-delay-1">Il sogno come<br>linguaggio collettivo</h2>
-      <p class="section-text reveal reveal-delay-2">REM nasce da una riflessione: il sogno è un'esperienza profondamente individuale, ma le immagini che lo abitano appartengono a un immaginario condiviso.<br><br>Simboli, archetipi e visioni interiori si intrecciano in uno spazio immersivo dove arte e percezione dialogano continuamente.<br><br>Attraverso fotografia, pittura, videoproiezioni, performance e installazioni, REM invita il visitatore a riconoscersi nell'esperienza dell'altro.</p>
-      <blockquote class="section-quote reveal reveal-delay-3">"Le immagini del sogno appartengono all'inconscio collettivo."<span class="section-quote-author">— C.G. Jung</span></blockquote>
-    </div>
-    <div class="about-visual reveal reveal-delay-1"><div class="about-circle"></div><div class="about-circle"></div><div class="about-circle"></div><div class="about-center"></div></div>
-  </div></div></section>
-  <section id="dimensions"><div class="section-inner">
-    <span class="section-label reveal">Il Percorso</span>
-    <h2 class="section-title reveal reveal-delay-1">Due dimensioni,<br>un solo sogno</h2>
-    <p class="section-text reveal reveal-delay-2">Il progetto si articola su due piani paralleli che dialogano attraverso il surrealismo, creando un'esperienza narrativa e sensoriale in continua evoluzione.</p>
-    <div class="dim-grid">
-      <div class="dim-card ombre-card reveal"><span class="dim-number">I</span><div class="dim-accent-line"></div><h3 class="dim-title">Ombre</h3><p class="dim-text">La prima dimensione del sogno esplora l'inconscio collettivo attraverso l'oscurità e il mistero.</p></div>
-      <div class="dim-card chimere-card reveal reveal-delay-1"><span class="dim-number">II</span><div class="dim-accent-line"></div><h3 class="dim-title">Chimere</h3><p class="dim-text">La seconda dimensione rivela le forme fantastiche e le creature oniriche del surrealismo.</p></div>
-    </div>
-  </div></section>
-  <section id="languages"><div class="section-inner">
-    <span class="section-label reveal">Linguaggi Espressivi</span>
-    <h2 class="section-title reveal reveal-delay-1">Un percorso immersivo tra<br>arti visive e percezione</h2>
-    <p class="section-text reveal reveal-delay-2">REM integra discipline artistiche differenti per costruire un'esperienza stratificata, emotiva e multisensoriale.</p>
-    <div class="lang-grid">
-      <div class="lang-item reveal"><span class="lang-emoji">&#127912;</span><span class="lang-name">Pittura</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#127963;</span><span class="lang-name">Installazioni</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#128266;</span><span class="lang-name">Sound Design</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#128247;</span><span class="lang-name">Fotografia</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#10022;</span><span class="lang-name">Animazioni 3D</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#128131;</span><span class="lang-name">Musica Live</span></div>
-      <div class="lang-item reveal"><span class="lang-emoji">&#128511;</span><span class="lang-name">Scultura</span></div>
-    </div>
-  </div></section>
-  <section id="team"><div class="section-inner">
-    <span class="section-label reveal">Il Team</span>
-      <section id="team"><div class="section-inner">
-    <span class="section-label reveal">Il Team</span>
-    <h2 class="section-title reveal reveal-delay-1">Chi siamo</h2>
-    <p class="team-intro reveal reveal-delay-2">...</p>
-    <div class="team-roles reveal reveal-delay-2">
-      <span class="role-tag">Curation &amp; Concept</span><span class="role-tag">Scenografia</span><span class="role-tag">Visual Design</span><span class="role-tag">Sound Design</span><span class="role-tag">Coordinamento</span>
-    </div>
 
-    <!-- FOTO TEAM -->
-    <div class="reveal reveal-delay-3" style="margin-top:3.5rem;">
- <img src="teamRem.png" alt="Il team di REM – Ombre e Chimere"
-     style="width:100%;max-width:480px;display:block;margin:0 auto;
-            border:1px solid rgba(73,39,79,0.4);opacity:0.92;">
+  <div id="info-strip">
+    <div class="info-grid">
+      <div class="info-item"><span class="info-icon">&#9672;</span><span class="info-label">Data</span><span class="info-value">21 Giugno 2026</span></div>
+      <div class="info-item"><span class="info-icon">&#9678;</span><span class="info-label">Luogo</span><span class="info-value">Craving Arts Gallery</span></div>
+      <div class="info-item"><span class="info-icon">&#9671;</span><span class="info-label">Orario</span><span class="info-value">19:00 – 22:00</span></div>
+      <div class="info-item"><span class="info-icon">&#9677;</span><span class="info-label">Capacità</span><span class="info-value">100 – 150 persone</span></div>
     </div>
-
-  </div></section>
-    <h2 class="section-title reveal reveal-delay-1">Chi siamo</h2>
-    <p class="team-intro reveal reveal-delay-2">REM nasce come project work finale del Corso di Formazione Continua in Event Management presso lo IED — Istituto Europeo di Design di Roma.<br><br>Il progetto è ideato da un gruppo di giovani creativi accomunati dall'interesse per l'arte contemporanea, la progettazione culturale e le esperienze immersive.<br><br>L'obiettivo è creare uno spazio capace di connettere persone, immaginari e pratiche artistiche emergenti.</p>
-    <div class="team-roles reveal reveal-delay-2">
-      <span class="role-tag">Curation &amp; Concept</span><span class="role-tag">Scenografia</span><span class="role-tag">Visual Design</span><span class="role-tag">Sound Design</span><span class="role-tag">Coordinamento</span>
-    </div>
-  </div></section>
-  <!-- MAGAZINE PREVIEW -->
-  <section id="magazine-preview"><div class="section-inner">
-    <div class="mag-preview-header">
-      <div><span class="section-label reveal">Dal Magazine</span><h2 class="section-title reveal reveal-delay-1" style="margin-bottom:0">Storie e approfondimenti</h2></div>
-      <a href="#magazine" class="mag-preview-cta reveal reveal-delay-2" onclick="showPage('magazine');return false;">Tutti gli articoli &rarr;</a>
-    </div>
-    <div class="mag-preview-grid">
-      <div class="article-card reveal">
-        <div class="article-image"><img src="stanza-grigia.jpeg" alt="La Stanza Grigia"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Stanza Grigia</span><span class="article-date"></span></div>
-          <h2 class="article-title">LA STANZA GRIGIA</h2>
-          <p class="article-excerpt">La soglia, passaggio comune del sogno, il territorio condiviso e inconscio collettivo</p>
-          <div class="article-footer"><span class="article-author">Sara de Bonis &amp; Elisa Melchionna</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="copertina.artmary.jpeg" alt="L'incubo di Mary Shelley"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
-          <h2 class="article-title">L'incubo di Mary Shelley</h2>
-          <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
-          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="copertinaInfusi.jpg" alt="Infusi di Chimera"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
-          <h2 class="article-title">Infusi di Chimera</h2>
-          <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
-          <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="CopertinaSuspiria.jpeg" alt="La dimensione dell'onirico in Suspiria"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
-          <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
-          <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
-          <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="CopertinaMeshes.jpg" alt="Il Canon del sogno su pellicola, Meshes of the Afternoon"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
-          <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
-          <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
-          <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="CopertinaUrloDelBosco.jpeg" alt="La cucina di REM - L'urlo del bosco"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
-          <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
-          <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
-          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
-        </div>
-      </div>
-     <div class="article-card reveal">
-  <div class="article-image"><img src="CopertinaPalpebre.png" alt="Palpebre di Luna"></div>
-  <div class="article-body">
-    <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
-    <h2 class="article-title">PALPEBRE DI LUNA</h2>
-    <p class="article-excerpt">Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.</p>
-    <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/palpebre" class="article-read-more" onclick="openArticleBySlug('palpebre');return false;">Leggi &rarr;</a></div>
   </div>
-</div>
-      <div class="article-card reveal">
-        <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine e la peste dell'insonnia"></div>
-        <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
-          <h2 class="article-title">Cent'anni di solitudine e la peste dell'insonnia</h2>
-          <p class="article-excerpt">La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.</p>
-          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/centanni" class="article-read-more" onclick="openArticleBySlug('centanni');return false;">Leggi &rarr;</a></div>
+
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-layout">
+        <div>
+          <span class="section-label reveal">Il Progetto</span>
+          <h2 class="section-title reveal reveal-delay-1">Il sogno come<br>linguaggio collettivo</h2>
+          <p class="section-text reveal reveal-delay-2">REM nasce da una riflessione: il sogno è un'esperienza profondamente individuale, ma le immagini che lo abitano appartengono a un immaginario condiviso.<br><br>Simboli, archetipi e visioni interiori si intrecciano in uno spazio immersivo dove arte e percezione dialogano continuamente.<br><br>Attraverso fotografia, pittura, videoproiezioni, performance e installazioni, REM invita il visitatore a riconoscersi nell'esperienza dell'altro.</p>
+          <blockquote class="section-quote reveal reveal-delay-3">"Le immagini del sogno appartengono all'inconscio collettivo."<span class="section-quote-author">— C.G. Jung</span></blockquote>
+        </div>
+        <div class="about-visual reveal reveal-delay-1">
+          <div class="about-circle"></div>
+          <div class="about-circle"></div>
+          <div class="about-circle"></div>
+          <div class="about-center"></div>
         </div>
       </div>
     </div>
-  </div></section>
-  <section id="registration"><div class="reg-inner">
-    <span class="section-label reveal">Partecipazione</span>
-    <h2 class="section-title reveal reveal-delay-1">Entra nel sogno</h2>
-    <p class="reg-desc reveal reveal-delay-2">L'evento è a ingresso libero, ma i posti sono limitati. Registrati per garantirti un posto e ricevere tutti gli aggiornamenti sull'esperienza.</p>
-    <a href="https://www.eventbrite.it/e/rem-ombre-e-chimere-unesperienza-condivisa-dei-paesaggi-onirici-registration-1989982714869" target="_blank" rel="noopener noreferrer" class="reg-ext-btn reveal reveal-delay-2">Registrati all'evento <span class="reg-ext-arrow">&#8599;</span></a>
-    <p class="reg-ext-note reveal reveal-delay-3">Verrai reindirizzato alla pagina di registrazione esterna.<br>L'ingresso è gratuito e i posti sono limitati.</p>
-<div id="eventbrite-widget-container-1989982714869"></div>
+  </section>
 
-<script src="https://www.eventbrite.it/static/widgets/eb_widgets.js"></script>
+  <section id="dimensions">
+    <div class="section-inner">
+      <span class="section-label reveal">Il Percorso</span>
+      <h2 class="section-title reveal reveal-delay-1">Due dimensioni,<br>un solo sogno</h2>
+      <p class="section-text reveal reveal-delay-2">Il progetto si articola su due piani paralleli che dialogano attraverso il surrealismo, creando un'esperienza narrativa e sensoriale in continua evoluzione.</p>
+      <div class="dim-grid">
+        <div class="dim-card ombre-card reveal">
+          <span class="dim-number">I</span>
+          <div class="dim-accent-line"></div>
+          <h3 class="dim-title">Ombre</h3>
+          <p class="dim-text">La prima dimensione del sogno esplora l'inconscio collettivo attraverso l'oscurità e il mistero.</p>
+        </div>
+        <div class="dim-card chimere-card reveal reveal-delay-1">
+          <span class="dim-number">II</span>
+          <div class="dim-accent-line"></div>
+          <h3 class="dim-title">Chimere</h3>
+          <p class="dim-text">La seconda dimensione rivela le forme fantastiche e le creature oniriche del surrealismo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script type="text/javascript">
-    var exampleCallback = function() {
-        console.log('Ordine completato.');
-    };
+  <section id="languages">
+    <div class="section-inner">
+      <span class="section-label reveal">Linguaggi Espressivi</span>
+      <h2 class="section-title reveal reveal-delay-1">Un percorso immersivo tra<br>arti visive e percezione</h2>
+      <p class="section-text reveal reveal-delay-2">REM integra discipline artistiche differenti per costruire un'esperienza stratificata, emotiva e multisensoriale.</p>
+      <div class="lang-grid">
+        <div class="lang-item reveal"><span class="lang-emoji">&#127912;</span><span class="lang-name">Pittura</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#127963;</span><span class="lang-name">Installazioni</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#128266;</span><span class="lang-name">Sound Design</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#128247;</span><span class="lang-name">Fotografia</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#10022;</span><span class="lang-name">Animazioni 3D</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#128131;</span><span class="lang-name">Musica Live</span></div>
+        <div class="lang-item reveal"><span class="lang-emoji">&#128511;</span><span class="lang-name">Scultura</span></div>
+      </div>
+    </div>
+  </section>
 
-    window.EBWidgets.createWidget({
-        // Required
-        widgetType: 'checkout',
-        eventId: '1989982714869',
-        iframeContainerId: 'eventbrite-widget-container-1989982714869',
+  <section id="team">
+    <div class="section-inner">
+      <span class="section-label reveal">Il Team</span>
+      <h2 class="section-title reveal reveal-delay-1">Chi siamo</h2>
+      <p class="team-intro reveal reveal-delay-2">REM nasce come project work finale del Corso di Formazione Continua in Event Management presso lo IED — Istituto Europeo di Design di Roma.<br><br>Il progetto è ideato da un gruppo di giovani creativi accomunati dall'interesse per l'arte contemporanea, la progettazione culturale e le esperienze immersive.<br><br>L'obiettivo è creare uno spazio capace di connettere persone, immaginari e pratiche artistiche emergenti.</p>
+      <div class="team-roles reveal reveal-delay-2">
+        <span class="role-tag">Curation &amp; Concept</span>
+        <span class="role-tag">Scenografia</span>
+        <span class="role-tag">Visual Design</span>
+        <span class="role-tag">Sound Design</span>
+        <span class="role-tag">Coordinamento</span>
+      </div>
+      <div class="reveal reveal-delay-3" style="margin-top:3.5rem;">
+        <img src="teamRem.png" alt="Il team di REM – Ombre e Chimere"
+             style="width:100%;max-width:480px;display:block;margin:0 auto;border:1px solid rgba(73,39,79,0.4);opacity:0.92;">
+      </div>
+    </div>
+  </section>
 
-        // Optional
-        iframeContainerHeight: 425,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
+  <section id="magazine-preview">
+    <div class="section-inner">
+      <div class="mag-preview-header">
+        <div>
+          <span class="section-label reveal">Dal Magazine</span>
+          <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:0">Storie e approfondimenti</h2>
+        </div>
+        <a href="#magazine" class="mag-preview-cta reveal reveal-delay-2" onclick="showPage('magazine');return false;">Tutti gli articoli &rarr;</a>
+      </div>
+      <div class="mag-preview-grid">
+        <div class="article-card reveal">
+          <div class="article-image"><img src="stanza-grigia.jpeg" alt="La Stanza Grigia"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Stanza Grigia</span></div>
+            <h2 class="article-title">LA STANZA GRIGIA</h2>
+            <p class="article-excerpt">La soglia, passaggio comune del sogno, il territorio condiviso e inconscio collettivo</p>
+            <div class="article-footer"><span class="article-author">Sara de Bonis &amp; Elisa Melchionna</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="copertina.artmary.jpeg" alt="L'incubo di Mary Shelley"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cultura del Sogno</span></div>
+            <h2 class="article-title">L'incubo di Mary Shelley</h2>
+            <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
+            <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="copertinaInfusi.jpg" alt="Infusi di Chimera"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cultura del Sogno</span></div>
+            <h2 class="article-title">Infusi di Chimera</h2>
+            <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
+            <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="CopertinaSuspiria.jpeg" alt="La dimensione dell'onirico in Suspiria"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
+            <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
+            <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
+            <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="CopertinaMeshes.jpg" alt="Il Canon del sogno su pellicola"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
+            <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
+            <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
+            <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="CopertinaUrloDelBosco.jpeg" alt="La cucina di REM - L'urlo del bosco"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cucina di REM</span></div>
+            <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
+            <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
+            <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="CopertinaPalpebre.png" alt="Palpebre di Luna"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cucina di REM</span></div>
+            <h2 class="article-title">PALPEBRE DI LUNA</h2>
+            <p class="article-excerpt">Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.</p>
+            <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/palpebre" class="article-read-more" onclick="openArticleBySlug('palpebre');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card reveal">
+          <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine"></div>
+          <div class="article-body">
+            <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
+            <h2 class="article-title">Cent'anni di solitudine e la peste dell'insonnia</h2>
+            <p class="article-excerpt">La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.</p>
+            <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/centanni" class="article-read-more" onclick="openArticleBySlug('centanni');return false;">Leggi &rarr;</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        themeSettings: {
-            brandColor: '#f4a67f',
-            fontColor: '#4b274c',
-            background: '#fdfdfd',
-        },
-        onOrderComplete: exampleCallback  // Method called when an order has successfully completed
-    });
-</script>
+  <section id="registration">
+    <div class="reg-inner">
+      <span class="section-label reveal">Partecipazione</span>
+      <h2 class="section-title reveal reveal-delay-1">Entra nel sogno</h2>
+      <p class="reg-desc reveal reveal-delay-2">L'evento è a ingresso libero, ma i posti sono limitati. Registrati per garantirti un posto e ricevere tutti gli aggiornamenti sull'esperienza.</p>
+      <a href="https://www.eventbrite.it/e/rem-ombre-e-chimere-unesperienza-condivisa-dei-paesaggi-onirici-registration-1989982714869" target="_blank" rel="noopener noreferrer" class="reg-ext-btn reveal reveal-delay-2">
+        Registrati all'evento <span class="reg-ext-arrow">&#8599;</span>
+      </a>
+      <p class="reg-ext-note reveal reveal-delay-3">Verrai reindirizzato alla pagina di registrazione esterna.<br>L'ingresso è gratuito e i posti sono limitati.</p>
+      <div id="eventbrite-widget-container-1989982714869"></div>
+      <script src="https://www.eventbrite.it/static/widgets/eb_widgets.js"></script>
+      <script>
+        var exampleCallback = function() { console.log('Ordine completato.'); };
+        window.EBWidgets.createWidget({
+          widgetType: 'checkout',
+          eventId: '1989982714869',
+          iframeContainerId: 'eventbrite-widget-container-1989982714869',
+          iframeContainerHeight: 425,
+          themeSettings: { brandColor: '#f4a67f', fontColor: '#4b274c', background: '#fdfdfd' },
+          onOrderComplete: exampleCallback
+        });
+      </script>
+    </div>
+  </section>
 
-
-
-    
-  </div></section>
   <footer>
-    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors">
+      <span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="https://www.ied.it/" target="_blank" rel="noopener noreferrer" class="footer-sponsor-item"><img src="IED-logo.png" alt="IED Istituto Europeo di Design Roma"></a>
         <a href="#" class="footer-sponsor-item"><img src="Pallini-logo.png" alt="Pallini"></a>
-      </div></div>
+      </div>
+    </div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links">
@@ -532,9 +1116,12 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </ul>
     <p class="footer-copy">&copy; 2025 REM – Ombre e Chimere &middot; Progetto accademico senza finalità commerciali</p>
   </footer>
-</div>
 
-<!-- PAGE MAGAZINE -->
+</div><!-- /page-home -->
+
+<!-- ═══════════════════════════════════════
+     PAGE: MAGAZINE
+═══════════════════════════════════════ -->
 <div id="page-magazine" class="page">
   <div class="mag-hero">
     <span class="mag-hero-label">REM – Ombre e Chimere</span>
@@ -549,102 +1136,91 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       <button class="mag-filter" onclick="filterArticles('cucina-di-rem',this)">Cucina di REM</button>
     </div>
     <div class="articles-grid" id="articlesGrid">
-      <!-- STANZA GRIGIA — featured -->
       <div class="article-card featured reveal" data-category="stanza-grigia">
         <div class="article-image"><img src="stanza-grigia.jpeg" alt="La Stanza Grigia"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Stanza Grigia</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Stanza Grigia</span></div>
           <h2 class="article-title">LA STANZA GRIGIA</h2>
           <p class="article-excerpt">La soglia, passaggio comune del sogno, il territorio condiviso e inconscio collettivo</p>
           <div class="article-footer"><span class="article-author">Sara de Bonis &amp; Elisa Melchionna</span><a href="#articolo/stanza-grigia-intro" class="article-read-more" onclick="openArticleBySlug('stanza-grigia-intro');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- IL SURREALISMO -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
         <div class="article-image"><img src="surrealism.jpeg" alt="Il Surrealismo"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span></div>
           <h2 class="article-title">Il Surrealismo: quando il sogno diventa linguaggio</h2>
           <p class="article-excerpt">Come il Surrealismo dà forma alla natura profonda del sogno</p>
           <div class="article-footer"><span class="article-author">Sara De Bonis</span><a href="#articolo/il-surrealismo" class="article-read-more" onclick="openArticleBySlug('il-surrealismo');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- MARY SHELLEY -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
         <div class="article-image"><img src="copertina.artmary.jpeg" alt="L'incubo di Mary Shelley"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span></div>
           <h2 class="article-title">L'incubo di Mary Shelley</h2>
           <p class="article-excerpt">Tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.</p>
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/mary-shelley" class="article-read-more" onclick="openArticleBySlug('mary-shelley');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- INFUSI DI CHIMERA -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
         <div class="article-image"><img src="copertinaInfusi.jpg" alt="Infusi di Chimera"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del Sogno</span></div>
           <h2 class="article-title">Infusi di Chimera</h2>
           <p class="article-excerpt">Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Ogni miscela è un sortilegio chic.</p>
           <div class="article-footer"><span class="article-author">Silvia Curumi</span><a href="#articolo/infusi-di-chimera" class="article-read-more" onclick="openArticleBySlug('infusi-di-chimera');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- SUSPIRIA -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
         <div class="article-image"><img src="CopertinaSuspiria.jpeg" alt="La dimensione dell'onirico in Suspiria"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
           <h2 class="article-title">La dimensione dell'onirico in Suspiria</h2>
           <p class="article-excerpt">La resa perturbante dell'esperienza condivisa del sogno</p>
           <div class="article-footer"><span class="article-author">Shaila Vignati</span><a href="#articolo/suspiria" class="article-read-more" onclick="openArticleBySlug('suspiria');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- MESHES OF THE AFTERNOON -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
-        <div class="article-image"><img src="CopertinaMeshes.jpg" alt="Il Canon del sogno su pellicola, Meshes of the Afternoon"></div>
+        <div class="article-image"><img src="CopertinaMeshes.jpg" alt="Meshes of the Afternoon"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
           <h2 class="article-title">Il Canon del sogno su pellicola, Meshes of the Afternoon</h2>
           <p class="article-excerpt">Avete mai visto un film e pensato che sembrasse un sogno?</p>
           <div class="article-footer"><span class="article-author">Irene Moroni</span><a href="#articolo/meshes-of-the-afternoon" class="article-read-more" onclick="openArticleBySlug('meshes-of-the-afternoon');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- URLO DEL BOSCO -->
       <div class="article-card reveal" data-category="cucina-di-rem">
         <div class="article-image"><img src="CopertinaUrloDelBosco.jpeg" alt="La cucina di REM - L'urlo del bosco"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cucina di REM</span></div>
           <h2 class="article-title">La cucina di REM - L'urlo del bosco</h2>
           <p class="article-excerpt">Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi.</p>
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/urlo-del-bosco" class="article-read-more" onclick="openArticleBySlug('urlo-del-bosco');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-      <!-- CENT'ANNI DI SOLITUDINE -->
       <div class="article-card reveal" data-category="cultura-del-sogno">
-        <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine e la peste dell'insonnia"></div>
+        <div class="article-image"><img src="CopertinaCentanni.jpeg" alt="Cent'anni di solitudine"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
           <h2 class="article-title">Cent'anni di solitudine e la peste dell'insonnia</h2>
           <p class="article-excerpt">La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.</p>
           <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/centanni" class="article-read-more" onclick="openArticleBySlug('centanni');return false;">Leggi &rarr;</a></div>
         </div>
       </div>
-<!-- PALPEBRE DI LUNA -->
-<div class="article-card reveal" data-category="cucina-di-rem">
-  <div class="article-image"><img src="CopertinaPalpebre.png" alt="Palpebre di Luna"></div>
-  <div class="article-body">
-    <div class="article-meta"><span class="article-tag">Cucina di REM</span><span class="article-date"></span></div>
-    <h2 class="article-title">PALPEBRE DI LUNA</h2>
-    <p class="article-excerpt">Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.</p>
-    <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/palpebre" class="article-read-more" onclick="openArticleBySlug('palpebre');return false;">Leggi &rarr;</a></div>
-  </div>
-</div>
-   
-      <!-- ANIME PERDUTE -->
+      <div class="article-card reveal" data-category="cucina-di-rem">
+        <div class="article-image"><img src="CopertinaPalpebre.png" alt="Palpebre di Luna"></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-tag">Cucina di REM</span></div>
+          <h2 class="article-title">PALPEBRE DI LUNA</h2>
+          <p class="article-excerpt">Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.</p>
+          <div class="article-footer"><span class="article-author">Elisa Melchionna</span><a href="#articolo/palpebre" class="article-read-more" onclick="openArticleBySlug('palpebre');return false;">Leggi &rarr;</a></div>
+        </div>
+      </div>
       <div class="article-card reveal" data-category="cultura-del-sogno">
         <div class="article-image"><img src="copertinaAnimePerdute.png" alt="Il mondo onirico e le anime perdute e ritrovate"></div>
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">Cultura del sogno</span><span class="article-date"></span></div>
+          <div class="article-meta"><span class="article-tag">Cultura del sogno</span></div>
           <h2 class="article-title">Il mondo onirico e le anime perdute e ritrovate</h2>
           <p class="article-excerpt">Quando sogniamo i nostri cari che non sono più nella loro fase terrena, spesso appaiono giovani, non afflitti dal dolore del corpo.</p>
           <div class="article-footer"><span class="article-author">Giuliana Berardi</span><a href="#articolo/animeperdute" class="article-read-more" onclick="openArticleBySlug('animeperdute');return false;">Leggi &rarr;</a></div>
@@ -654,11 +1230,13 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
   </div>
 
   <footer>
-    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors">
+      <span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="https://www.ied.it/" target="_blank" rel="noopener noreferrer" class="footer-sponsor-item"><img src="IED-logo.png" alt="IED Istituto Europeo di Design Roma"></a>
         <a href="#" class="footer-sponsor-item"><img src="Pallini-logo.png" alt="Pallini"></a>
-      </div></div>
+      </div>
+    </div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links">
@@ -667,28 +1245,42 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </ul>
     <p class="footer-copy">&copy; 2025 REM – Ombre e Chimere &middot; Progetto accademico senza finalità commerciali</p>
   </footer>
-</div>
+</div><!-- /page-magazine -->
 
-<!-- PAGE ARTICLE -->
+<!-- ═══════════════════════════════════════
+     PAGE: ARTICLE
+═══════════════════════════════════════ -->
 <div id="page-article" class="page">
   <div class="art-hero">
-    <div class="art-hero-image" id="art-hero-image-box"><span class="art-hero-image-placeholder">&#10022;</span></div>
+    <div class="art-hero-image" id="art-hero-image-box">
+      <span class="art-hero-image-placeholder">&#10022;</span>
+    </div>
     <div class="art-hero-overlay"></div>
     <div class="art-hero-content">
       <a href="#magazine" class="art-back" onclick="showPage('magazine');return false;">&larr; Torna al Magazine</a>
-      <div class="art-hero-meta"><span class="art-hero-tag" id="art-tag">Categoria</span><span class="art-hero-date" id="art-date">Data</span></div>
+      <div class="art-hero-meta">
+        <span class="art-hero-tag" id="art-tag">Categoria</span>
+        <span class="art-hero-date" id="art-date"></span>
+      </div>
       <h1 class="art-hero-title" id="art-title">Titolo</h1>
       <span class="art-hero-author" id="art-author">Autore</span>
     </div>
   </div>
-  <div class="art-body"><p class="art-lead" id="art-lead"></p><div class="art-text" id="art-content"></div></div>
-  <div class="art-footer-nav"><a href="#magazine" class="art-footer-back" onclick="showPage('magazine');return false;">&larr; Torna al Magazine</a></div>
+  <div class="art-body">
+    <p class="art-lead" id="art-lead"></p>
+    <div class="art-text" id="art-content"></div>
+  </div>
+  <div class="art-footer-nav">
+    <a href="#magazine" class="art-footer-back" onclick="showPage('magazine');return false;">&larr; Torna al Magazine</a>
+  </div>
   <footer>
-    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors">
+      <span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="https://www.ied.it/" target="_blank" rel="noopener noreferrer" class="footer-sponsor-item"><img src="IED-logo.png" alt="IED Istituto Europeo di Design Roma"></a>
         <a href="#" class="footer-sponsor-item"><img src="Pallini-logo.png" alt="Pallini"></a>
-      </div></div>
+      </div>
+    </div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links">
@@ -698,14 +1290,24 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </ul>
     <p class="footer-copy">&copy; 2025 REM – Ombre e Chimere &middot; Progetto accademico senza finalità commerciali</p>
   </footer>
-</div>
+</div><!-- /page-article -->
 
-<!-- PAGE SPONSOR -->
+<!-- ═══════════════════════════════════════
+     PAGE: SPONSOR
+═══════════════════════════════════════ -->
 <div id="page-sponsor" class="page">
-  <div class="sp-hero"><span class="sp-hero-label">REM – Ombre e Chimere</span><h1 class="sp-hero-title">Sponsor</h1><p class="sp-hero-desc">Le realtà che rendono possibile REM. Grazie per il vostro supporto al progetto.</p></div>
+  <div class="sp-hero">
+    <span class="sp-hero-label">REM – Ombre e Chimere</span>
+    <h1 class="sp-hero-title">Sponsor</h1>
+    <p class="sp-hero-desc">Le realtà che rendono possibile REM. Grazie per il vostro supporto al progetto.</p>
+  </div>
   <div class="sp-content">
     <div class="sp-tier sponsor reveal">
-      <div class="sp-tier-header"><div class="sp-tier-line"></div><span class="sp-tier-label">Sponsor</span><div class="sp-tier-line"></div></div>
+      <div class="sp-tier-header">
+        <div class="sp-tier-line"></div>
+        <span class="sp-tier-label">Sponsor</span>
+        <div class="sp-tier-line"></div>
+      </div>
       <div class="sp-grid">
         <a href="https://www.ied.it/" target="_blank" rel="noopener noreferrer" class="sp-card">
           <div class="sp-logo-box"><img src="IED-logo.png" alt="IED Istituto Europeo di Design Roma"></div>
@@ -718,7 +1320,11 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
       </div>
     </div>
     <div class="sp-tier partner reveal">
-      <div class="sp-tier-header"><div class="sp-tier-line"></div><span class="sp-tier-label">Partner</span><div class="sp-tier-line"></div></div>
+      <div class="sp-tier-header">
+        <div class="sp-tier-line"></div>
+        <span class="sp-tier-label">Partner</span>
+        <div class="sp-tier-line"></div>
+      </div>
       <div class="sp-grid">
         <a href="#" class="sp-card"><div class="sp-logo-box"><span class="sp-logo-placeholder">Logo</span></div><span class="sp-name">Partner</span></a>
         <a href="#" class="sp-card"><div class="sp-logo-box"><span class="sp-logo-placeholder">Logo</span></div><span class="sp-name">Partner</span></a>
@@ -734,11 +1340,13 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </div>
   </div>
   <footer>
-    <div class="footer-sponsors"><span class="footer-sponsors-label">Con il supporto di</span>
+    <div class="footer-sponsors">
+      <span class="footer-sponsors-label">Con il supporto di</span>
       <div class="footer-sponsors-logos">
         <a href="https://www.ied.it/" target="_blank" rel="noopener noreferrer" class="footer-sponsor-item"><img src="IED-logo.png" alt="IED Istituto Europeo di Design Roma"></a>
         <a href="#" class="footer-sponsor-item"><img src="Pallini-logo.png" alt="Pallini"></a>
-      </div></div>
+      </div>
+    </div>
     <div class="footer-logo"><img src="rem-sign-pink.png" alt="REM"></div>
     <div class="footer-subtitle">Ombre e Chimere</div>
     <ul class="footer-links">
@@ -748,294 +1356,177 @@ footer{background:var(--black);border-top:1px solid rgba(73,39,79,0.3);padding:4
     </ul>
     <p class="footer-copy">&copy; 2025 REM – Ombre e Chimere &middot; Progetto accademico senza finalità commerciali</p>
   </footer>
-</div>
+</div><!-- /page-sponsor -->
 
 <script>
-// ── Cursor ──
-var cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing'),mx=0,my=0,rx=0,ry=0,curActive=false;
-document.addEventListener('mousemove',function(e){if(!curActive){curActive=true;document.body.classList.add('has-cursor');}mx=e.clientX;my=e.clientY;});
-(function anim(){if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(anim);})();
+// ═══════════════════════════════════════
+// CURSORE CUSTOM
+// ═══════════════════════════════════════
+var cur = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+var mx = 0, my = 0, rx = 0, ry = 0, curActive = false;
 
-// ================================================================
-// ARTICLES
-// ================================================================
+document.addEventListener('mousemove', function(e) {
+  if (!curActive) {
+    curActive = true;
+    document.body.classList.add('has-cursor');
+  }
+  mx = e.clientX;
+  my = e.clientY;
+});
+
+(function anim() {
+  if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; }
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+  requestAnimationFrame(anim);
+})();
+
+// ═══════════════════════════════════════
+// CONTENUTI ARTICOLI
+// ═══════════════════════════════════════
 var ARTICLES = {
 
-  "stanza-grigia-intro": {
-    tag: "Stanza Grigia",
-    date: "",
-    title: "LA STANZA GRIGIA",
-    author: "Sara de Bonis & Elisa Melchionna",
-    lead: "La soglia, passaggio comune del sogno, il territorio condiviso e inconscio collettivo",
-    content: "<p>Hai mai sognato di cadere e di svegliarti un secondo prima dell'impatto?</p><p>Di perdere i denti, uno ad uno, senza riuscire a fermarlo?</p><p>Di provare ad urlare, ma avevi paura che nessuno ti sentisse?</p><p>La Stanza Grigia è il luogo dove questi sogni convivono. È la soglia comune tra l'io conscio e l'inconscio collettivo.</p>",
-    placeholder: "✶",
-    heroImage: "stanza-grigia.jpeg"
+  'stanza-grigia-intro': {
+    tag: 'Stanza Grigia',
+    date: '',
+    title: 'LA STANZA GRIGIA',
+    author: 'Sara de Bonis & Elisa Melchionna',
+    lead: 'La soglia, passaggio comune del sogno, il territorio condiviso e inconscio collettivo',
+    heroImage: 'stanza-grigia.jpeg',
+    content: '<p>Hai mai sognato di cadere e di svegliarti un secondo prima dell\'impatto?</p><p>Di perdere i denti, uno ad uno, senza riuscire a fermarlo?</p><p>Di provare ad urlare, ma avevi paura che nessuno ti sentisse?</p><p>La Stanza Grigia è il luogo dove questi sogni convivono. È la soglia comune tra l\'io conscio e l\'inconscio collettivo.</p>'
   },
 
-  "il-surrealismo": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "Il Surrealismo: quando il sogno diventa linguaggio",
-    author: "Sara De Bonis",
-    lead: "Come il Surrealismo dà forma alla natura profonda del sogno",
-    content: "<p>Parlare di sogno significa confrontarsi con qualcosa che, per sua natura, sfugge a ogni principio d'ordine. Non si lascia afferrare fino in fondo: si spezza, si deforma, altera.</p><p>Per avvicinarsi a una materia così mobile e instabile, serve un linguaggio in grado di reggere slittamenti improvvisi, immagini distorte e significati non del tutto fissati. È qui che il Surrealismo interviene.</p><p>Il Surrealismo nasce come un'esplosione di libertà. È il movimento che ha voluto dare voce a quella parte dell'essere umano che di solito resta sopita: l'inconscio, l'irrazionalità, la libertà.</p><p>Il movimento prende forma ufficialmente negli anni Venti del Novecento, grazie a un gruppo di poeti e artisti guidati da André Breton, che nel 1924 pubblica il Manifesto del Surrealismo.</p><p>Per comprenderlo bisogna oltrepassare i limiti della logica. Dopo la razionalità estrema, gli artisti si impegnano nel recupero della parte più misteriosa della mente.</p><p>La chiave tra Surrealismo e dimensione onirica è la comunicazione offerta da entrambi attraverso un linguaggio fatto di associazioni inattese.</p><p>Gli artisti surrealisti traducono questo linguaggio onirico in arte. Salvador Dalí dipinge orologi che si sciolgono, volti che si dissolvono.</p><p>Anche nella scrittura, il Surrealismo diventa un modo per far parlare il sogno. Breton pratica la scrittura automatica.</p><p>Nel mondo onirico, i confini si dissolvono. E nel Surrealismo succede qualcosa di simile.</p><p>Il sogno non ha grammatica, non segue regole fisse e non teme il nonsense. Così come il Surrealismo.</p><p>Nel cinema surrealista tutto questo è ancora più evidente. Un Chien Andalou di Buñuel e Dalí ne è un esempio perfetto.</p><p>Il Surrealismo non cerca di dare risposte, genera quesiti e dubbi.</p><p>In un mondo che pretende da ogni cosa un senso immediato, il Surrealismo ci ricorda che l'irrazionale non è uno scarto, ma una parte indispensabile dell'esperienza umana.</p>",
-    placeholder: "✶",
-    heroImage: "surrealism.jpeg"
+  'il-surrealismo': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'Il Surrealismo: quando il sogno diventa linguaggio',
+    author: 'Sara De Bonis',
+    lead: 'Come il Surrealismo dà forma alla natura profonda del sogno',
+    heroImage: 'surrealism.jpeg',
+    content: '<p>Parlare di sogno significa confrontarsi con qualcosa che, per sua natura, sfugge a ogni principio d\'ordine. Non si lascia afferrare fino in fondo: si spezza, si deforma, altera.</p><p>Per avvicinarsi a una materia così mobile e instabile, serve un linguaggio in grado di reggere slittamenti improvvisi, immagini distorte e significati non del tutto fissati. È qui che il Surrealismo interviene.</p><p>Il Surrealismo nasce come un\'esplosione di libertà. È il movimento che ha voluto dare voce a quella parte dell\'essere umano che di solito resta sopita: l\'inconscio, l\'irrazionalità, la libertà.</p><p>Il movimento prende forma ufficialmente negli anni Venti del Novecento, grazie a un gruppo di poeti e artisti guidati da André Breton, che nel 1924 pubblica il Manifesto del Surrealismo.</p><p>Per comprenderlo bisogna oltrepassare i limiti della logica. Dopo la razionalità estrema, gli artisti si impegnano nel recupero della parte più misteriosa della mente.</p><p>La chiave tra Surrealismo e dimensione onirica è la comunicazione offerta da entrambi attraverso un linguaggio fatto di associazioni inattese.</p><p>Gli artisti surrealisti traducono questo linguaggio onirico in arte. Salvador Dalí dipinge orologi che si sciolgono, volti che si dissolvono.</p><p>Anche nella scrittura, il Surrealismo diventa un modo per far parlare il sogno. Breton pratica la scrittura automatica.</p><p>Nel mondo onirico, i confini si dissolvono. E nel Surrealismo succede qualcosa di simile.</p><p>Il sogno non ha grammatica, non segue regole fisse e non teme il nonsense. Così come il Surrealismo.</p><p>Nel cinema surrealista tutto questo è ancora più evidente. Un Chien Andalou di Buñuel e Dalí ne è un esempio perfetto.</p><p>Il Surrealismo non cerca di dare risposte, genera quesiti e dubbi.</p><p>In un mondo che pretende da ogni cosa un senso immediato, il Surrealismo ci ricorda che l\'irrazionale non è uno scarto, ma una parte indispensabile dell\'esperienza umana.</p>'
   },
 
-  "mary-shelley": {
-    tag: "Cultura del Sogno",
-    date: "",
-    title: "L'incubo di Mary Shelley",
-    author: "Elisa Melchionna",
-    lead: "Spesso ci dicono di \"dormirci su\" quando mancano le idee, ma quando lo ha fatto Mary Shelley, la letteratura è cambiata per sempre: tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.",
-    content: "<p>Ci fu un anno, il 1816, in cui l'estate non arrivò mai. L'eruzione di un vulcano lontano oscurò il sole e, sulle rive del lago di Ginevra, la pioggia cadde senza sosta per giorni. Chiusi dentro Villa Diodati, un gruppo di giovani ribelli cercò di ingannare la noia sfidandosi a scrivere la storia di fantasmi più terrificante, senza sapere che qualcosa stava per cambiare per sempre.</p><p>Mary, appena diciannovenne, trascorse giorni in silenzio, sentendosi incapace di inventare un orrore all'altezza di quel cielo nero. Una notte, dopo aver ascoltato discorsi febbrili sull'elettricità capace di scuotere i cadaveri, scivolò in quello che avrebbe poi descritto come un \"sogno vegliante\".</p><p>Non è un semplice riposo: è una visione che le preme contro le palpebre. Vede un giovane studente pallido, inginocchiato accanto a una creatura composta da pezzi di uomini diversi. Vede una scintilla, un movimento convulso e poi quegli occhi gialli che si spalancano.</p><p>Mary si sveglia, terrorizzata. Ma con una certezza: quell'incubo non apparteneva solo a lei.</p><p>In quel preciso istante, tra le coperte umide di una villa svizzera, non nacque solo un mostro. Nacque la fantascienza. Mary Shelley aveva capito che l'orrore più profondo non veniva più dall'oltretomba, ma dalle mani dell'uomo e dal potere della scienza di sfidare la morte. Se prima temevamo i fantasmi che tornano dal passato, con Frankenstein iniziamo ad avere paura del futuro.</p><p>Frankenstein è il racconto di una solitudine assoluta. È l'incubo di chi si sveglia e non riconosce la propria creazione o, peggio, di chi viene creato e non trova un posto nel mondo. Mary Shelley ci ha insegnato che i nostri sogni, una volta nati, smettono di appartenerci: iniziano a camminare con le proprie gambe, a cercare risposte, a pretendere amore.</p><p>La sua visione ha anticipato i dilemmi sull'intelligenza artificiale, sulla bioetica e sul confine tra ciò che possiamo fare e ciò che dovremmo fare. Ogni volta che una macchina sembra respirare, o un algoritmo sembra pensare, il sogno di Mary torna a scuotere le sue catene.</p><p>Siamo ancora in quella stanza buia a Villa Diodati, sospesi tra il desiderio di superare i limiti della natura e la paura di ciò che potremmo risvegliare. Il sogno di Mary ci ricorda che ogni atto creativo è un rischio e che, mentre la scienza avanza a passi da gigante, il cuore umano e le sue solitudini restano immutati.</p>",
-    placeholder: "✶",
-    heroImage: "copertina.artmary.jpeg"
+  'mary-shelley': {
+    tag: 'Cultura del Sogno',
+    date: '',
+    title: 'L\'incubo di Mary Shelley',
+    author: 'Elisa Melchionna',
+    lead: 'Spesso ci dicono di "dormirci su" quando mancano le idee, ma quando lo ha fatto Mary Shelley, la letteratura è cambiata per sempre: tra le lenzuola agitate di una notte svizzera è nato il mostro che ha dato forma alla paura moderna.',
+    heroImage: 'copertina.artmary.jpeg',
+    content: '<p>Ci fu un anno, il 1816, in cui l\'estate non arrivò mai. L\'eruzione di un vulcano lontano oscurò il sole e, sulle rive del lago di Ginevra, la pioggia cadde senza sosta per giorni. Chiusi dentro Villa Diodati, un gruppo di giovani ribelli cercò di ingannare la noia sfidandosi a scrivere la storia di fantasmi più terrificante, senza sapere che qualcosa stava per cambiare per sempre.</p><p>Mary, appena diciannovenne, trascorse giorni in silenzio, sentendosi incapace di inventare un orrore all\'altezza di quel cielo nero. Una notte, dopo aver ascoltato discorsi febbrili sull\'elettricità capace di scuotere i cadaveri, scivolò in quello che avrebbe poi descritto come un "sogno vegliante".</p><p>Non è un semplice riposo: è una visione che le preme contro le palpebre. Vede un giovane studente pallido, inginocchiato accanto a una creatura composta da pezzi di uomini diversi. Vede una scintilla, un movimento convulso e poi quegli occhi gialli che si spalancano.</p><p>Mary si sveglia, terrorizzata. Ma con una certezza: quell\'incubo non apparteneva solo a lei.</p><p>In quel preciso istante, tra le coperte umide di una villa svizzera, non nacque solo un mostro. Nacque la fantascienza. Mary Shelley aveva capito che l\'orrore più profondo non veniva più dall\'oltretomba, ma dalle mani dell\'uomo e dal potere della scienza di sfidare la morte. Se prima temevamo i fantasmi che tornano dal passato, con Frankenstein iniziamo ad avere paura del futuro.</p><p>Frankenstein è il racconto di una solitudine assoluta. È l\'incubo di chi si sveglia e non riconosce la propria creazione o, peggio, di chi viene creato e non trova un posto nel mondo. Mary Shelley ci ha insegnato che i nostri sogni, una volta nati, smettono di appartenerci: iniziano a camminare con le proprie gambe, a cercare risposte, a pretendere amore.</p><p>La sua visione ha anticipato i dilemmi sull\'intelligenza artificiale, sulla bioetica e sul confine tra ciò che possiamo fare e ciò che dovremmo fare. Ogni volta che una macchina sembra respirare, o un algoritmo sembra pensare, il sogno di Mary torna a scuotere le sue catene.</p><p>Siamo ancora in quella stanza buia a Villa Diodati, sospesi tra il desiderio di superare i limiti della natura e la paura di ciò che potremmo risvegliare. Il sogno di Mary ci ricorda che ogni atto creativo è un rischio e che, mentre la scienza avanza a passi da gigante, il cuore umano e le sue solitudini restano immutati.</p>'
   },
 
-  "infusi-di-chimera": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "Infusi di Chimera",
-    author: "Silvia Curumi",
-    lead: "Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Qui, ogni miscela è un sortilegio chic: filtri studiati per evocare visioni di seta o per bandire, una volta per tutte, le ombre che tornano a trovarti nel buio.",
-    content: `<p>Carə gentili sognatrici e sognatori,</p>
-<p>Benvenutə in questo viaggio onirico all'insegna della teomanzia.</p>
-<p>In questo piccolo angolo di mondo, il rito del tè diventa la preparazione e la consumazione di una vera e propria magia.</p>
-<p>Scegliete la vostra intenzione con cura, scaldate il calderone (la vostra teiera preferita) e seguite, passo passo, la strada della realizzazione dei vostri sogni.</p>
-<p>Che voi vogliate viaggiare tra le stelle durante il sonno, o che abbiate bisogno di una miscela di pura Allegria Solare per scacciare le ombre, qui troverete la vostra pozione.</p>
-<blockquote>Attenzione: Si prega di mescolare sempre in senso orario per invitare la fortuna, e mai parlare a voce alta mentre l'infuso riposa... le chimere sono timide e amano ascoltare solo i battiti del tuo cuore.</blockquote>
-<h3>Cap. 1: Infuso dell'Allegria</h3>
-<p>Questo infuso è per i sognatori che hanno bisogno di una scintilla di buonumore. Serve a scacciare i "pensieri grigi" e a far solleticare il cuore con dei fievoli ma pur sempre efficaci raggi di sole.</p>
-<p><em>Premessa: ogni ingrediente va inserito nell'infuso pronunciando ad alta voce il suo fine.</em></p>
-<p><strong>Ingredienti magici (e dove trovarli):</strong></p>
-<ul>
-<li><strong>scorza d'arancia:</strong> in alternativa anche quella di limone può andare, per far scattare il meccanismo del buon umore.</li>
-<li><strong>curcuma:</strong> la polvere dorata che darà colore e carattere al nostro infuso, trasformandolo in oro liquido.</li>
-<li><strong>chiodi di garofano:</strong> essenziali come simbolo di cura e forza, per donare corpositá al nostro sistema immunitario.</li>
-<li><strong>zenzero:</strong> ideale per regalare energia per danzare sui girasoli.</li>
-<li><strong>cannella:</strong> la chiave per la prosperità e il successo.</li>
-<li><strong>pepe nero:</strong> il vero attivatore dell'industria, un enzima catalizzante indispensabile per accendere l'ingrediente dell'oro liquido!</li>
-</ul>
-<p><em>Piccola curiosità: Se usi la radice di curcuma fresca, le tue dita potrebbero restare macchiate di giallo per un giorno. Le fate dicono che è il segno del "tocco del sole", un promemoria visibile che la gioia è ancora con te! Se sei poco temerario invece opta pure per la polvere dorata e guarda il tuo infuso accendersi di tutti i colori del tramonto!</em></p>
-<h3>Il Tocco Finale (opzionale)</h3>
-<p>Addolcisci con un cucchiaino di miele d'acacia o di arancia e aggiungi una goccia di succo di limone per "incendiare" il colore dell'infuso. Sole puro allo stato liquido.</p>
-<h3>Bonus: Il Consiglio della Chimera</h3>
-<p>Bevi questo tè rigorosamente in una tazza colorata ad alto contrasto. Mentre sorseggi, visualizza una luce dorata che dall'incavo dello stomaco si espande fino alla punta delle dita. È impossibile restare tristi con il sole nella pancia!</p>
-<p>Bon appétit ☆</p>`,
-    placeholder: "✶",
-    heroImage: "copertinaInfusi.jpg"
+  'infusi-di-chimera': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'Infusi di Chimera',
+    author: 'Silvia Curumi',
+    lead: 'Abbandona il rumore del mondo e sfoglia il ricettario liquido della Chimera. Qui, ogni miscela è un sortilegio chic: filtri studiati per evocare visioni di seta o per bandire, una volta per tutte, le ombre che tornano a trovarti nel buio.',
+    heroImage: 'copertinaInfusi.jpg',
+    content: '<p>Carə gentili sognatrici e sognatori,</p><p>Benvenutə in questo viaggio onirico all\'insegna della teomanzia.</p><p>In questo piccolo angolo di mondo, il rito del tè diventa la preparazione e la consumazione di una vera e propria magia.</p><p>Scegliete la vostra intenzione con cura, scaldate il calderone (la vostra teiera preferita) e seguite, passo passo, la strada della realizzazione dei vostri sogni.</p><p>Che voi vogliate viaggiare tra le stelle durante il sonno, o che abbiate bisogno di una miscela di pura Allegria Solare per scacciare le ombre, qui troverete la vostra pozione.</p><blockquote>Attenzione: Si prega di mescolare sempre in senso orario per invitare la fortuna, e mai parlare a voce alta mentre l\'infuso riposa... le chimere sono timide e amano ascoltare solo i battiti del tuo cuore.</blockquote><h3>Cap. 1: Infuso dell\'Allegria</h3><p>Questo infuso è per i sognatori che hanno bisogno di una scintilla di buonumore. Serve a scacciare i "pensieri grigi" e a far solleticare il cuore con dei fievoli ma pur sempre efficaci raggi di sole.</p><p><em>Premessa: ogni ingrediente va inserito nell\'infuso pronunciando ad alta voce il suo fine.</em></p><p><strong>Ingredienti magici (e dove trovarli):</strong></p><ul><li><strong>scorza d\'arancia:</strong> in alternativa anche quella di limone può andare, per far scattare il meccanismo del buon umore.</li><li><strong>curcuma:</strong> la polvere dorata che darà colore e carattere al nostro infuso, trasformandolo in oro liquido.</li><li><strong>chiodi di garofano:</strong> essenziali come simbolo di cura e forza, per donare corpositá al nostro sistema immunitario.</li><li><strong>zenzero:</strong> ideale per regalare energia per danzare sui girasoli.</li><li><strong>cannella:</strong> la chiave per la prosperità e il successo.</li><li><strong>pepe nero:</strong> il vero attivatore dell\'industria, un enzima catalizzante indispensabile per accendere l\'ingrediente dell\'oro liquido!</li></ul><p><em>Piccola curiosità: Se usi la radice di curcuma fresca, le tue dita potrebbero restare macchiate di giallo per un giorno. Le fate dicono che è il segno del "tocco del sole", un promemoria visibile che la gioia è ancora con te! Se sei poco temerario invece opta pure per la polvere dorata e guarda il tuo infuso accendersi di tutti i colori del tramonto!</em></p><h3>Il Tocco Finale (opzionale)</h3><p>Addolcisci con un cucchiaino di miele d\'acacia o di arancia e aggiungi una goccia di succo di limone per "incendiare" il colore dell\'infuso. Sole puro allo stato liquido.</p><h3>Bonus: Il Consiglio della Chimera</h3><p>Bevi questo tè rigorosamente in una tazza colorata ad alto contrasto. Mentre sorseggi, visualizza una luce dorata che dall\'incavo dello stomaco si espande fino alla punta delle dita. È impossibile restare tristi con il sole nella pancia!</p><p>Bon appétit ☆</p>'
   },
 
-  "suspiria": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "La dimensione dell'onirico in Suspiria",
-    author: "Shaila Vignati",
-    lead: "La resa perturbante dell'esperienza condivisa del sogno",
-    content: `<p>Nel Sogno ciò che esperiamo non è mai completamente un dato reale:
-le forme si mantengono, ma si alterano;
-gli spazi restano riconoscibili, ma perdono coerenza;
-i colori sono naturali; ma si intensificano fino a divenire opprimenti.
-Non è tanto la presenza dell'impossibile a definire il sogno, quanto piuttosto una sottile instabilità del reale. Ciò che riconosciamo come dato naturale continua a mostrarsi senza riuscire più a garantirsi come tale: tutto è familiare, ma reso opaco da un velo.</p>
-<p>È proprio su questa soglia che si colloca Suspiria.
-Il noto film di Dario Argento non mette in scena il sogno come contenuto, ma ne assume la logica come forma: non racconta un'esperienza onirica, bensì la produce.</p>
-<p>Lo spettatore, in tal senso, viene progressivamente risucchiato in una dimensione aspirale del reale: è in questo istante che la percezione si incrina fino a perdere consistenza, fino a divenire evanescente, sospesa.</p>
-<p>La scena del dormitorio - utilizzata come copertina del presente articolo - rappresenta, in questo senso, una sorta di raffigurazione emblematica:
-il luogo deputato al riposo diventa uno spazio di esposizione;
-la protezione si rivela fragile, quasi illusoria;
-ciò che dovrebbe garantire sicurezza — la presenza degli altri, la condivisione dello spazio — non basta a neutralizzare l'inquietudine. Al contrario, la amplifica.
-Il sogno, qui, non protegge: espone. Non allontana dal reale, ma lo rende instabile.
-Non compaiono figure mostruose nel senso tradizionale del termine; eppure la scena è profondamente inquietante. Proprio perché non rompe con il reale, ma lo altera dall'interno.
-I letti disposti in ordine, i corpi raccolti, il grande telo che attraversa la stanza definito: tutto sembra, in un primo momento, appartenere a un orizzonte familiare, ma è sufficiente uno scarto minimo perché l'intero spazio perda stabilità. Basta un istante di troppo, un Sospiro, per iniziare a percepire che ciò che è presente come già dato, come neutrale, in realtà non dovrebbe esserci.</p>
-<p>È esattamente in questo crinale che l'onirico si salda inevitabilmente al perturbante.
-Il legame con l'opuscolo Il perturbante. Follia, esorcismi, stregoneria, magia, cabala e alchimia nel fondo antico della Biblioteca Angelica chiarisce ulteriormente questo punto.
-Nella prefazione all'Opuscolo, scritta da Dario Argento, egli ricorda come la frequentazione della Biblioteca Angelica di Roma abbia accompagnato la scrittura di Suspiria, attraverso la consultazione di testi dedicati alla stregoneria, all'esorcismo, all'alchimia. Questo riferimento non va inteso come una semplice nota biografica: indica piuttosto un orizzonte culturale in cui il confine tra spiegazione razionale e interpretazione magica risulta instabile.
-Il perturbante viene qui definito come storicamente legato a ciò che sfugge alla comprensione e che, proprio per questo, è percepito come minaccioso: la follia interpretata come possessione, l'anomalia letta come segno demoniaco, l'alterità come qualcosa da contenere o esorcizzare. In questo senso, il perturbante non coincide con l'ignoto in quanto tale, ma con l'ignoto che si manifesta all'interno del noto, incrinandolo.</p>
-<p>Suspiria traduce visivamente questa logica. Non costruisce un universo completamente altro, ma interviene sul reale deformandone le coordinate percettive:</p>
-<ul>
-<li>I corridoi non sono semplicemente luoghi di passaggio, ma spazi che disorientano;</li>
-<li>le porte non segnano un limite stabile, ma funzionano come soglie ambigue;</li>
-<li>le tende non nascondono soltanto, ma producono un eccesso di visibilità opaca;</li>
-<li>Il rosso che domina l'ambiente non illumina, ma satura, cioè confonde;</li>
-<li>Il telo non separa semplicemente due porzioni dello spazio, ma introduce una zona di ambiguità, una superficie estranea ed estemporanea, attraverso cui ciò che eravamo sicuri di ri-conoscere si fa incerto;</li>
-<li>Le ombre che si muovono dietro al telo non assumono mai una forma pienamente definita, ma è proprio in questa indeterminazione che acquistano consistenza.</li>
-</ul>
-<p>È importate, inoltre, precisare che lo spettatore riconosce continuamente ciò che vede, ma non riesce mai a padroneggiarlo fino in fondo. Ed è proprio per questa ambiguità che nel guardare Suspiria viviamo una forma di esperienza che ricorda da vicino quella del sogno, in cui la percezione non si organizza secondo criteri stabili, ma fluttua, si intensifica, si disarticola. Ed è, a mio avviso, proprio questo il motivo per cui il film conserva ancora oggi la sua forza: esso non si limita a spaventare, ma disorienta. E nel farlo tocca qualcosa che non appartiene solo al cinema, ma all'esperienza stessa di chi guarda. Il sogno, infatti, non è un territorio estraneo: è una condizione che tutti, in modi diversi, abbiamo esperito.
-Proprio per questo Suspiria non invecchia: non perché racconti una storia senza tempo, ma perché riattiva una forma di percezione che continua a ripetersi.</p>
-<p><em>Shaila Vignati</em></p>`,
-    placeholder: "✶",
-    heroImage: "CopertinaSuspiria.jpeg"
+  'suspiria': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'La dimensione dell\'onirico in Suspiria',
+    author: 'Shaila Vignati',
+    lead: 'La resa perturbante dell\'esperienza condivisa del sogno',
+    heroImage: 'CopertinaSuspiria.jpeg',
+    content: '<p>Nel Sogno ciò che esperiamo non è mai completamente un dato reale: le forme si mantengono, ma si alterano; gli spazi restano riconoscibili, ma perdono coerenza; i colori sono naturali; ma si intensificano fino a divenire opprimenti. Non è tanto la presenza dell\'impossibile a definire il sogno, quanto piuttosto una sottile instabilità del reale. Ciò che riconosciamo come dato naturale continua a mostrarsi senza riuscire più a garantirsi come tale: tutto è familiare, ma reso opaco da un velo.</p><p>È proprio su questa soglia che si colloca Suspiria. Il noto film di Dario Argento non mette in scena il sogno come contenuto, ma ne assume la logica come forma: non racconta un\'esperienza onirica, bensì la produce.</p><p>Lo spettatore, in tal senso, viene progressivamente risucchiato in una dimensione aspirale del reale: è in questo istante che la percezione si incrina fino a perdere consistenza, fino a divenire evanescente, sospesa.</p><p>La scena del dormitorio rappresenta, in questo senso, una sorta di raffigurazione emblematica: il luogo deputato al riposo diventa uno spazio di esposizione; la protezione si rivela fragile, quasi illusoria; ciò che dovrebbe garantire sicurezza — la presenza degli altri, la condivisione dello spazio — non basta a neutralizzare l\'inquietudine. Al contrario, la amplifica. Il sogno, qui, non protegge: espone. Non allontana dal reale, ma lo rende instabile. Non compaiono figure mostruose nel senso tradizionale del termine; eppure la scena è profondamente inquietante. Proprio perché non rompe con il reale, ma lo altera dall\'interno. I letti disposti in ordine, i corpi raccolti, il grande telo che attraversa la stanza: tutto sembra, in un primo momento, appartenere a un orizzonte familiare, ma è sufficiente uno scarto minimo perché l\'intero spazio perda stabilità.</p><p>È esattamente in questo crinale che l\'onirico si salda inevitabilmente al perturbante. Nella prefazione all\'opuscolo, scritta da Dario Argento, egli ricorda come la frequentazione della Biblioteca Angelica di Roma abbia accompagnato la scrittura di Suspiria, attraverso la consultazione di testi dedicati alla stregoneria, all\'esorcismo, all\'alchimia. Questo riferimento non va inteso come una semplice nota biografica: indica piuttosto un orizzonte culturale in cui il confine tra spiegazione razionale e interpretazione magica risulta instabile.</p><p>Suspiria traduce visivamente questa logica. Non costruisce un universo completamente altro, ma interviene sul reale deformandone le coordinate percettive:</p><ul><li>I corridoi non sono semplicemente luoghi di passaggio, ma spazi che disorientano;</li><li>le porte non segnano un limite stabile, ma funzionano come soglie ambigue;</li><li>le tende producono un eccesso di visibilità opaca;</li><li>Il rosso che domina l\'ambiente non illumina, ma satura, cioè confonde;</li><li>Il telo introduce una zona di ambiguità attraverso cui ciò che eravamo sicuri di ri-conoscere si fa incerto;</li><li>Le ombre che si muovono dietro al telo non assumono mai una forma pienamente definita, ma è proprio in questa indeterminazione che acquistano consistenza.</li></ul><p>Lo spettatore riconosce continuamente ciò che vede, ma non riesce mai a padroneggiarlo fino in fondo. Ed è proprio per questa ambiguità che nel guardare Suspiria viviamo una forma di esperienza che ricorda da vicino quella del sogno, in cui la percezione non si organizza secondo criteri stabili, ma fluttua, si intensifica, si disarticola. Ed è proprio questo il motivo per cui il film conserva ancora oggi la sua forza: esso non si limita a spaventare, ma disorienta. E nel farlo tocca qualcosa che non appartiene solo al cinema, ma all\'esperienza stessa di chi guarda.</p><p><em>Shaila Vignati</em></p>'
   },
 
-  "meshes-of-the-afternoon": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "Il Canon del sogno su pellicola, Meshes of the Afternoon",
-    author: "Irene Moroni",
-    lead: "Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno?",
-    content: `<p>Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno? Un luogo in cui tutto è confuso, spossato, fuori fuoco, eppure le sensazioni restano cristalline. Probabilmente no: è un obiettivo difficile da raggiungere, perché il sogno nel cinema è quasi sempre funzionale a una storia. Maya Deren invece ci è riuscita: nel 1943, con mezzi poverissimi e una troupe ridotta a poche persone, sfruttando la libertà del cortometraggio sperimentale, ha catturato l'essenza di un sogno — di un incubo ricorsivo che confonde la mente di chi lo vive, di chi lo sogna e di chi si risveglia: Meshes of the Afternoon.</p>
-<p>Il film segue una donna che rientra in casa e resta intrappolata in una spirale ipnotica di ripetizioni, oggetti simbolici e identità che si moltiplicano: una chiave, un coltello, una figura senza volto. Privo di uno sviluppo narrativo tradizionale e costruito su una logica puramente emotiva e circolare, diventa un canon dell'incubo su pellicola. Deren, nata a Kiev e formata tra danza, poesia e antropologia, rifiuta il cinema industriale hollywoodiano per costruire un linguaggio personale, debitore del surrealismo di Buñuel ma più intimo, fisico e vulnerabile, da lei David Lynch erediterà l'idea di un cinema mentale, dove la logica emotiva prevale su quella causale. Più che rappresentare un sogno, il film lo incarna, con la sua coerenza fragile e inquietante — la stessa che Deren ha inseguito in una vita in cui arte, esoterismo e ricerca occupavano un centro tanto assoluto quanto, alla fine, fatale.</p>
-<p><em>Irene Moroni</em></p>`,
-    placeholder: "✶",
-    heroImage: "CopertinaMeshes.jpg"
+  'meshes-of-the-afternoon': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'Il Canon del sogno su pellicola, Meshes of the Afternoon',
+    author: 'Irene Moroni',
+    lead: 'Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno?',
+    heroImage: 'CopertinaMeshes.jpg',
+    content: '<p>Avete mai fatto un sogno e mormorato che sembrava un film? Probabilmente sì: tutto era vivido e realistico, immagini quasi tangibili. Ma avete mai visto un film e pensato che sembrasse un sogno? Un luogo in cui tutto è confuso, spossato, fuori fuoco, eppure le sensazioni restano cristalline. Probabilmente no: è un obiettivo difficile da raggiungere, perché il sogno nel cinema è quasi sempre funzionale a una storia. Maya Deren invece ci è riuscita: nel 1943, con mezzi poverissimi e una troupe ridotta a poche persone, sfruttando la libertà del cortometraggio sperimentale, ha catturato l\'essenza di un sogno — di un incubo ricorsivo che confonde la mente di chi lo vive, di chi lo sogna e di chi si risveglia: Meshes of the Afternoon.</p><p>Il film segue una donna che rientra in casa e resta intrappolata in una spirale ipnotica di ripetizioni, oggetti simbolici e identità che si moltiplicano: una chiave, un coltello, una figura senza volto. Privo di uno sviluppo narrativo tradizionale e costruito su una logica puramente emotiva e circolare, diventa un canon dell\'incubo su pellicola. Deren, nata a Kiev e formata tra danza, poesia e antropologia, rifiuta il cinema industriale hollywoodiano per costruire un linguaggio personale, debitore del surrealismo di Buñuel ma più intimo, fisico e vulnerabile, da lei David Lynch erediterà l\'idea di un cinema mentale, dove la logica emotiva prevale su quella causale. Più che rappresentare un sogno, il film lo incarna, con la sua coerenza fragile e inquietante — la stessa che Deren ha inseguito in una vita in cui arte, esoterismo e ricerca occupavano un centro tanto assoluto quanto, alla fine, fatale.</p><p><em>Irene Moroni</em></p>'
   },
 
-  "urlo-del-bosco": {
-    tag: "Cucina di REM",
-    date: "",
-    title: "La cucina di REM - L'urlo del bosco",
-    author: "Elisa Melchionna",
-    lead: "Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi. Varca la soglia della nostra cucina: un menù alchemico fatto di materia primordiale e visioni da gustare.",
-    content: `<p>Benvenut nella Cucina di REM, l'unico luogo dove i sogni si possono finalmente assaporare. Qui gli ingredienti non arrivano dalla dispensa, ma dai territori inesplorati del sonno, trasformando ogni boccone in un portale verso l'inconscio collettivo.</p>
-<p>Inauguriamo questo ricettario con L'Urlo del Bosco. Una chips di polenta croccante che richiama il suolo calpestato nei sogni più selvaggi, guarnita dalla nota umida e profonda dei funghi. È un morso di terra e mistero, pensato per chi vuole portare un pezzetto di natura onirica direttamente sulla lingua.</p>
-<p>Anche se le giornate si fanno più calde, nel mondo di REM le stagioni non seguono il calendario, ma il battito del sogno. Abbiamo scelto la polenta non come piatto invernale, ma come materia primordiale, per stupire i tuoi ospiti con un vero e proprio viaggio nella selva dell'onirico.</p>
-<h3>Ingredienti per 5 sognatori</h3>
-<p><strong>Per le chips di polenta:</strong></p>
-<ul>
-<li>300 gr di farina di mais</li>
-<li>1,5 L di acqua</li>
-<li>1 dl di olio di oliva</li>
-<li>10 gr di sale</li>
-<li>1 gr di peperoncino</li>
-</ul>
-<p><strong>Per la guarnizione:</strong></p>
-<ul>
-<li>350 grammi di funghi champignon selvatici</li>
-<li>1 dl di olio di oliva</li>
-<li>1 scalogno</li>
-<li>1 limone non trattato</li>
-<li>50 gr di parmigiano reggiano DOP</li>
-<li>Sale e pepe q.b.</li>
-<li>50 gr di panna fresca da cucina</li>
-</ul>
-<h3>Il viaggio</h3>
-<p>In una casseruola porta ad ebollizione l'acqua con sale olio e peperoncino, appena bolle aggiungi la farina di mais in modo graduale e girare continuamente con una frusta per evitare che si formino grumi. Appena compattata stendi il composto in una teglia oleata e far raffreddare.</p>
-<p>Dividi il composto in cubi da 4 cm per lato e passare alla griglia.</p>
-<p>Lava accuratamente i funghi porre in acqua fredda e succo di limone per evitare che si anneriscano. Taglia alla julienne.</p>
-<p>In un saltiere fai riscaldare l'olio con scalogno tritato, aggiungere i funghi lasciar cuocere per circa 15 min. e regolare di sale. Infine aggiungi la panna e il parmigiano grattugiato.</p>
-<p>Disponi i quadrotti di polenta su un piatto di portata e nappare con il cremoso di funghi. Decora a piacere, noi consigliamo foglie di prezzemolo riccio e funghetti champignon interi!</p>
-<p><strong>Buon viaggio!!</strong></p>`,
-    placeholder: "✶",
-    heroImage: "CopertinaUrloDelBosco.jpeg"
+  'urlo-del-bosco': {
+    tag: 'Cucina di REM',
+    date: '',
+    title: 'La cucina di REM - L\'urlo del bosco',
+    author: 'Elisa Melchionna',
+    lead: 'Chi ha detto che i sogni non hanno sapore? Nel mondo di REM si sogna con tutti i 5 sensi. Varca la soglia della nostra cucina: un menù alchemico fatto di materia primordiale e visioni da gustare.',
+    heroImage: 'CopertinaUrloDelBosco.jpeg',
+    content: '<p>Benvenut nella Cucina di REM, l\'unico luogo dove i sogni si possono finalmente assaporare. Qui gli ingredienti non arrivano dalla dispensa, ma dai territori inesplorati del sonno, trasformando ogni boccone in un portale verso l\'inconscio collettivo.</p><p>Inauguriamo questo ricettario con L\'Urlo del Bosco. Una chips di polenta croccante che richiama il suolo calpestato nei sogni più selvaggi, guarnita dalla nota umida e profonda dei funghi. È un morso di terra e mistero, pensato per chi vuole portare un pezzetto di natura onirica direttamente sulla lingua.</p><p>Anche se le giornate si fanno più calde, nel mondo di REM le stagioni non seguono il calendario, ma il battito del sogno. Abbiamo scelto la polenta non come piatto invernale, ma come materia primordiale, per stupire i tuoi ospiti con un vero e proprio viaggio nella selva dell\'onirico.</p><h3>Ingredienti per 5 sognatori</h3><p><strong>Per le chips di polenta:</strong></p><ul><li>300 gr di farina di mais</li><li>1,5 L di acqua</li><li>1 dl di olio di oliva</li><li>10 gr di sale</li><li>1 gr di peperoncino</li></ul><p><strong>Per la guarnizione:</strong></p><ul><li>350 grammi di funghi champignon selvatici</li><li>1 dl di olio di oliva</li><li>1 scalogno</li><li>1 limone non trattato</li><li>50 gr di parmigiano reggiano DOP</li><li>Sale e pepe q.b.</li><li>50 gr di panna fresca da cucina</li></ul><h3>Il viaggio</h3><p>In una casseruola porta ad ebollizione l\'acqua con sale olio e peperoncino, appena bolle aggiungi la farina di mais in modo graduale e girare continuamente con una frusta per evitare che si formino grumi. Appena compattata stendi il composto in una teglia oleata e far raffreddare.</p><p>Dividi il composto in cubi da 4 cm per lato e passare alla griglia.</p><p>Lava accuratamente i funghi porre in acqua fredda e succo di limone per evitare che si anneriscano. Taglia alla julienne.</p><p>In un saltiere fai riscaldare l\'olio con scalogno tritato, aggiungere i funghi lasciar cuocere per circa 15 min. e regolare di sale. Infine aggiungi la panna e il parmigiano grattugiato.</p><p>Disponi i quadrotti di polenta su un piatto di portata e nappare con il cremoso di funghi. Decora a piacere, noi consigliamo foglie di prezzemolo riccio e funghetti champignon interi!</p><p><strong>Buon viaggio!!</strong></p>'
   },
 
-  "centanni": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "Cent'anni di solitudine e la peste dell'insonnia",
-    author: "Elisa Melchionna",
-    lead: "La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.",
-    content: `<p>In un tempo indefinito, nel remoto villaggio di Macondo, gli abitanti vengono colpiti da una strana epidemia: nessuno riesce più a dormire.</p>
-<p>Il contagio, che si estende rapidamente a tutto il villaggio, sembra inizialmente quasi una fortuna. Restare sempre svegli significa avere più ore per lavorare, produrre, muoversi senza sosta. Nessuno avverte stanchezza e la notte smette di essere necessaria. La vita appare più efficiente, più piena, quasi liberata da una perdita di tempo inutile.</p>
-<p>Ben presto, però, emerge il vero volto della malattia. L'insonnia non priva soltanto del riposo: cancella lentamente la memoria. Prima svaniscono i ricordi dell'infanzia, poi il significato delle parole, infine l'identità stessa delle persone. Gli abitanti di Macondo, nel tentativo disperato di non perdere il contatto con la realtà, iniziano a etichettare ogni cosa: tavoli, sedie, animali, porte. Non basta più conoscere il nome degli oggetti; bisogna persino spiegare a cosa servano, come se il mondo stesse diventando estraneo agli uomini che lo abitano.</p>
-<p>Ma il dramma più profondo non è soltanto l'oblio. A Macondo si spegne anche la capacità di sognare. E con essa scompare la possibilità di immaginare un futuro diverso, di dare senso alla vita oltre le occupazioni quotidiane. Senza sogni, l'uomo resta prigioniero di una realtà vuota, incapace di desiderare, sperare o progettare. La continua veglia diventa allora una condanna: un'esistenza frenetica ma priva di direzione, dove si sopravvive senza sapere davvero perché.</p>
-<p>Marquez, attraverso il realismo magico, sembra suggerire che i sogni non siano un lusso o un'evasione, ma una necessità profonda dell'essere umano. È nei sogni che nascono i progetti, le aspirazioni, perfino la possibilità della felicità. Ogni cambiamento autentico prende forma prima nell'immaginazione e poi nella realtà. Quando una società perde questa capacità, rischia di smarrire anche la propria umanità.</p>
-<p>Nel racconto di Macondo si può leggere una critica al mondo moderno, dominato dalla produttività e dalla ricerca incessante del profitto. L'uomo contemporaneo, sempre occupato e sempre connesso, rischia di vivere come gli abitanti del villaggio: sveglio, attivo, ma interiormente impoverito. Nel rincorrere il progresso materiale, dimentica ciò che dà davvero significato all'esistenza: il tempo per pensare, ricordare, desiderare e sognare.</p>
-<p>Non a caso, la salvezza arriva da chi custodisce ancora il legame con il sonno e con il mondo dell'immaginazione.</p>
-<p>Forse è proprio questo il destino da cui Márquez vuole metterci in guardia: un'umanità incapace di custodire i propri sogni finisce inevitabilmente per smarrire sé stessa. Quando l'uomo rinuncia a immaginare, a sperare e a guardare oltre il presente, resta solo, prigioniero di una vita vuota e senza orizzonti. Perché chi perde la capacità di sognare non perde soltanto il futuro, ma anche la propria umanità; e allora sarà condannato, proprio come la stirpe dei Buendía, a vivere i suoi "cent'anni di solitudine".</p>`,
-    placeholder: "✶",
-    heroImage: "CopertinaCentanni.jpeg"
+  'centanni': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'Cent\'anni di solitudine e la peste dell\'insonnia',
+    author: 'Elisa Melchionna',
+    lead: 'La peste arrivò a Macondo in modo insolito: non ci fu sangue, né urla di dolore, ma tra i suoi abitanti scomparvero i sogni.',
+    heroImage: 'CopertinaCentanni.jpeg',
+    content: '<p>In un tempo indefinito, nel remoto villaggio di Macondo, gli abitanti vengono colpiti da una strana epidemia: nessuno riesce più a dormire.</p><p>Il contagio, che si estende rapidamente a tutto il villaggio, sembra inizialmente quasi una fortuna. Restare sempre svegli significa avere più ore per lavorare, produrre, muoversi senza sosta. Nessuno avverte stanchezza e la notte smette di essere necessaria. La vita appare più efficiente, più piena, quasi liberata da una perdita di tempo inutile.</p><p>Ben presto, però, emerge il vero volto della malattia. L\'insonnia non priva soltanto del riposo: cancella lentamente la memoria. Prima svaniscono i ricordi dell\'infanzia, poi il significato delle parole, infine l\'identità stessa delle persone. Gli abitanti di Macondo, nel tentativo disperato di non perdere il contatto con la realtà, iniziano a etichettare ogni cosa: tavoli, sedie, animali, porte. Non basta più conoscere il nome degli oggetti; bisogna persino spiegare a cosa servano, come se il mondo stesse diventando estraneo agli uomini che lo abitano.</p><p>Ma il dramma più profondo non è soltanto l\'oblio. A Macondo si spegne anche la capacità di sognare. E con essa scompare la possibilità di immaginare un futuro diverso, di dare senso alla vita oltre le occupazioni quotidiane. Senza sogni, l\'uomo resta prigioniero di una realtà vuota, incapace di desiderare, sperare o progettare. La continua veglia diventa allora una condanna: un\'esistenza frenetica ma priva di direzione, dove si sopravvive senza sapere davvero perché.</p><p>Marquez, attraverso il realismo magico, sembra suggerire che i sogni non siano un lusso o un\'evasione, ma una necessità profonda dell\'essere umano. È nei sogni che nascono i progetti, le aspirazioni, perfino la possibilità della felicità. Ogni cambiamento autentico prende forma prima nell\'immaginazione e poi nella realtà. Quando una società perde questa capacità, rischia di smarrire anche la propria umanità.</p><p>Nel racconto di Macondo si può leggere una critica al mondo moderno, dominato dalla produttività e dalla ricerca incessante del profitto. L\'uomo contemporaneo, sempre occupato e sempre connesso, rischia di vivere come gli abitanti del villaggio: sveglio, attivo, ma interiormente impoverito. Nel rincorrere il progresso materiale, dimentica ciò che dà davvero significato all\'esistenza: il tempo per pensare, ricordare, desiderare e sognare.</p><p>Non a caso, la salvezza arriva da chi custodisce ancora il legame con il sonno e con il mondo dell\'immaginazione.</p><p>Forse è proprio questo il destino da cui Márquez vuole metterci in guardia: un\'umanità incapace di custodire i propri sogni finisce inevitabilmente per smarrire sé stessa. Quando l\'uomo rinuncia a immaginare, a sperare e a guardare oltre il presente, resta solo, prigioniero di una vita vuota e senza orizzonti. Perché chi perde la capacità di sognare non perde soltanto il futuro, ma anche la propria umanità; e allora sarà condannato, proprio come la stirpe dei Buendía, a vivere i suoi "cent\'anni di solitudine".</p>'
   },
 
-  "palpebre": {
-  tag: "Cucina di REM",
-  date: "",
-  title: "PALPEBRE DI LUNA",
-  author: "Elisa Melchionna",
-  lead: "Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.",
-  content: `<p>Hai mai immaginato di mangiare le nuvole a cucchiaiate o di mordere la luna?</p>
-  <img src="CopertinaPalpebre.png" alt="Palpebre di Luna" style="width:100%;max-height:480px;object-fit:cover;display:block;margin-bottom:2rem;">
-<p>Con il ricettario di REM, l'impossibile si fa commestibile. Per questa seconda portata del nostro menù onirico, evochiamo le palpebre di luna: un piatto che fluttua tra la dolcezza e sapidità. Perfetto da gustare con i tuoi sognatori preferiti, sotto il chiaro di luna.</p>
-<h3>Ingredienti (per 5 sognatori)</h3>
-<p><strong>Per la crespella:</strong></p>
-<ul>
-<li>250 ml di latte</li>
-<li>100 g di farina 00</li>
-<li>2 g di sale</li>
-</ul>
-<p><strong>Per il ripieno:</strong></p>
-<ul>
-<li>400 g di formaggio Brie</li>
-<li>100 g di miele di acacia</li>
-<li>50 g di pecorino romano DOP</li>
-<li>Sale e pepe q.b.</li>
-</ul>
-<p><strong>Per assemblare:</strong></p>
-<ul>
-<li>200 g di salsa di pomodoro</li>
-<li>100 g di salsa besciamella</li>
-</ul>
-<h3>Il Viaggio</h3>
-<p>1. In una ciotola sbatti le uova, aggiungi la farina e mescola con una frusta fino a ottenere una pastella liscia e senza grumi.</p>
-<p>2. Incorpora il latte poco alla volta, continuando a mescolare fino a ottenere un composto fluido.</p>
-<p>3. Scalda un padellino antiaderente, imburralo leggermente, versa un mestolo di composto e fallo rapprendere uniformemente su tutta la superficie. Lascia raffreddare la crespella.</p>
-<p>4. In un recipiente a parte, prepara il ripieno amalgamando il Brie con il miele di acacia e il pecorino romano DOP. Regola di sale e pepe.</p>
-<p>5. Disponi una generosa cucchiaiata di ripieno al centro della crespella e chiudila a mo' di fagottino. Passa in forno a 180°C per 10 minuti, finché il cuore non diventa splendidamente fuso.</p>
-<p>6. Mescola la salsa di pomodoro e la besciamella per creare la tua salsa aurora. Disponila a specchio su un piatto e adagia il fagottino al centro. Completa il rituale con una spolverata finale di pecorino romano e con una grande lacrima di miele!</p>
-<p>Chiudi gli occhi, affonda la forchetta e preparati a masticare un pezzo di cielo.</p>`,
-  placeholder: "✶",
-  heroImage: "CopertinaPalpebre.png"
-},
+  'palpebre': {
+    tag: 'Cucina di REM',
+    date: '',
+    title: 'PALPEBRE DI LUNA',
+    author: 'Elisa Melchionna',
+    lead: 'Bentornat* nella cucina di REM. Preparati ad assaporare il cielo notturno.',
+    heroImage: 'CopertinaPalpebre.png',
+    content: '<p>Hai mai immaginato di mangiare le nuvole a cucchiaiate o di mordere la luna?</p><img src="CopertinaPalpebre.png" alt="Palpebre di Luna" style="width:100%;max-height:480px;object-fit:cover;display:block;margin-bottom:2rem;"><p>Con il ricettario di REM, l\'impossibile si fa commestibile. Per questa seconda portata del nostro menù onirico, evochiamo le palpebre di luna: un piatto che fluttua tra la dolcezza e sapidità. Perfetto da gustare con i tuoi sognatori preferiti, sotto il chiaro di luna.</p><h3>Ingredienti (per 5 sognatori)</h3><p><strong>Per la crespella:</strong></p><ul><li>250 ml di latte</li><li>100 g di farina 00</li><li>2 g di sale</li></ul><p><strong>Per il ripieno:</strong></p><ul><li>400 g di formaggio Brie</li><li>100 g di miele di acacia</li><li>50 g di pecorino romano DOP</li><li>Sale e pepe q.b.</li></ul><p><strong>Per assemblare:</strong></p><ul><li>200 g di salsa di pomodoro</li><li>100 g di salsa besciamella</li></ul><h3>Il Viaggio</h3><p>1. In una ciotola sbatti le uova, aggiungi la farina e mescola con una frusta fino a ottenere una pastella liscia e senza grumi.</p><p>2. Incorpora il latte poco alla volta, continuando a mescolare fino a ottenere un composto fluido.</p><p>3. Scalda un padellino antiaderente, imburralo leggermente, versa un mestolo di composto e fallo rapprendere uniformemente su tutta la superficie. Lascia raffreddare la crespella.</p><p>4. In un recipiente a parte, prepara il ripieno amalgamando il Brie con il miele di acacia e il pecorino romano DOP. Regola di sale e pepe.</p><p>5. Disponi una generosa cucchiaiata di ripieno al centro della crespella e chiudila a mo\' di fagottino. Passa in forno a 180°C per 10 minuti, finché il cuore non diventa splendidamente fuso.</p><p>6. Mescola la salsa di pomodoro e la besciamella per creare la tua salsa aurora. Disponila a specchio su un piatto e adagia il fagottino al centro. Completa il rituale con una spolverata finale di pecorino romano e con una grande lacrima di miele!</p><p>Chiudi gli occhi, affonda la forchetta e preparati a masticare un pezzo di cielo.</p>'
+  },
 
-  "animeperdute": {
-    tag: "Cultura del sogno",
-    date: "",
-    title: "Il mondo onirico e le anime perdute e ritrovate",
-    author: "Giuliana Berardi",
-    lead: "Quando sogniamo i nostri cari che non sono più nella loro fase terrena, spesso appaiono giovani, non afflitti dal dolore del corpo, oppure con lo sguardo sereno di chi ha risolto ogni conflitto.",
-    content: `<p>Il mondo dei sogni è sempre stato, per me, una sorta di "seconda vita", un territorio fluido dove le logiche del giorno si sfaldano per lasciare spazio a un linguaggio fatto di simboli, colori e sensazioni profonde, ataviche. Superati i cinquant'anni, con quel bagaglio di esperienze che ti permette di guardare al passato senza troppi filtri, ho iniziato a percepire il sogno non più solo come un elaborazione di accadimenti, ma come una sottile soglia di comunicazione.</p>
-<p>Nella mia visione, è nella sfera onirica che avviene l'incontro più misterioso e struggente: quello con chi non c'è più. Quando sogniamo i nostri cari che non sono più nella loro fase terrena, spesso appaiono giovani, non afflitti dal dolore del corpo, oppure con lo sguardo sereno di chi ha risolto ogni conflitto. Alcune volte non parlano, ma la loro presenza emana un calore che il corpo fisico sembra riconoscere istantaneamente, ben prima che la mente razionale prenda il sopravvento al risveglio.</p>
-<p>Il rapporto tra la dimensione del sogno e le anime di chi ci ha lasciato è un ponte, la morte interrompe il dialogo fisico, ma non spezza il legame affettivo; l'inconscio, allora, si fa mediatore. In quel limbo tra il sonno profondo e la veglia, il velo si fa sottile. Non so dire se siano davvero le loro anime a venirci a trovare o se sia la nostra parte più profonda a "evocarli" per trovare conforto, ma il risultato non cambia: l'emozione è reale.</p>
-<p>Questi incontri notturni hanno una funzione catartica: ci permettono di dire quei "ti voglio bene" rimasti strozzati in gola o di ricevere un perdono che non abbiamo fatto in tempo a chiedere. Per una donna della mia età, che ha visto la sua mamma andarsene e che inizia a fare i conti con la propria caducità, il sogno diventa un luogo dove la separazione è solo un'illusione temporanea. È una forma di resistenza poetica contro l'oblio: finché sogniamo, nessuno è mai davvero perduto.</p>
-<p>Nel sogno sento ancora la mano di mia madre che stringe la mia ed il suo pollice che mi sfiora mentre la mia mano resta salda nella sua. Quelle mani che mi hanno sorretto durante i miei primi passi incerti e che mi hanno dato coraggio dopo, quando mi sentivo impaurita e perduta. In quella mano mi ritrovo, in quella stretta c'è ancora tutta la sua protezione.</p>
-<p>Sento, a volte, ancora la sua voce, quella voce che mi sembrava di non ricordare più quando se ne è andata, quella voce che sussurra il mio nomignolo.</p>
-<p>Ciao Mamma a presto, in un altro sogno.</p>`,
-    placeholder: "✶",
-    heroImage: "copertinaAnimePerdute.png"
+  'animeperdute': {
+    tag: 'Cultura del sogno',
+    date: '',
+    title: 'Il mondo onirico e le anime perdute e ritrovate',
+    author: 'Giuliana Berardi',
+    lead: 'Quando sogniamo i nostri cari che non sono più nella loro fase terrena, spesso appaiono giovani, non afflitti dal dolore del corpo, oppure con lo sguardo sereno di chi ha risolto ogni conflitto.',
+    heroImage: 'copertinaAnimePerdute.png',
+    content: '<p>Il mondo dei sogni è sempre stato, per me, una sorta di "seconda vita", un territorio fluido dove le logiche del giorno si sfaldano per lasciare spazio a un linguaggio fatto di simboli, colori e sensazioni profonde, ataviche. Superati i cinquant\'anni, con quel bagaglio di esperienze che ti permette di guardare al passato senza troppi filtri, ho iniziato a percepire il sogno non più solo come un elaborazione di accadimenti, ma come una sottile soglia di comunicazione.</p><p>Nella mia visione, è nella sfera onirica che avviene l\'incontro più misterioso e struggente: quello con chi non c\'è più. Quando sogniamo i nostri cari che non sono più nella loro fase terrena, spesso appaiono giovani, non afflitti dal dolore del corpo, oppure con lo sguardo sereno di chi ha risolto ogni conflitto. Alcune volte non parlano, ma la loro presenza emana un calore che il corpo fisico sembra riconoscere istantaneamente, ben prima che la mente razionale prenda il sopravvento al risveglio.</p><p>Il rapporto tra la dimensione del sogno e le anime di chi ci ha lasciato è un ponte, la morte interrompe il dialogo fisico, ma non spezza il legame affettivo; l\'inconscio, allora, si fa mediatore. In quel limbo tra il sonno profondo e la veglia, il velo si fa sottile. Non so dire se siano davvero le loro anime a venirci a trovare o se sia la nostra parte più profonda a "evocarli" per trovare conforto, ma il risultato non cambia: l\'emozione è reale.</p><p>Questi incontri notturni hanno una funzione catartica: ci permettono di dire quei "ti voglio bene" rimasti strozzati in gola o di ricevere un perdono che non abbiamo fatto in tempo a chiedere. Per una donna della mia età, che ha visto la sua mamma andarsene e che inizia a fare i conti con la propria caducità, il sogno diventa un luogo dove la separazione è solo un\'illusione temporanea. È una forma di resistenza poetica contro l\'oblio: finché sogniamo, nessuno è mai davvero perduto.</p><p>Nel sogno sento ancora la mano di mia madre che stringe la mia ed il suo pollice che mi sfiora mentre la mia mano resta salda nella sua. Quelle mani che mi hanno sorretto durante i miei primi passi incerti e che mi hanno dato coraggio dopo, quando mi sentivo impaurita e perduta. In quella mano mi ritrovo, in quella stretta c\'è ancora tutta la sua protezione.</p><p>Sento, a volte, ancora la sua voce, quella voce che mi sembrava di non ricordare più quando se ne è andata, quella voce che sussurra il mio nomignolo.</p><p>Ciao Mamma a presto, in un altro sogno.</p>'
   }
 
 };
 
-// ── Routing ──
-var currentSlug = '';
-
-function setHash(h){
-  try{history.pushState(null,'',h||'#');}catch(e){}
+// ═══════════════════════════════════════
+// ROUTING
+// ═══════════════════════════════════════
+function setHash(h) {
+  try { history.pushState(null, '', h || '#'); } catch(e) {}
 }
 
-function showPage(name, skipHash){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  var target = document.getElementById('page-'+name);
-  if(!target) return;
+function showPage(name, skipHash) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var target = document.getElementById('page-' + name);
+  if (!target) return;
   target.classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 
-  var navSp = document.getElementById('nav-sponsor');
-  if(navSp) navSp.classList.toggle('active-nav', name==='sponsor');
+  document.getElementById('nav-sponsor').classList.toggle('active-nav', name === 'sponsor');
 
-  var cls = document.body.className;
-  cls = cls.replace(/page-[a-z]+/g,'').trim();
-  if(name !== 'article'){
-    cls = cls.replace(/article-[a-zA-Z0-9_-]+/g,'').trim();
+  // Rimuove classi articolo dal body quando non in pagina articolo
+  if (name !== 'article') {
+    document.body.className = document.body.className
+      .replace(/page-[a-z]+/g, '')
+      .replace(/article-[a-zA-Z0-9_-]+/g, '')
+      .trim();
   }
-  document.body.className = cls;
-  document.body.classList.add('page-'+name);
+  document.body.classList.add('page-' + name);
 
-  setTimeout(triggerReveals,100);
+  setTimeout(triggerReveals, 100);
 
-  if(!skipHash){
-    if(name==='home') setHash('#');
-    if(name==='magazine') setHash('#magazine');
-    if(name==='sponsor') setHash('#sponsor');
+  if (!skipHash) {
+    if (name === 'home') setHash('#');
+    if (name === 'magazine') setHash('#magazine');
+    if (name === 'sponsor') setHash('#sponsor');
   }
 }
 
-function openArticleBySlug(slug){
+function openArticleBySlug(slug) {
   var a = ARTICLES[slug];
-  if(!a){ showPage('magazine'); return; }
-  currentSlug = slug;
+  if (!a) { showPage('magazine'); return; }
 
   document.getElementById('art-tag').textContent = a.tag;
   document.getElementById('art-date').textContent = a.date;
@@ -1045,68 +1536,71 @@ function openArticleBySlug(slug){
   document.getElementById('art-content').innerHTML = a.content;
 
   var imgBox = document.getElementById('art-hero-image-box');
-  if(a.heroImage){
-    imgBox.innerHTML = '<img src="' + a.heroImage + '" alt="' + a.title + '">';
-  } else {
-    imgBox.innerHTML = '<span class="art-hero-image-placeholder">' + (a.placeholder||'') + '</span>';
-  }
+  imgBox.innerHTML = a.heroImage
+    ? '<img src="' + a.heroImage + '" alt="' + a.title + '">'
+    : '<span class="art-hero-image-placeholder">&#10022;</span>';
 
-  var cls = document.body.className;
-  cls = cls.replace(/page-[a-z]+/g,'').trim();
-  cls = cls.replace(/article-[a-zA-Z0-9_-]+/g,'').trim();
-  document.body.className = cls;
-  document.body.classList.add('article-'+slug);
+  document.body.className = document.body.className
+    .replace(/page-[a-z]+/g, '')
+    .replace(/article-[a-zA-Z0-9_-]+/g, '')
+    .trim();
+  document.body.classList.add('article-' + slug);
 
   showPage('article', true);
-  setHash('#articolo/'+slug);
+  setHash('#articolo/' + slug);
 }
 
-function routeFromHash(){
+function routeFromHash() {
   var h = window.location.hash;
-  if(!h || h==='#' || h===''){
+  if (!h || h === '#' || h === '') {
     showPage('home', true);
-  } else if(h==='#magazine'){
+  } else if (h === '#magazine') {
     showPage('magazine', true);
-  } else if(h==='#sponsor'){
+  } else if (h === '#sponsor') {
     showPage('sponsor', true);
-  } else if(h.indexOf('#articolo/')===0){
-    openArticleBySlug(h.replace('#articolo/',''));
+  } else if (h.indexOf('#articolo/') === 0) {
+    openArticleBySlug(h.replace('#articolo/', ''));
   } else {
     showPage('home', true);
   }
 }
 
-window.addEventListener('popstate', function(){ routeFromHash(); });
+window.addEventListener('popstate', routeFromHash);
 
-function goAnchor(sel){
+// ═══════════════════════════════════════
+// UTILITY
+// ═══════════════════════════════════════
+function goAnchor(sel) {
   var el = document.querySelector(sel);
-  if(el) el.scrollIntoView({behavior:'smooth'});
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
-function goHomeAnchor(sel){
+
+function goHomeAnchor(sel) {
   showPage('home');
-  setTimeout(function(){ goAnchor(sel); }, 80);
+  setTimeout(function() { goAnchor(sel); }, 80);
 }
 
-function triggerReveals(){
-  if(!('IntersectionObserver' in window)) return;
+function triggerReveals() {
+  if (!('IntersectionObserver' in window)) return;
   var elements = document.querySelectorAll('.reveal:not(.visible)');
-  elements.forEach(function(r){ r.classList.add('will-animate'); });
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-  },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-  elements.forEach(function(r){ obs.observe(r); });
+  elements.forEach(function(r) { r.classList.add('will-animate'); });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  elements.forEach(function(r) { obs.observe(r); });
 }
 
-function filterArticles(cat, btn){
-  document.querySelectorAll('.mag-filter').forEach(function(b){ b.classList.remove('active'); });
+function filterArticles(cat, btn) {
+  document.querySelectorAll('.mag-filter').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  document.querySelectorAll('#articlesGrid .article-card').forEach(function(card){
-    card.style.display = (cat==='tutti' || card.dataset.category===cat) ? '' : 'none';
+  document.querySelectorAll('#articlesGrid .article-card').forEach(function(card) {
+    card.style.display = (cat === 'tutti' || card.dataset.category === cat) ? '' : 'none';
   });
   var feat = document.querySelector('#articlesGrid .article-card.featured');
-  if(feat && feat.style.display!=='none') feat.style.gridColumn='1 / -1';
+  if (feat && feat.style.display !== 'none') feat.style.gridColumn = '1 / -1';
 }
 
+// Avvio
 routeFromHash();
 </script>
 </body>
